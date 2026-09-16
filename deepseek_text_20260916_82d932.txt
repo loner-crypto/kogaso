@@ -1,0 +1,30 @@
+your-project/
+│
+├── index.html
+│
+└── assets/
+    │
+    ├── favicon.ico
+    ├── favicon.svg
+    ├── favicon-16x16.png
+    ├── favicon-32x32.png
+    ├── apple-touch-icon.png
+    ├── android-chrome-192x192.png
+    ├── android-chrome-512x512.png
+    ├── safari-pinned-tab.svg
+    ├── site.webmanifest
+    │
+    ├── logo.png                    ← header + loader logo
+    ├── logo-white.png              ← footer logo
+    ├── poster.jpg                  ← POPUP POSTER (new)
+    ├── team-peter-ogaso.jpg        ← Peter Ogaso portrait
+    │
+    ├── hero-2.jpg
+    ├── hero-3.jpg
+    ├── hero-4.jpg
+    │
+    ├── gallery-01.jpg … gallery-08.jpg
+    │
+    ├── client-bat.png … client-crowne.png     (12 files)
+    │
+    └── project-01-bat.jpg … project-21-kakamega.jpg  (21 files)
