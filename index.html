@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Kogaso Consultants Limited — Bespoke EHS Solutions</title>
 
   <!-- ============ FAVICON ============ -->
@@ -55,7 +55,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
       background: var(--white);
       color: var(--ink);
@@ -67,8 +67,9 @@
       text-align: center;
     }
     body.loading { overflow: hidden; }
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; height: auto; }
+    a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+    button { font-family: inherit; }
     .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
     h1, h2, h3, h4 { font-family: "Fraunces", Georgia, serif; font-weight: 600; line-height: 1.1; color: var(--forest); }
     .mono { font-family: "IBM Plex Mono", monospace; }
@@ -85,10 +86,10 @@
        ============================================================ */
     .poster-modal { position: fixed; inset: 0; z-index: 500; background: rgba(7, 20, 12, 0.78); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s ease; }
     .poster-modal.show { opacity: 1; visibility: visible; }
-    .poster-box { position: relative; max-width: 560px; width: 100%; max-height: 90vh; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45); border-top: 5px solid var(--blue); transform: scale(0.92) translateY(20px); transition: transform 0.4s cubic-bezier(.2,.7,.3,1); }
+    .poster-box { position: relative; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; background: #fff; border-radius: 20px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45); border-top: 5px solid var(--blue); transform: scale(0.92) translateY(20px); transition: transform 0.4s cubic-bezier(.2,.7,.3,1); }
     .poster-modal.show .poster-box { transform: scale(1) translateY(0); }
-    .poster-img { width: 100%; display: block; background: var(--card); min-height: 320px; }
-    .poster-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.94); border: 1px solid var(--line); color: var(--forest); font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.18); transition: all 0.2s ease; font-family: inherit; }
+    .poster-img { width: 100%; display: block; background: var(--card); min-height: 200px; object-fit: cover; }
+    .poster-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.94); border: 1px solid var(--line); color: var(--forest); font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.18); transition: all 0.2s ease; }
     .poster-close:hover { background: var(--forest); color: #fff; border-color: var(--forest); transform: rotate(90deg); }
     .poster-body { padding: 26px 28px 28px; text-align: center; }
     .poster-body .poster-tag { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
@@ -120,7 +121,7 @@
        ============================================================ */
     header.site { position: sticky; top: 0; z-index: 50; background: var(--forest); border-bottom: 3px solid var(--blue); transition: box-shadow 0.25s ease; }
     .navrow { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; max-width: 1180px; margin: 0 auto; }
-    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
     .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.01em; line-height: 1.15; color: #fff; text-align: left; }
     .brand .word small { display: block; font-family: "IBM Plex Sans", sans-serif; font-weight: 500; font-size: 0.58rem; color: rgba(255,255,255,0.78); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
     .brand-logo { width: 52px; height: 52px; border-radius: 10px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; box-shadow: 0 4px 14px rgba(0,0,0,0.20); overflow: hidden; flex: none; }
@@ -162,7 +163,6 @@
 
     .hero-slide { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--forest-deep); }
     .hero-slide .slide-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
-    /* Vimeo background iframe — scales up to fill without showing controls */
     .hero-slide .vimeo-bg { position: absolute; top: 50%; left: 50%; width: 177.78vh; height: 56.25vw; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); pointer-events: none; z-index: 2; border: 0; }
     .hero-slide .slide-overlay-gradient { position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, rgba(5,26,14,0.25) 0%, rgba(5,26,14,0.15) 40%, rgba(4,20,11,0.55) 80%, rgba(3,14,8,0.85) 100%); }
     .hero-slide .slide-badge { position: absolute; z-index: 4; left: 0; right: 0; top: 40px; display: flex; justify-content: center; padding: 0 20px; }
@@ -385,10 +385,10 @@
     .team-table tbody tr:hover { background: var(--paper-raise); }
     .team-table td.name { font-family: "Fraunces", serif; font-weight: 600; font-size: 1rem; white-space: nowrap; color: var(--forest); }
     .team-table td.role { color: var(--blue); font-size: 0.85rem; font-weight: 700; }
-    .tbl-scroll { overflow-x: auto; }
+    .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
     /* ============================================================
-       PROJECTS — ENLARGED
+       PROJECTS
        ============================================================ */
     .sector-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; justify-content: center; }
     .sector-tabs button { font-family: inherit; font-size: 0.82rem; font-weight: 600; background: transparent; border: 1.5px solid var(--line-strong); border-radius: 40px; padding: 8px 20px; cursor: pointer; color: var(--forest); transition: all 0.2s cubic-bezier(.2,.7,.3,1); -webkit-tap-highlight-color: transparent; }
@@ -448,7 +448,7 @@
     /* ============================================================
        WHATSAPP BUTTON
        ============================================================ */
-    .whatsapp-fab { position: fixed; right: 22px; bottom: 22px; z-index: 90; display: flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 12px 20px 12px 12px; border-radius: 40px; box-shadow: 0 12px 28px rgba(37, 211, 102, 0.42); font-weight: 700; font-size: 0.92rem; transition: transform 0.3s cubic-bezier(.2,.7,.3,1), box-shadow 0.3s ease; -webkit-tap-highlight-color: transparent; animation: waPulse 2.5s ease-in-out infinite; }
+    .whatsapp-fab { position: fixed; right: 22px; bottom: 22px; z-index: 90; display: flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 12px 20px 12px 12px; border-radius: 40px; box-shadow: 0 12px 28px rgba(37, 211, 102, 0.42); font-weight: 700; font-size: 0.92rem; transition: transform 0.3s cubic-bezier(.2,.7,.3,1), box-shadow 0.3s ease; animation: waPulse 2.5s ease-in-out infinite; }
     @keyframes waPulse { 0%, 100% { box-shadow: 0 12px 28px rgba(37, 211, 102, 0.42); } 50% { box-shadow: 0 12px 38px rgba(37, 211, 102, 0.62); } }
     .whatsapp-fab:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 18px 40px rgba(37, 211, 102, 0.55); animation-play-state: paused; }
     .whatsapp-fab:active { transform: translateY(0) scale(0.98); }
@@ -482,6 +482,132 @@
     ::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--forest); }
 
+    /* ============================================================
+       MOBILE-ONLY REFINEMENTS
+       ============================================================ */
+    @media (max-width: 640px) {
+
+      /* Tighter global padding */
+      .wrap { padding: 0 18px; }
+      .navrow { padding: 10px 18px; }
+
+      /* Logo & brand on mobile */
+      .brand-logo { width: 44px; height: 44px; border-radius: 9px; }
+      .brand .word { font-size: 1rem; }
+      .brand .word small { font-size: 0.5rem; letter-spacing: 0.06em; }
+
+      /* Nav toggle bigger tap target */
+      .navtoggle { padding: 10px 18px; font-size: 0.85rem; }
+      nav.links a { padding: 18px 22px; font-size: 1rem; }
+
+      /* Sections get tighter vertical rhythm */
+      section { padding: 52px 0; }
+      .section-head { margin-bottom: 28px; gap: 10px; }
+      .section-head h2 { font-size: 1.4rem; line-height: 1.15; }
+
+      /* Counters stack cleaner */
+      .counters-section { margin-top: -34px; padding: 0 16px; }
+      .counters-strip { padding: 22px 18px; gap: 18px; border-radius: 14px; }
+      .counter-value { font-size: 2.1rem; }
+      .counter-label { font-size: 0.68rem; }
+      .counter-sub { font-size: 0.76rem; }
+
+      /* About: stack with image on top of text or below — image first reads better on mobile */
+      .about-cols { grid-template-columns: 1fr; gap: 24px; }
+      .about-image { aspect-ratio: 4 / 3; }
+      .about-text p { font-size: 0.95rem; }
+      .about-text p:first-child { font-size: 1rem; }
+      .disciplines li { font-size: 0.76rem; padding: 6px 12px; }
+
+      /* Gallery: single column, generous height */
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; gap: 14px; }
+
+      /* Client logo marquee: smaller tiles */
+      .client-logo { width: 140px; padding: 12px; }
+
+      /* Services: single column, tighter */
+      .svc-grid { grid-template-columns: 1fr; gap: 14px; }
+      details.svc { padding: 18px 20px; }
+      details.svc summary .name { font-size: 1.02rem; }
+      details.svc summary .teaser { font-size: 0.82rem; }
+      details.svc .body { font-size: 0.88rem; }
+
+      /* Team lead card stacks cleanly */
+      .lead-card { grid-template-columns: 1fr; gap: 22px; padding: 24px 20px; border-radius: 16px; }
+      .lead-photo { aspect-ratio: 1 / 1; }
+      .lead-name { font-size: 1.5rem; }
+      .lead-bio { font-size: 0.92rem; }
+      .lead-quals { grid-template-columns: 1fr; }
+
+      /* Team table: allow horizontal scroll with momentum */
+      .tbl-scroll { -webkit-overflow-scrolling: touch; }
+      .team-table { font-size: 0.86rem; }
+      .team-table th, .team-table td { padding: 12px 10px; }
+      .team-table td.name { font-size: 0.94rem; white-space: normal; }
+
+      /* Projects: single column, image on top */
+      .proj-row { grid-template-columns: 1fr; gap: 14px; padding: 22px 0; }
+      .proj-thumb { aspect-ratio: 4 / 3; }
+      .proj-row .client { font-size: 1.1rem; }
+      .proj-row .desc { font-size: 0.88rem; }
+      .sector-tabs { gap: 8px; margin-bottom: 24px; }
+      .sector-tabs button { font-size: 0.76rem; padding: 7px 14px; }
+
+      /* Map section */
+      .map-info { padding: 32px 22px; }
+      .map-info h3 { font-size: 1.25rem; }
+      .map-info .detail { font-size: 0.86rem; }
+      .map-embed { min-height: 320px; }
+      .map-embed .map-note { font-size: 0.72rem; padding: 8px 12px; }
+
+      /* Contact card/rows */
+      .contact-card { padding: 28px 22px; }
+      .contact-card .row { font-size: 0.88rem; padding: 13px 0; }
+      .contact-card .label { font-size: 0.66rem; }
+      .contact-form input, .contact-form textarea { font-size: 16px; } /* prevents iOS zoom */
+
+      /* Popup poster */
+      .poster-modal { padding: 16px; }
+      .poster-box { border-radius: 16px; }
+      .poster-body { padding: 20px 20px 24px; }
+      .poster-body h3 { font-size: 1.25rem; }
+      .poster-body p { font-size: 0.88rem; }
+      .poster-ctas .btn { flex: 1 1 auto; justify-content: center; }
+
+      /* Footer */
+      .foot-grid { gap: 24px; }
+      .foot-brand-text .name { font-size: 1.05rem; }
+      .foot-desc { font-size: 0.84rem; margin: 0 auto; }
+
+      /* Hero: title and buttons get room to breathe */
+      .hero-slider-full { min-height: 520px; }
+      .hero-content { bottom: 62px; padding: 0 20px; }
+      .hero h1.headline { font-size: 1.3rem; }
+      .hero-ctas { gap: 10px; }
+      .hero-ctas .btn { padding: 11px 20px; font-size: 0.88rem; }
+
+      /* Loader gets smaller on phones */
+      .loader-stage { width: 150px; height: 150px; }
+      .loader-logo { width: 78px; height: 78px; }
+      .loader-name { font-size: 1.15rem; }
+      .loader-bar { width: 150px; }
+    }
+
+    /* Extra-narrow phones */
+    @media (max-width: 400px) {
+      .brand .word small { display: none; }
+      .counter-value { font-size: 1.9rem; }
+      .hero h1.headline { font-size: 1.18rem; }
+      .proj-row .client { font-size: 1rem; }
+      .lead-name { font-size: 1.35rem; }
+    }
+
+    /* Landscape phones — keep hero from being too short */
+    @media (max-width: 900px) and (orientation: landscape) {
+      .hero-slider-full { height: 92vh; min-height: 480px; }
+      .hero-content { bottom: 40px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
       .logos-track { animation: none; }
@@ -499,7 +625,7 @@
     <button class="poster-close" id="posterClose" aria-label="Close poster">×</button>
     <img class="poster-img" src="assets/poster.jpg" alt="Kogaso Consultants announcement poster">
     <div class="poster-body">
-      <div class="poster-tag"></div>
+      <div class="poster-tag">Our services</div>
       <h3 id="posterTitle">Our services</h3>
       <p>B</p>
       <div class="poster-ctas">
@@ -554,7 +680,7 @@
 <main id="top">
 
   <!-- ============================================================
-       HERO — Vimeo video already wired: 1227505876
+       HERO
        ============================================================ -->
   <section class="hero">
     <div class="hero-slider-full">
@@ -573,24 +699,6 @@
             <div class="slide-overlay-gradient"></div>
             <div class="slide-badge"><span>EMCA 1999 · §58</span></div>
           </div>
-
-          <!--<div class="swiper-slide hero-slide" data-slide-type="image">
-            <img class="slide-media" src="assets/hero-2.jpg" alt="Kogaso site supervisor on an active construction site">
-            <div class="slide-overlay-gradient"></div>
-            <div class="slide-badge"><span>OSHA 2007 · DOSHS</span></div>
-          </div>
-
-          <div class="swiper-slide hero-slide" data-slide-type="image">
-            <img class="slide-media" src="assets/hero-3.jpg" alt="Fire safety training session on site">
-            <div class="slide-overlay-gradient"></div>
-            <div class="slide-badge"><span>Legal Notice 31 · 2004</span></div>
-          </div>
-
-          <div class="swiper-slide hero-slide" data-slide-type="image">
-            <img class="slide-media" src="assets/hero-4.jpg" alt="Agriculture and livestock field assessment">
-            <div class="slide-overlay-gradient"></div>
-            <div class="slide-badge"><span>Agriculture &amp; Livestock</span></div>
-          </div>-->
 
         </div>
 
@@ -651,7 +759,7 @@
   </div>
 
   <!-- ============================================================
-       ABOUT — text left, image right
+       ABOUT
        ============================================================ -->
   <section id="about">
     <div class="wrap">
@@ -678,7 +786,6 @@
           </ul>
         </div>
         <div class="about-image reveal-slide-right">
-          <!-- >>> Drop your About photo here (recommended 900×1200 portrait) -->
           <img src="assets/about-image.jpg" alt="Kogaso Consultants team on site">
           <div class="about-image-badge">On site · Kenya</div>
         </div>
@@ -1420,12 +1527,6 @@
         navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
         effect: "fade",
         fadeEffect: { crossFade: true },
-      });
-
-      swiper.on('slideChangeTransitionStart', function () {
-        document.querySelectorAll('.hero-slide video.slide-media').forEach(function (v) { v.pause(); });
-        var activeVideo = swiper.slides[swiper.activeIndex].querySelector('video.slide-media');
-        if (activeVideo) { activeVideo.currentTime = 0; activeVideo.play().catch(function(){}); }
       });
     }
   } catch (e) { console.warn('Hero slider failed to initialise:', e); }
