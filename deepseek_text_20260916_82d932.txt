@@ -1,9 +1,8 @@
 your-project/
 │
-├── index.html
+├── index.html                    ← the HTML file I gave you
 │
-└── assets/
-    │
+└── assets/                       ← create this folder next to index.html
     ├── favicon.ico
     ├── favicon.svg
     ├── favicon-16x16.png
@@ -13,18 +12,52 @@ your-project/
     ├── android-chrome-512x512.png
     ├── safari-pinned-tab.svg
     ├── site.webmanifest
-    │
-    ├── logo.png                    ← header + loader logo
-    ├── logo-white.png              ← footer logo
-    ├── poster.jpg                  ← POPUP POSTER (new)
-    ├── team-peter-ogaso.jpg        ← Peter Ogaso portrait
-    │
+    ├── logo.png
+    ├── logo-white.png
+    ├── about-image.jpg
+    ├── poster.jpg
+    ├── team-peter-ogaso.jpg
     ├── hero-2.jpg
     ├── hero-3.jpg
     ├── hero-4.jpg
-    │
-    ├── gallery-01.jpg … gallery-08.jpg
-    │
-    ├── client-bat.png … client-crowne.png     (12 files)
-    │
-    └── project-01-bat.jpg … project-21-kakamega.jpg  (21 files)
+    ├── gallery-01.jpg
+    ├── gallery-02.jpg
+    ├── gallery-03.jpg
+    ├── gallery-04.jpg
+    ├── gallery-05.jpg
+    ├── gallery-06.jpg
+    ├── gallery-07.jpg
+    ├── gallery-08.jpg
+    ├── client-bat.png
+    ├── client-iberdrola.png
+    ├── client-fourpoints.png
+    ├── client-laxmanbhai.png
+    ├── client-mahesh.png
+    ├── client-britam.png
+    ├── client-im.png
+    ├── client-agakhan.png
+    ├── client-kerra.png
+    ├── client-tatucity.png
+    ├── client-hewatele.png
+    ├── client-crowne.png
+    ├── project-01-bat.jpg
+    ├── project-02-iberdrola.jpg
+    ├── project-03-fourpoints.jpg
+    ├── project-04-laxmanbhai.jpg
+    ├── project-05-mahesh.jpg
+    ├── project-06-britam.jpg
+    ├── project-07-im.jpg
+    ├── project-08-agakhan.jpg
+    ├── project-09-kerra.jpg
+    ├── project-10-gigiri.jpg
+    ├── project-11-tavevo.jpg
+    ├── project-12-crawford.jpg
+    ├── project-13-makini.jpg
+    ├── project-14-nbst.jpg
+    ├── project-15-holidayinn.jpg
+    ├── project-16-fairview.jpg
+    ├── project-17-hewatele.jpg
+    ├── project-18-siaya.jpg
+    ├── project-19-crowne.jpg
+    ├── project-20-tatucity.jpg
+    └── project-21-kakamega.jpg
