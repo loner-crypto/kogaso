@@ -64,6 +64,7 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      text-align: center;
     }
     body.loading { overflow: hidden; }
     img { max-width: 100%; display: block; }
@@ -76,47 +77,36 @@
 
     .hazard {
       height: 5px; width: 100%;
-      background: repeating-linear-gradient(
-        135deg,
-        var(--forest) 0 16px,
-        var(--forest-deep) 16px 26px,
-        var(--blue) 26px 36px,
-        var(--blue-deep) 36px 46px
-      );
+      background: repeating-linear-gradient(135deg, var(--forest) 0 16px, var(--forest-deep) 16px 26px, var(--blue) 26px 36px, var(--blue-deep) 36px 46px);
     }
 
     /* ============================================================
-       ANIMATED LOADER
+       POPUP POSTER
        ============================================================ */
-    .loader {
-      position: fixed; inset: 0; z-index: 9999;
-      background: #FFFFFF;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 28px;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
+    .poster-modal { position: fixed; inset: 0; z-index: 500; background: rgba(7, 20, 12, 0.78); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s ease; }
+    .poster-modal.show { opacity: 1; visibility: visible; }
+    .poster-box { position: relative; max-width: 560px; width: 100%; max-height: 90vh; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45); border-top: 5px solid var(--blue); transform: scale(0.92) translateY(20px); transition: transform 0.4s cubic-bezier(.2,.7,.3,1); }
+    .poster-modal.show .poster-box { transform: scale(1) translateY(0); }
+    .poster-img { width: 100%; display: block; background: var(--card); min-height: 320px; }
+    .poster-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.94); border: 1px solid var(--line); color: var(--forest); font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.18); transition: all 0.2s ease; font-family: inherit; }
+    .poster-close:hover { background: var(--forest); color: #fff; border-color: var(--forest); transform: rotate(90deg); }
+    .poster-body { padding: 26px 28px 28px; text-align: center; }
+    .poster-body .poster-tag { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
+    .poster-body h3 { font-size: clamp(1.3rem, 2.4vw, 1.75rem); color: var(--forest); margin-bottom: 12px; line-height: 1.15; }
+    .poster-body p { color: var(--ink-soft); font-size: 0.95rem; font-weight: 500; line-height: 1.6; margin-bottom: 20px; }
+    .poster-ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+    /* ============================================================
+       LOADER
+       ============================================================ */
+    .loader { position: fixed; inset: 0; z-index: 9999; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 28px; transition: opacity 0.6s ease, visibility 0.6s ease; }
     .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .loader-stage { position: relative; width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; }
-    .loader-ring {
-      position: absolute; inset: 0; border-radius: 50%;
-      background: conic-gradient(from 0deg, transparent 0deg, transparent 240deg, var(--forest) 300deg, var(--forest-bright) 340deg, var(--blue) 360deg);
-      animation: ring-spin 1.6s linear infinite;
-      -webkit-mask: radial-gradient(circle, transparent 68px, #000 69px, #000 82px, transparent 83px);
-              mask: radial-gradient(circle, transparent 68px, #000 69px, #000 82px, transparent 83px);
-      filter: drop-shadow(0 0 12px rgba(15, 122, 56, 0.35));
-    }
+    .loader-ring { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 0deg, transparent 240deg, var(--forest) 300deg, var(--forest-bright) 340deg, var(--blue) 360deg); animation: ring-spin 1.6s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68px, #000 69px, #000 82px, transparent 83px); mask: radial-gradient(circle, transparent 68px, #000 69px, #000 82px, transparent 83px); filter: drop-shadow(0 0 12px rgba(15, 122, 56, 0.35)); }
     .loader-ring-inner { position: absolute; inset: 22px; border-radius: 50%; border: 2px dashed rgba(15, 122, 56, 0.22); animation: ring-spin 6s linear infinite reverse; }
     @keyframes ring-spin { to { transform: rotate(360deg); } }
-    .loader-logo {
-      position: relative; width: 92px; height: 92px; border-radius: 50%;
-      background: #fff; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 10px 30px rgba(15, 122, 56, 0.20), inset 0 0 0 1.5px rgba(15, 122, 56, 0.14);
-      overflow: hidden; animation: logo-breathe 2.4s ease-in-out infinite; z-index: 2;
-    }
-    @keyframes logo-breathe {
-      0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(15, 122, 56, 0.20), inset 0 0 0 1.5px rgba(15, 122, 56, 0.14); }
-      50% { transform: scale(1.06); box-shadow: 0 16px 40px rgba(15, 122, 56, 0.30), inset 0 0 0 1.5px rgba(15, 122, 56, 0.28); }
-    }
+    .loader-logo { position: relative; width: 92px; height: 92px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(15, 122, 56, 0.20), inset 0 0 0 1.5px rgba(15, 122, 56, 0.14); overflow: hidden; animation: logo-breathe 2.4s ease-in-out infinite; z-index: 2; }
+    @keyframes logo-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
     .loader-logo img { width: 82%; height: 82%; object-fit: contain; }
     .loader-name { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.3rem; color: var(--forest); letter-spacing: 0.02em; opacity: 0; animation: name-fade 0.7s ease 0.35s forwards; text-align: center; }
     .loader-name small { display: block; font-family: "IBM Plex Mono", monospace; font-weight: 500; font-size: 0.62rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; text-align: center; margin-top: 6px; }
@@ -128,22 +118,17 @@
     /* ============================================================
        HEADER
        ============================================================ */
-    header.site {
-      position: sticky; top: 0; z-index: 50;
-      background: var(--forest);
-      border-bottom: 3px solid var(--blue);
-      transition: box-shadow 0.25s ease;
-    }
+    header.site { position: sticky; top: 0; z-index: 50; background: var(--forest); border-bottom: 3px solid var(--blue); transition: box-shadow 0.25s ease; }
     .navrow { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; max-width: 1180px; margin: 0 auto; }
     .brand { display: flex; align-items: center; gap: 12px; }
-    .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.01em; line-height: 1.15; color: #fff; }
+    .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.01em; line-height: 1.15; color: #fff; text-align: left; }
     .brand .word small { display: block; font-family: "IBM Plex Sans", sans-serif; font-weight: 500; font-size: 0.58rem; color: rgba(255,255,255,0.78); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
     .brand-logo { width: 52px; height: 52px; border-radius: 10px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; box-shadow: 0 4px 14px rgba(0,0,0,0.20); overflow: hidden; flex: none; }
     .brand-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
 
-    nav.links { display: flex; gap: 26px; font-size: 0.92rem; font-weight: 600; }
+    nav.links { display: flex; gap: 24px; font-size: 0.92rem; font-weight: 600; }
     nav.links a { color: #fff; border-bottom: 2px solid transparent; padding-bottom: 3px; transition: border-color 0.18s ease, opacity 0.18s; opacity: 0.92; }
-    nav.links a:hover { border-color: var(--forest-bright); opacity: 1; }
+    nav.links a:hover, nav.links a.active { border-color: var(--forest-bright); opacity: 1; }
 
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 40px; font-size: 0.9rem; font-weight: 700; border: 1.5px solid transparent; background: transparent; color: var(--forest); transition: all 0.2s ease, transform 0.15s ease; cursor: pointer; -webkit-tap-highlight-color: transparent; font-family: inherit; }
     .btn:active { transform: translateY(0) scale(0.98); }
@@ -158,11 +143,11 @@
 
     .navtoggle { display: none; background: rgba(255,255,255,0.14); border: 1.5px solid rgba(255,255,255,0.4); border-radius: 40px; padding: 8px 16px; color: #fff; font-weight: 700; font-family: inherit; font-size: 0.85rem; cursor: pointer; }
     a.btn.navcta { display: none; }
-    @media (min-width: 820px) { a.btn.navcta { display: inline-flex; } }
-    @media (max-width: 819px) {
+    @media (min-width: 900px) { a.btn.navcta { display: inline-flex; } }
+    @media (max-width: 899px) {
       nav.links { position: absolute; top: 100%; left: 0; right: 0; background: var(--forest); flex-direction: column; gap: 0; border-bottom: 3px solid var(--blue); display: none; padding: 6px 0; box-shadow: 0 16px 32px rgba(0,0,0,0.18); }
       nav.links.open { display: flex; }
-      nav.links a { padding: 16px 28px; border-bottom: 1px solid rgba(255,255,255,0.14); }
+      nav.links a { padding: 16px 28px; border-bottom: 1px solid rgba(255,255,255,0.14); text-align: left; }
       .navtoggle { display: inline-block; }
     }
 
@@ -176,9 +161,8 @@
     @media (max-width: 560px) { .hero-slider-full { height: 78vh; min-height: 520px; } }
 
     .hero-slide { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--forest-deep); }
-    .hero-slide .slide-fallback { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; transform: scale(1.06); animation: kenburns 20s ease-in-out infinite alternate; }
-    @keyframes kenburns { 0% { transform: scale(1.0) translate(0,0); } 100% { transform: scale(1.09) translate(-1.2%, -1%); } }
     .hero-slide .slide-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
+    /* Vimeo background iframe — scales up to fill without showing controls */
     .hero-slide .vimeo-bg { position: absolute; top: 50%; left: 50%; width: 177.78vh; height: 56.25vw; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); pointer-events: none; z-index: 2; border: 0; }
     .hero-slide .slide-overlay-gradient { position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, rgba(5,26,14,0.25) 0%, rgba(5,26,14,0.15) 40%, rgba(4,20,11,0.55) 80%, rgba(3,14,8,0.85) 100%); }
     .hero-slide .slide-badge { position: absolute; z-index: 4; left: 0; right: 0; top: 40px; display: flex; justify-content: center; padding: 0 20px; }
@@ -205,14 +189,24 @@
     .swiper-button-next:hover, .swiper-button-prev:hover { background: #fff; transform: scale(1.07); }
     .swiper-button-next:after, .swiper-button-prev:after { font-size: 15px; font-weight: bold; }
 
-    .credentials-float { position: relative; z-index: 8; margin-top: -66px; padding: 0 28px; }
-    @media (max-width: 900px) { .credentials-float { margin-top: -46px; } }
-    .credentials-strip { max-width: 1180px; margin: 0 auto; background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--blue); border-radius: 16px; box-shadow: var(--shadow-lg); padding: 28px 40px; display: flex; flex-wrap: wrap; gap: 22px 44px; justify-content: space-between; }
-    @media (max-width: 700px) { .credentials-strip { padding: 24px 22px; gap: 20px 28px; } }
-    .credentials-strip .item { max-width: 220px; flex: 1 1 160px; }
-    .credentials-strip .item .num { font-family: "Fraunces", serif; font-size: 1.55rem; color: var(--forest); font-weight: 700; }
-    .credentials-strip .item:nth-child(even) .num { color: var(--blue); }
-    .credentials-strip .item p { margin-top: 4px; font-size: 0.85rem; color: var(--ink-soft); font-weight: 500; }
+    /* ============================================================
+       COUNTERS
+       ============================================================ */
+    .counters-section { position: relative; z-index: 8; margin-top: -66px; padding: 0 28px; }
+    @media (max-width: 900px) { .counters-section { margin-top: -46px; } }
+    .counters-strip { max-width: 1180px; margin: 0 auto; background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--blue); border-radius: 16px; box-shadow: var(--shadow-lg); padding: 36px 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    @media (max-width: 900px) { .counters-strip { grid-template-columns: repeat(2, 1fr); gap: 28px; padding: 28px 24px; } }
+    @media (max-width: 480px) { .counters-strip { grid-template-columns: 1fr; } }
+    .counter-item { text-align: center; padding: 8px 4px; border-right: 1px solid var(--line); position: relative; }
+    .counter-item:last-child { border-right: none; }
+    @media (max-width: 900px) { .counter-item:nth-child(2) { border-right: none; } .counter-item:nth-child(3) { border-right: 1px solid var(--line); } }
+    @media (max-width: 480px) { .counter-item { border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 20px; } .counter-item:last-child { border-bottom: none; padding-bottom: 8px; } }
+    .counter-value { font-family: "Fraunces", serif; font-weight: 700; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--forest); line-height: 1; letter-spacing: -0.02em; display: inline-flex; align-items: baseline; gap: 2px; }
+    .counter-value .suffix { color: var(--blue); font-size: 0.65em; font-weight: 700; }
+    .counter-item:nth-child(even) .counter-value { color: var(--blue); }
+    .counter-item:nth-child(even) .counter-value .suffix { color: var(--forest); }
+    .counter-label { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; color: var(--blue); margin-top: 10px; }
+    .counter-sub { font-size: 0.82rem; color: var(--ink-soft); font-weight: 500; margin-top: 6px; }
 
     /* ============================================================
        SCROLL REVEAL
@@ -242,163 +236,88 @@
        SECTIONS
        ============================================================ */
     section { padding: 76px 0; border-top: 1px solid var(--line); background: var(--white); position: relative; }
-    .section-head { display: grid; grid-template-columns: 0.8fr 1.4fr; gap: 36px; margin-bottom: 42px; align-items: end; }
-    @media (max-width: 760px) { .section-head { grid-template-columns: 1fr; gap: 12px; } }
-    .section-head .tag { font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; color: var(--blue); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-    .section-head .tag::before { content: ""; width: 22px; height: 2px; background: var(--forest); display: inline-block; }
+    .section-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 42px; align-items: center; text-align: center; }
+    .section-head .tag { font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; color: var(--blue); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .section-head .tag::before, .section-head .tag::after { content: ""; width: 22px; height: 2px; background: var(--forest); display: inline-block; }
     .section-head h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); color: var(--forest); }
     .section-head .desc { color: var(--ink-soft); max-width: 56ch; font-weight: 500; }
 
     /* ============================================================
-       ABOUT
+       ABOUT — text left, image right
        ============================================================ */
-    .about-cols { display: grid; grid-template-columns: 1fr; gap: 32px; max-width: 900px; }
-    .about-cols p { margin-bottom: 18px; color: var(--ink-soft); font-weight: 500; }
-    .about-cols p:first-child { color: var(--forest); font-size: 1.05rem; font-weight: 600; }
-    .disciplines { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+    .about-cols {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 56px;
+      align-items: center;
+      text-align: left;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    @media (max-width: 900px) { .about-cols { grid-template-columns: 1fr; gap: 32px; } }
+    .about-text p { margin-bottom: 18px; color: var(--ink-soft); font-weight: 500; }
+    .about-text p:first-child { color: var(--forest); font-size: 1.05rem; font-weight: 600; }
+    .about-image {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 4 / 5;
+      background: var(--forest-deep);
+      border: 1px solid var(--line);
+    }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(.2,.7,.3,1); }
+    .about-image:hover img { transform: scale(1.05); }
+    .about-image::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(3,14,8,0.35) 100%);
+      pointer-events: none;
+    }
+    .about-image-badge {
+      position: absolute;
+      bottom: 18px; left: 18px;
+      z-index: 2;
+      background: rgba(255,255,255,0.95);
+      border-radius: 40px;
+      padding: 8px 16px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--forest);
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    }
+    .disciplines { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
     .disciplines li { font-size: 0.82rem; padding: 7px 14px; border: 1.5px solid var(--line-strong); border-radius: 40px; color: var(--forest); background: var(--paper-raise); font-weight: 600; transition: all 0.3s cubic-bezier(.2,.7,.3,1); }
     .disciplines li:hover { background: var(--forest); color: #fff; border-color: var(--forest); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(15, 122, 56, 0.28); }
 
     /* ============================================================
-       FLIP GALLERY — hover to flip, tap on mobile
+       FLIP GALLERY
        ============================================================ */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 220px;
-      gap: 16px;
-      perspective: 1400px;
-    }
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 220px; gap: 16px; perspective: 1400px; }
     @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; } }
     @media (max-width: 500px) { .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; } }
-
-    .flip-card {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-      perspective: 1400px;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.9s cubic-bezier(.2,.7,.3,1);
-      transform-style: preserve-3d;
-      border-radius: 14px;
-      box-shadow: var(--shadow-sm);
-    }
-    /* Hover flips on desktop */
-    @media (hover: hover) {
-      .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
-      .flip-card:hover { box-shadow: var(--shadow-md); }
-    }
-    /* Tap flips on touch devices */
-    @media (hover: none) {
-      .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-    }
-
-    .flip-card-front,
-    .flip-card-back {
-      position: absolute;
-      inset: 0;
-      border-radius: 14px;
-      overflow: hidden;
-      -webkit-backface-visibility: hidden;
-              backface-visibility: hidden;
-      border: 1.5px solid var(--line);
-    }
-
-    .flip-card-front {
-      background: var(--card);
-      z-index: 2;
-    }
-    .flip-card-front img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.7s cubic-bezier(.2,.7,.3,1);
-    }
+    .flip-card { position: relative; width: 100%; height: 100%; cursor: pointer; perspective: 1400px; -webkit-tap-highlight-color: transparent; }
+    .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.9s cubic-bezier(.2,.7,.3,1); transform-style: preserve-3d; border-radius: 14px; box-shadow: var(--shadow-sm); }
+    @media (hover: hover) { .flip-card:hover .flip-card-inner { transform: rotateY(180deg); } .flip-card:hover { box-shadow: var(--shadow-md); } }
+    @media (hover: none) { .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); } }
+    .flip-card-front, .flip-card-back { position: absolute; inset: 0; border-radius: 14px; overflow: hidden; -webkit-backface-visibility: hidden; backface-visibility: hidden; border: 1.5px solid var(--line); }
+    .flip-card-front { background: var(--card); z-index: 2; }
+    .flip-card-front img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(.2,.7,.3,1); }
     .flip-card:hover .flip-card-front img { transform: scale(1.05); }
-
-    /* Small hint that the card is interactive */
-    .flip-hint {
-      position: absolute;
-      right: 12px; top: 12px;
-      z-index: 3;
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.92);
-      border: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--forest);
-      font-family: "IBM Plex Mono", monospace;
-      font-weight: 700;
-      font-size: 0.85rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
+    .flip-hint { position: absolute; right: 12px; top: 12px; z-index: 3; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.92); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "IBM Plex Mono", monospace; font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); pointer-events: none; transition: opacity 0.3s ease; }
     .flip-card:hover .flip-hint { opacity: 0; }
-
-    .flip-card-back {
-      transform: rotateY(180deg);
-      background: linear-gradient(155deg, var(--forest) 0%, var(--forest-deep) 55%, var(--blue-deep) 100%);
-      color: #fff;
-      padding: 22px 22px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 10px;
-      position: relative;
-    }
-    .flip-card-back::before {
-      content: "";
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(circle at 85% 15%, rgba(34, 168, 85, 0.28) 0%, transparent 55%),
-        radial-gradient(circle at 15% 90%, rgba(26, 63, 143, 0.32) 0%, transparent 55%);
-      pointer-events: none;
-    }
-    .flip-card-back .flip-badge {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--forest-bright);
-      position: relative; z-index: 1;
-    }
-    .flip-card-back h4 {
-      font-family: "Fraunces", serif;
-      font-weight: 600;
-      font-size: 1.15rem;
-      color: #fff;
-      line-height: 1.15;
-      position: relative; z-index: 1;
-    }
-    .flip-card-back p {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.86);
-      font-weight: 500;
-      line-height: 1.5;
-      position: relative; z-index: 1;
-    }
-    .flip-card-back .flip-footer {
-      margin-top: 6px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.20);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.68rem;
-      color: rgba(255,255,255,0.75);
-      letter-spacing: 0.06em;
-      font-weight: 500;
-      position: relative; z-index: 1;
-      display: flex; justify-content: space-between; align-items: center;
-    }
+    .flip-card-back { transform: rotateY(180deg); background: linear-gradient(155deg, var(--forest) 0%, var(--forest-deep) 55%, var(--blue-deep) 100%); color: #fff; padding: 22px 22px 20px; display: flex; flex-direction: column; justify-content: center; gap: 10px; position: relative; text-align: center; align-items: center; }
+    .flip-card-back::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 15%, rgba(34, 168, 85, 0.28) 0%, transparent 55%), radial-gradient(circle at 15% 90%, rgba(26, 63, 143, 0.32) 0%, transparent 55%); pointer-events: none; }
+    .flip-card-back .flip-badge { font-family: "IBM Plex Mono", monospace; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--forest-bright); position: relative; z-index: 1; }
+    .flip-card-back h4 { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; color: #fff; line-height: 1.15; position: relative; z-index: 1; }
+    .flip-card-back p { font-size: 0.85rem; color: rgba(255,255,255,0.86); font-weight: 500; line-height: 1.5; position: relative; z-index: 1; }
+    .flip-card-back .flip-footer { margin-top: 6px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.20); font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; color: rgba(255,255,255,0.75); letter-spacing: 0.06em; font-weight: 500; position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; width: 100%; }
 
     /* ============================================================
-       CLIENT LOGOS — MARQUEE
+       LOGO MARQUEE
        ============================================================ */
     .logos-marquee { position: relative; width: 100%; overflow: hidden; padding: 20px 0 30px; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%); }
     .logos-track { display: flex; gap: 20px; width: max-content; animation: marquee-scroll 45s linear infinite; will-change: transform; }
@@ -417,7 +336,7 @@
        ============================================================ */
     .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     @media (max-width: 760px) { .svc-grid { grid-template-columns: 1fr; } }
-    details.svc { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 22px 26px; transition: all 0.35s cubic-bezier(.2,.7,.3,1); box-shadow: var(--shadow-sm); }
+    details.svc { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 22px 26px; transition: all 0.35s cubic-bezier(.2,.7,.3,1); box-shadow: var(--shadow-sm); text-align: left; }
     details.svc[open] { border-color: var(--forest); border-left: 4px solid var(--blue); box-shadow: var(--shadow-md); }
     details.svc:hover { transform: translateY(-3px); border-color: var(--line-strong); }
     details.svc summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 14px; align-items: baseline; }
@@ -437,9 +356,9 @@
     .train-list li::before { content: attr(data-i) ". "; font-family: "IBM Plex Mono", monospace; color: var(--blue); font-weight: 700; }
 
     /* ============================================================
-       TEAM — Lead card
+       TEAM
        ============================================================ */
-    .lead-card { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: center; padding: 40px; background: linear-gradient(135deg, var(--paper-raise) 0%, var(--paper-cool) 100%); border: 1px solid var(--line); border-left: 5px solid var(--blue); border-radius: 20px; box-shadow: var(--shadow-md); margin-bottom: 48px; position: relative; overflow: hidden; }
+    .lead-card { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: center; padding: 40px; background: linear-gradient(135deg, var(--paper-raise) 0%, var(--paper-cool) 100%); border: 1px solid var(--line); border-left: 5px solid var(--blue); border-radius: 20px; box-shadow: var(--shadow-md); margin-bottom: 48px; position: relative; overflow: hidden; text-align: left; }
     .lead-card::before { content: ""; position: absolute; top: -60%; right: -20%; width: 70%; height: 200%; background: radial-gradient(circle, rgba(15, 122, 56, 0.08) 0%, transparent 60%); pointer-events: none; animation: rotateGlow 25s linear infinite; }
     @media (max-width: 820px) { .lead-card { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; } }
     @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -456,12 +375,10 @@
     @media (max-width: 560px) { .lead-quals { grid-template-columns: 1fr; } }
     .lead-quals li { display: flex; gap: 10px; font-size: 0.88rem; color: var(--forest); font-weight: 600; align-items: center; }
     .lead-quals li .mk { color: var(--forest-bright); font-weight: 800; flex: none; }
-
-    .team-subhead { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
-    .team-subhead .line { flex: 1; height: 1px; background: var(--line-strong); }
+    .team-subhead { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; justify-content: center; }
+    .team-subhead .line { flex: 1; height: 1px; background: var(--line-strong); max-width: 120px; }
     .team-subhead .label { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--blue); letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; white-space: nowrap; }
-
-    .team-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    .team-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left; }
     .team-table th { text-align: left; font-family: "IBM Plex Mono", monospace; font-weight: 700; font-size: 0.72rem; color: var(--blue); padding: 0 12px 14px; border-bottom: 2px solid var(--line-strong); text-transform: uppercase; letter-spacing: 0.08em; }
     .team-table td { padding: 16px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-soft); font-weight: 500; }
     .team-table tbody tr { transition: background 0.3s ease; }
@@ -471,37 +388,38 @@
     .tbl-scroll { overflow-x: auto; }
 
     /* ============================================================
-       PROJECTS
+       PROJECTS — ENLARGED
        ============================================================ */
-    .sector-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+    .sector-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; justify-content: center; }
     .sector-tabs button { font-family: inherit; font-size: 0.82rem; font-weight: 600; background: transparent; border: 1.5px solid var(--line-strong); border-radius: 40px; padding: 8px 20px; cursor: pointer; color: var(--forest); transition: all 0.2s cubic-bezier(.2,.7,.3,1); -webkit-tap-highlight-color: transparent; }
     .sector-tabs button.active, .sector-tabs button:hover { background: var(--blue); color: #fff; border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(26, 63, 143, 0.28); }
     .ledger { border-top: 2px solid var(--line-strong); }
-    .proj-row { display: grid; grid-template-columns: 220px 1fr 0.9fr 1.8fr; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--line); transition: background 0.3s ease; align-items: center; }
-    @media (max-width: 900px) { .proj-row { grid-template-columns: 180px 1fr; gap: 16px; } }
-    @media (max-width: 600px) { .proj-row { grid-template-columns: 1fr; gap: 12px; padding: 20px 0; } }
+    .proj-row { display: grid; grid-template-columns: 380px 1fr; gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--line); transition: background 0.3s ease; align-items: center; text-align: left; }
+    @media (max-width: 900px) { .proj-row { grid-template-columns: 260px 1fr; gap: 24px; padding: 28px 0; } }
+    @media (max-width: 600px) { .proj-row { grid-template-columns: 1fr; gap: 18px; padding: 24px 0; } }
     .proj-row:hover { background: var(--paper-raise); }
-    .proj-thumb { width: 100%; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--line); background: var(--card); box-shadow: var(--shadow-sm); transition: all 0.35s cubic-bezier(.2,.7,.3,1); }
+    .proj-thumb { width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; border: 1.5px solid var(--line); background: var(--card); box-shadow: var(--shadow-sm); transition: all 0.35s cubic-bezier(.2,.7,.3,1); }
     .proj-row:hover .proj-thumb { transform: scale(1.03); box-shadow: var(--shadow-md); border-color: var(--blue); }
     .proj-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
     .proj-row:hover .proj-thumb img { transform: scale(1.06); }
-    .proj-row .client { font-family: "Fraunces", serif; font-size: 1.05rem; color: var(--forest); font-weight: 600; }
-    .proj-row .loc { font-family: "IBM Plex Mono", monospace; font-size: 0.76rem; color: var(--blue); font-weight: 600; }
-    .proj-row .desc { font-size: 0.9rem; color: var(--ink-soft); font-weight: 500; }
+    .proj-info { display: flex; flex-direction: column; gap: 6px; }
+    .proj-row .client { font-family: "Fraunces", serif; font-size: 1.25rem; color: var(--forest); font-weight: 600; }
+    .proj-row .loc { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--blue); font-weight: 600; }
+    .proj-row .desc { font-size: 0.94rem; color: var(--ink-soft); font-weight: 500; }
     .proj-row .status { display: inline-block; margin-left: 8px; font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; padding: 2px 10px; border: 1.5px solid var(--blue); color: var(--blue); border-radius: 40px; vertical-align: middle; font-weight: 700; }
-    @media (max-width: 600px) { .proj-thumb { max-width: 260px; } }
+    @media (max-width: 600px) { .proj-thumb { max-width: 100%; } }
 
     /* ============================================================
-       MAP / LOCATION
+       MAP
        ============================================================ */
     .map-section { padding: 0; border-top: 1px solid var(--line); background: var(--white); }
     .map-wrap { display: grid; grid-template-columns: 1fr 1.2fr; min-height: 520px; }
     @media (max-width: 800px) { .map-wrap { grid-template-columns: 1fr; } }
-    .map-info { background: var(--paper-raise); padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; border-left: 4px solid var(--blue); }
+    .map-info { background: var(--paper-raise); padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; border-left: 4px solid var(--blue); text-align: center; align-items: center; }
     .map-info .tag { font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; color: var(--blue); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; font-weight: 700; }
     .map-info h3 { font-size: 1.55rem; margin-bottom: 16px; color: var(--forest); }
     .map-info p { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 12px; font-weight: 500; }
-    .map-info .detail { display: flex; gap: 12px; margin-bottom: 10px; font-size: 0.92rem; align-items: flex-start; color: var(--forest); font-weight: 600; transition: transform 0.25s ease; }
+    .map-info .detail { display: flex; gap: 12px; margin-bottom: 10px; font-size: 0.92rem; align-items: center; color: var(--forest); font-weight: 600; transition: transform 0.25s ease; justify-content: center; }
     .map-info .detail:hover { transform: translateX(4px); }
     .map-info .detail .ico { color: var(--blue); font-weight: 800; flex: none; }
     .map-embed { position: relative; min-height: 520px; width: 100%; background: var(--paper-cool); overflow: hidden; }
@@ -521,8 +439,8 @@
     .contact-card .row:first-of-type { border-top: none; }
     .contact-card .label { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; opacity: 0.82; letter-spacing: 0.08em; font-weight: 600; }
     .contact-card a { color: #fff; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
-    .contact-form label { display: block; font-size: 0.78rem; color: var(--forest); margin-bottom: 6px; font-weight: 700; letter-spacing: 0.02em; }
-    .contact-form input, .contact-form textarea { width: 100%; padding: 14px 16px; margin-bottom: 18px; background: var(--paper-raise); border: 1.5px solid var(--line-strong); border-radius: 8px; color: var(--forest); font-family: inherit; font-size: 0.92rem; transition: border 0.25s, box-shadow 0.25s, transform 0.25s; font-weight: 500; }
+    .contact-form label { display: block; font-size: 0.78rem; color: var(--forest); margin-bottom: 6px; font-weight: 700; letter-spacing: 0.02em; text-align: left; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 14px 16px; margin-bottom: 18px; background: var(--paper-raise); border: 1.5px solid var(--line-strong); border-radius: 8px; color: var(--forest); font-family: inherit; font-size: 0.92rem; transition: border 0.25s, box-shadow 0.25s, transform 0.25s; font-weight: 500; text-align: left; }
     .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--ink-soft); opacity: 0.65; }
     .contact-form input:focus, .contact-form textarea:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14); transform: translateY(-1px); }
     .contact-form textarea { min-height: 110px; resize: vertical; }
@@ -542,9 +460,10 @@
        FOOTER
        ============================================================ */
     footer { padding: 48px 0 40px; border-top: 3px solid var(--blue); background: var(--forest-deep); color: rgba(255,255,255,0.86); }
-    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
-    @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; gap: 28px; } }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 32px; text-align: left; }
+    @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; } }
     .foot-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    @media (max-width: 760px) { .foot-brand { justify-content: center; } }
     .foot-logo { width: 60px; height: 60px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.02em; box-shadow: 0 6px 16px rgba(0,0,0,0.25); overflow: hidden; flex: none; transition: transform 0.3s cubic-bezier(.2,.7,.3,1); }
     .foot-logo:hover { transform: rotate(-6deg) scale(1.05); }
     .foot-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
@@ -556,7 +475,7 @@
     .foot-col li { font-size: 0.88rem; padding: 6px 0; color: rgba(255,255,255,0.78); }
     .foot-col a { color: rgba(255,255,255,0.78); transition: color 0.25s ease, transform 0.25s ease; display: inline-block; }
     .foot-col a:hover { color: #fff; transform: translateX(4px); }
-    .foot-bottom { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 500; }
+    .foot-bottom { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 24px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px; font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 500; text-align: center; }
 
     ::-webkit-scrollbar { height: 10px; width: 10px; }
     ::-webkit-scrollbar-track { background: var(--paper-raise); }
@@ -573,7 +492,26 @@
 <body class="loading">
 
 <!-- ============================================================
-     ANIMATED LOADER
+     POPUP POSTER
+     ============================================================ -->
+<div class="poster-modal" id="posterModal" role="dialog" aria-modal="true" aria-labelledby="posterTitle">
+  <div class="poster-box">
+    <button class="poster-close" id="posterClose" aria-label="Close poster">×</button>
+    <img class="poster-img" src="assets/poster.jpg" alt="Kogaso Consultants announcement poster">
+    <div class="poster-body">
+      <div class="poster-tag">Announcement</div>
+      <h3 id="posterTitle">New: Fire Safety Training Now Open</h3>
+      <p>Book a DOSHS-compliant fire safety training for your team — practical, on-site, and tailored to your workplace risks. Limited slots this month.</p>
+      <div class="poster-ctas">
+        <a class="btn primary" href="#contact">Book training</a>
+        <button class="btn blue" id="posterDismiss" type="button">Maybe later</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     LOADER
      ============================================================ -->
 <div class="loader" id="loader" role="status" aria-label="Loading Kogaso Consultants">
   <div class="loader-stage">
@@ -600,7 +538,8 @@
     </a>
     <button class="navtoggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
     <nav class="links" id="navLinks">
-      <a href="#about">About us</a>
+      <a href="#top" class="active">Home</a>
+      <a href="#about">About</a>
       <a href="#gallery">Gallery</a>
       <a href="#services">Services</a>
       <a href="#team">Team</a>
@@ -615,7 +554,7 @@
 <main id="top">
 
   <!-- ============================================================
-       HERO — Replace VIMEO_ID_HERE with your Vimeo video ID
+       HERO — Vimeo video already wired: 1227505876
        ============================================================ -->
   <section class="hero">
     <div class="hero-slider-full">
@@ -625,7 +564,7 @@
           <div class="swiper-slide hero-slide" data-slide-type="video">
             <iframe
               class="vimeo-bg"
-              src="https://player.vimeo.com/video/VIMEO_ID_HERE?background=1&autoplay=1&loop=1&muted=1&autopause=0&byline=0&title=0&portrait=0"
+              src="https://player.vimeo.com/video/1227505876?background=1&autoplay=1&loop=1&muted=1&autopause=0&byline=0&title=0&portrait=0&dnt=1"
               allow="autoplay; fullscreen; picture-in-picture"
               allowfullscreen
               frameborder="0"
@@ -673,19 +612,46 @@
         </a>
       </div>
     </div>
-
-    <div class="credentials-float reveal-fade">
-      <div class="credentials-strip">
-        <div class="item"><div class="num">DOSHS</div><p>Licensed Fire Safety Auditors &amp; Health and Safety Advisors</p></div>
-        <div class="item"><div class="num">NEMA</div><p>Registered Lead Experts for EIA &amp; Audit</p></div>
-        <div class="item"><div class="num">ISO</div><p>Certified Lead Auditors — 14001, 9001, 45001, FSSC 22000</p></div>
-        <div class="item"><div class="num">20+</div><p>Active client sites under EHS supervision</p></div>
-      </div>
-    </div>
   </section>
 
   <!-- ============================================================
-       ABOUT
+       COUNTERS
+       ============================================================ -->
+  <div class="counters-section">
+    <div class="counters-strip reveal-fade" id="counters">
+      <div class="counter-item">
+        <div class="counter-value">
+          <span class="counter-num" data-target="100">0</span><span class="suffix">+</span>
+        </div>
+        <div class="counter-label">Clients Served</div>
+        <div class="counter-sub">Across Kenya &amp; Tanzania</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-value">
+          <span class="counter-num" data-target="300">0</span><span class="suffix">+</span>
+        </div>
+        <div class="counter-label">Projects Delivered</div>
+        <div class="counter-sub">EIA · EHS · Fire · Agri</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-value">
+          <span class="counter-num" data-target="98">0</span><span class="suffix">%</span>
+        </div>
+        <div class="counter-label">Client Satisfaction</div>
+        <div class="counter-sub">Re-engagement &amp; referral</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-value">
+          <span class="counter-num" data-target="20">0</span><span class="suffix">+</span>
+        </div>
+        <div class="counter-label">Active Sites</div>
+        <div class="counter-sub">Under EHS supervision</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ABOUT — text left, image right
        ============================================================ -->
   <section id="about">
     <div class="wrap">
@@ -694,7 +660,7 @@
         <h2 class="reveal-text"><span>A multidisciplinary team, built for<br>the field, not the boardroom.</span></h2>
       </div>
       <div class="about-cols">
-        <div class="reveal-slide-left">
+        <div class="about-text reveal-slide-left">
           <p>Kogaso Consultants Limited is a Kenyan company providing professional and accountable Environment and Social Safeguards, Health and Safety, Fire Safety, Agriculture and Livestock services — built to enhance our clients' corporate image, meet EHS legislation (OSHA, EMCA and related statutes), and cut down on health and safety incidents before they happen.</p>
           <p>The company is registered under the Companies Act Cap 486 and the Registration of Business Names Act Cap 499, and draws its personnel from professional bodies, technical institutions, relevant NGOs and government departments — environmentalists, safety and health specialists, a veterinary doctor, animal scientists, agronomists, ecologists, physicians, energy experts, trainers, safety managers and engineers across disciplines.</p>
           <p>Kogaso delivers cost-effective, bespoke solutions that are technically sound and aligned with both client expectations and global best-practice EHS standards.</p>
@@ -711,24 +677,27 @@
             <li>Trainers &amp; Engineers</li>
           </ul>
         </div>
+        <div class="about-image reveal-slide-right">
+          <!-- >>> Drop your About photo here (recommended 900×1200 portrait) -->
+          <img src="assets/about-image.jpg" alt="Kogaso Consultants team on site">
+          <div class="about-image-badge">On site · Kenya</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       FLIP GALLERY — hover to flip, tap on mobile
+       FLIP GALLERY
        ============================================================ -->
   <section id="gallery">
     <div class="wrap">
       <div class="section-head reveal-fade">
         <div class="tag">02 — On site</div>
         <h2 class="reveal-text"><span>Field work, from the ground up.</span></h2>
-        <p class="desc" style="grid-column:2;">Hover or tap a card to see what we were doing on that site — every shot comes with context.</p>
+        <p class="desc">Hover or tap a card to see what we were doing on that site — every shot comes with context.</p>
       </div>
 
       <div class="gallery-grid reveal-stagger">
-
-        <!-- 01 — WIDE -->
         <div class="flip-card wide">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -739,15 +708,11 @@
               <span class="flip-badge">Site Inspection</span>
               <h4>Construction oversight, ground level</h4>
               <p>Routine inspection walkthrough on an active construction site — checking fall protection, edge guarding, plant movement, and site housekeeping against the project's EHS plan.</p>
-              <div class="flip-footer">
-                <span>Construction</span>
-                <span>Kogaso EHS Team</span>
-              </div>
+              <div class="flip-footer"><span>Construction</span><span>Kogaso EHS Team</span></div>
             </div>
           </div>
         </div>
 
-        <!-- 02 -->
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -758,15 +723,11 @@
               <span class="flip-badge">PPE Compliance</span>
               <h4>Checking what protects people</h4>
               <p>Verifying helmets, harnesses, high-visibility vests, gloves, and eye protection — and confirming that the right PPE is matched to the correct task and hazard.</p>
-              <div class="flip-footer">
-                <span>Workplace Safety</span>
-                <span>Daily check</span>
-              </div>
+              <div class="flip-footer"><span>Workplace Safety</span><span>Daily check</span></div>
             </div>
           </div>
         </div>
 
-        <!-- 03 — TALL -->
         <div class="flip-card tall">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -777,15 +738,11 @@
               <span class="flip-badge">Fire Drill</span>
               <h4>Practical firefighting training</h4>
               <p>Live drill covering extinguisher selection, PASS technique, evacuation marshalling, and fire emergency response — delivered under Legal Notice 31 of 2004.</p>
-              <div class="flip-footer">
-                <span>Fire Safety</span>
-                <span>Legal Notice 31</span>
-              </div>
+              <div class="flip-footer"><span>Fire Safety</span><span>Legal Notice 31</span></div>
             </div>
           </div>
         </div>
 
-        <!-- 04 -->
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -796,15 +753,11 @@
               <span class="flip-badge">Noise Survey</span>
               <h4>Measuring what workers hear</h4>
               <p>Occupational noise mapping using an integrating sound level meter — diurnal and nocturnal readings across the noisiest plant areas, with mitigation recommendations.</p>
-              <div class="flip-footer">
-                <span>ISO 1996</span>
-                <span>Annual</span>
-              </div>
+              <div class="flip-footer"><span>ISO 1996</span><span>Annual</span></div>
             </div>
           </div>
         </div>
 
-        <!-- 05 -->
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -815,15 +768,11 @@
               <span class="flip-badge">EIA Field Work</span>
               <h4>Understanding a site before it changes</h4>
               <p>Baseline environmental survey for an Environmental Impact Assessment — soil, water, vegetation, and community interface observations under Section 58 of EMCA 1999.</p>
-              <div class="flip-footer">
-                <span>EMCA 1999 · §58</span>
-                <span>NEMA</span>
-              </div>
+              <div class="flip-footer"><span>EMCA 1999 · §58</span><span>NEMA</span></div>
             </div>
           </div>
         </div>
 
-        <!-- 06 — WIDE -->
         <div class="flip-card wide">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -834,15 +783,11 @@
               <span class="flip-badge">Toolbox Talk</span>
               <h4>Fifteen minutes that change the day</h4>
               <p>Daily pre-shift safety briefing covering the day's hazards, permit conditions, plant movement, and any open corrective actions from the previous shift's inspections.</p>
-              <div class="flip-footer">
-                <span>Daily Briefing</span>
-                <span>Every shift</span>
-              </div>
+              <div class="flip-footer"><span>Daily Briefing</span><span>Every shift</span></div>
             </div>
           </div>
         </div>
 
-        <!-- 07 -->
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -853,15 +798,11 @@
               <span class="flip-badge">Livestock Visit</span>
               <h4>Animal health &amp; welfare</h4>
               <p>Field visit supporting veterinary service delivery, animal disease risk surveillance, and livestock value chain assessment — with the Kogaso veterinary team.</p>
-              <div class="flip-footer">
-                <span>Livestock</span>
-                <span>Veterinary</span>
-              </div>
+              <div class="flip-footer"><span>Livestock</span><span>Veterinary</span></div>
             </div>
           </div>
         </div>
 
-        <!-- 08 -->
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -872,27 +813,23 @@
               <span class="flip-badge">Water Sampling</span>
               <h4>What the water is really carrying</h4>
               <p>Representative water sampling for effluent quality and receiving water body monitoring — supporting ESIA reports and periodic environmental audits.</p>
-              <div class="flip-footer">
-                <span>Environmental</span>
-                <span>Audit Support</span>
-              </div>
+              <div class="flip-footer"><span>Environmental</span><span>Audit Support</span></div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       CLIENT LOGOS — MARQUEE
+       CLIENT LOGOS
        ============================================================ -->
   <section id="clients" style="background: var(--paper-cool); border-top: 1px solid var(--line-blue); overflow: hidden;">
     <div class="wrap">
       <div class="section-head reveal-fade">
         <div class="tag">03 — Trusted by</div>
         <h2 class="reveal-text"><span>Clients we've worked with.</span></h2>
-        <p class="desc" style="grid-column:2;">A selection of the organisations that have trusted Kogaso with their EHS, fire safety and environmental compliance needs.</p>
+        <p class="desc">A selection of the organisations that have trusted Kogaso with their EHS, fire safety and environmental compliance needs.</p>
       </div>
     </div>
 
@@ -939,7 +876,7 @@
       <div class="section-head reveal-fade">
         <div class="tag">04 — Services</div>
         <h2 class="reveal-text"><span>Nine services. One team, from<br>report to site to training room.</span></h2>
-        <p class="desc" style="grid-column:2;">Open a service for the detail — including the specific legislation it answers to.</p>
+        <p class="desc">Open a service for the detail — including the specific legislation it answers to.</p>
       </div>
 
       <div class="svc-grid reveal-stagger">
@@ -1069,7 +1006,7 @@
   </section>
 
   <!-- ============================================================
-       TEAM — Peter Ogaso as Lead
+       TEAM
        ============================================================ -->
   <section id="team">
     <div class="wrap">
@@ -1078,7 +1015,6 @@
         <h2 class="reveal-text"><span>Who's on your file</span></h2>
       </div>
 
-      <!-- LEAD — Peter Ogaso -->
       <div class="lead-card reveal-fade">
         <div class="lead-photo">
           <img src="assets/team-peter-ogaso.jpg" alt="Mr. Peter Ogaso — Lead Consultant, Kogaso Consultants">
@@ -1098,7 +1034,6 @@
         </div>
       </div>
 
-      <!-- SUPPORTING TEAM -->
       <div class="team-subhead reveal-fade">
         <span class="line"></span>
         <span class="label">Supporting Consultants</span>
@@ -1148,136 +1083,178 @@
       <div class="ledger reveal-stagger" id="ledger">
         <div class="proj-row" data-sector="Corporate & Finance">
           <div class="proj-thumb"><img src="assets/project-01-bat.jpg" alt="BAT Kenya — SHE Project Supervisor"></div>
-          <div class="client">BAT Kenya</div>
-          <div class="loc">Likoni</div>
-          <div class="desc">SHE Project Supervisor — contractor OSH supervision, weekly induction trainings, risk assessments, noise &amp; air monitoring, compliance audits, waste management and reporting.</div>
+          <div class="proj-info">
+            <div class="client">BAT Kenya</div>
+            <div class="loc">Likoni</div>
+            <div class="desc">SHE Project Supervisor — contractor OSH supervision, weekly induction trainings, risk assessments, noise &amp; air monitoring, compliance audits, waste management and reporting.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Energy & Utilities">
           <div class="proj-thumb"><img src="assets/project-02-iberdrola.jpg" alt="Iberdrola — Ngong II Wind Farm"></div>
-          <div class="client">Iberdrola Engineering &amp; Construction</div>
-          <div class="loc">Ngong II Wind Farm, Nairobi</div>
-          <div class="desc">OSH Project Supervisor — contractor supervision of safe systems of work, PPE use and management, induction trainings, risk assessments, noise &amp; air monitoring, compliance audits, waste management and reporting.</div>
+          <div class="proj-info">
+            <div class="client">Iberdrola Engineering &amp; Construction</div>
+            <div class="loc">Ngong II Wind Farm, Nairobi</div>
+            <div class="desc">OSH Project Supervisor — contractor supervision of safe systems of work, PPE use and management, induction trainings, risk assessments, noise &amp; air monitoring, compliance audits, waste management and reporting.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Hospitality">
           <div class="proj-thumb"><img src="assets/project-03-fourpoints.jpg" alt="Four Points by Sheraton Hotels"></div>
-          <div class="client">Four Points by Sheraton Hotels</div>
-          <div class="loc">JKIA &amp; Hurlingham</div>
-          <div class="desc">OHS Audit, statutory environmental audit and stack emission measurement.</div>
+          <div class="proj-info">
+            <div class="client">Four Points by Sheraton Hotels</div>
+            <div class="loc">JKIA &amp; Hurlingham</div>
+            <div class="desc">OHS Audit, statutory environmental audit and stack emission measurement.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Construction & Property">
           <div class="proj-thumb"><img src="assets/project-04-laxmanbhai.jpg" alt="Laxmanbhai Construction Limited"></div>
-          <div class="client">Laxmanbhai Construction Limited</div>
-          <div class="loc">Various sites</div>
-          <div class="desc">Construction safety, health and environmental supervision, with weekly inspections and audits.</div>
+          <div class="proj-info">
+            <div class="client">Laxmanbhai Construction Limited</div>
+            <div class="loc">Various sites</div>
+            <div class="desc">Construction safety, health and environmental supervision, with weekly inspections and audits.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Construction & Property">
           <div class="proj-thumb"><img src="assets/project-05-mahesh.jpg" alt="Mahesh &amp; Tirth Construction"></div>
-          <div class="client">Mahesh &amp; Tirth Construction Limited</div>
-          <div class="loc">Tatu City &amp; Tilisi</div>
-          <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          <div class="proj-info">
+            <div class="client">Mahesh &amp; Tirth Construction Limited</div>
+            <div class="loc">Tatu City &amp; Tilisi</div>
+            <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Corporate & Finance">
           <div class="proj-thumb"><img src="assets/project-06-britam.jpg" alt="Britam Towers"></div>
-          <div class="client">Britam Towers</div>
-          <div class="loc">Upper Hill, Nairobi</div>
-          <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          <div class="proj-info">
+            <div class="client">Britam Towers</div>
+            <div class="loc">Upper Hill, Nairobi</div>
+            <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Corporate & Finance">
           <div class="proj-thumb"><img src="assets/project-07-im.jpg" alt="I&amp;M Bank HQ"></div>
-          <div class="client">I&amp;M Bank HQ</div>
-          <div class="loc">Parklands, Nairobi</div>
-          <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          <div class="proj-info">
+            <div class="client">I&amp;M Bank HQ</div>
+            <div class="loc">Parklands, Nairobi</div>
+            <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Healthcare">
           <div class="proj-thumb"><img src="assets/project-08-agakhan.jpg" alt="Aga Khan University Hospital"></div>
-          <div class="client">Aga Khan University Hospital</div>
-          <div class="loc">Parklands, Nairobi</div>
-          <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          <div class="proj-info">
+            <div class="client">Aga Khan University Hospital</div>
+            <div class="loc">Parklands, Nairobi</div>
+            <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Government & Infrastructure">
           <div class="proj-thumb"><img src="assets/project-09-kerra.jpg" alt="Kenya Rural Roads Authority"></div>
-          <div class="client">Kenya Rural Roads Authority</div>
-          <div class="loc">Kendu Bay, Homa Bay County</div>
-          <div class="desc">Rehabilitation of the Kanyadhiang–Kadel road, plus HIV &amp; AIDS mainstreaming.</div>
+          <div class="proj-info">
+            <div class="client">Kenya Rural Roads Authority</div>
+            <div class="loc">Kendu Bay, Homa Bay County</div>
+            <div class="desc">Rehabilitation of the Kanyadhiang–Kadel road, plus HIV &amp; AIDS mainstreaming.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Government & Infrastructure">
           <div class="proj-thumb"><img src="assets/project-10-gigiri.jpg" alt="Diplomatic Housing Gigiri"></div>
-          <div class="client">Diplomatic Housing, Gigiri</div>
-          <div class="loc">Gigiri, Nairobi</div>
-          <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          <div class="proj-info">
+            <div class="client">Diplomatic Housing, Gigiri</div>
+            <div class="loc">Gigiri, Nairobi</div>
+            <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Energy & Utilities">
           <div class="proj-thumb"><img src="assets/project-11-tavevo.jpg" alt="TAVEVO — Voi"></div>
-          <div class="client">TAVEVO</div>
-          <div class="loc">Voi, Taita Taveta County</div>
-          <div class="desc">ESIA reports for the rehabilitation &amp; expansion of Wundanyi River, Wesu Springs and Ngiriwunyi intakes; augmentation of transmission mains and storage reservoirs; the Mwakingali tank and Voi pumps; and a proposed wastewater treatment plant near Voi town.</div>
+          <div class="proj-info">
+            <div class="client">TAVEVO</div>
+            <div class="loc">Voi, Taita Taveta County</div>
+            <div class="desc">ESIA reports for the rehabilitation &amp; expansion of Wundanyi River, Wesu Springs and Ngiriwunyi intakes; augmentation of transmission mains and storage reservoirs; the Mwakingali tank and Voi pumps; and a proposed wastewater treatment plant near Voi town.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Education">
           <div class="proj-thumb"><img src="assets/project-12-crawford.jpg" alt="Crawford International School"></div>
-          <div class="client">Crawford International School</div>
-          <div class="loc">Tatu City, Kiambu County</div>
-          <div class="desc">EIA and HSE supervision for new classroom and ablution blocks. <span class="status">Completed Dec 2025</span></div>
+          <div class="proj-info">
+            <div class="client">Crawford International School</div>
+            <div class="loc">Tatu City, Kiambu County</div>
+            <div class="desc">EIA and HSE supervision for new classroom and ablution blocks. <span class="status">Completed Dec 2025</span></div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Education">
           <div class="proj-thumb"><img src="assets/project-13-makini.jpg" alt="Makini School"></div>
-          <div class="client">Makini School</div>
-          <div class="loc">Nairobi &amp; Kisumu</div>
-          <div class="desc">EIA and HSE support during construction of a new classroom block and sports fields. <span class="status">Completed Nov 2025</span></div>
+          <div class="proj-info">
+            <div class="client">Makini School</div>
+            <div class="loc">Nairobi &amp; Kisumu</div>
+            <div class="desc">EIA and HSE support during construction of a new classroom block and sports fields. <span class="status">Completed Nov 2025</span></div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Corporate & Finance">
           <div class="proj-thumb"><img src="assets/project-14-nbst.jpg" alt="NBST Africa"></div>
-          <div class="client">NBST Africa</div>
-          <div class="loc">Ngara, Nairobi</div>
-          <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          <div class="proj-info">
+            <div class="client">NBST Africa</div>
+            <div class="loc">Ngara, Nairobi</div>
+            <div class="desc">Safety, health and environmental supervision, with weekly inspections and audits.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Hospitality">
           <div class="proj-thumb"><img src="assets/project-15-holidayinn.jpg" alt="Holiday Inn Two Rivers"></div>
-          <div class="client">Holiday Inn</div>
-          <div class="loc">Two Rivers Mall, Nairobi</div>
-          <div class="desc">EIA for proposed alteration and renovation works.</div>
+          <div class="proj-info">
+            <div class="client">Holiday Inn</div>
+            <div class="loc">Two Rivers Mall, Nairobi</div>
+            <div class="desc">EIA for proposed alteration and renovation works.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Hospitality">
           <div class="proj-thumb"><img src="assets/project-16-fairview.jpg" alt="Fairview Hotel"></div>
-          <div class="client">Fairview Hotel</div>
-          <div class="loc">Bishops Road, Nairobi</div>
-          <div class="desc">EIA for the refurbishment and alteration of guest rooms and public areas, with HSE support through implementation.</div>
+          <div class="proj-info">
+            <div class="client">Fairview Hotel</div>
+            <div class="loc">Bishops Road, Nairobi</div>
+            <div class="desc">EIA for the refurbishment and alteration of guest rooms and public areas, with HSE support through implementation.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Energy & Utilities">
           <div class="proj-thumb"><img src="assets/project-17-hewatele.jpg" alt="Hewatele Limited"></div>
-          <div class="client">Hewatele Limited</div>
-          <div class="loc">Tatu City</div>
-          <div class="desc">EIA for a proposed oxygen production plant.</div>
+          <div class="proj-info">
+            <div class="client">Hewatele Limited</div>
+            <div class="loc">Tatu City</div>
+            <div class="desc">EIA for a proposed oxygen production plant.</div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Healthcare">
           <div class="proj-thumb"><img src="assets/project-18-siaya.jpg" alt="Siaya Referral Hospital"></div>
-          <div class="client">Siaya Referral Hospital Project</div>
-          <div class="loc">Siaya County</div>
-          <div class="desc">HSE support services through project implementation. <span class="status">Ongoing</span></div>
+          <div class="proj-info">
+            <div class="client">Siaya Referral Hospital Project</div>
+            <div class="loc">Siaya County</div>
+            <div class="desc">HSE support services through project implementation. <span class="status">Ongoing</span></div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Hospitality">
           <div class="proj-thumb"><img src="assets/project-19-crowne.jpg" alt="Crowne Plaza Dar es Salaam"></div>
-          <div class="client">Crowne Plaza</div>
-          <div class="loc">Dar es Salaam, Tanzania</div>
-          <div class="desc">HSE support services through project implementation. <span class="status">Completed Feb 2026</span></div>
+          <div class="proj-info">
+            <div class="client">Crowne Plaza</div>
+            <div class="loc">Dar es Salaam, Tanzania</div>
+            <div class="desc">HSE support services through project implementation. <span class="status">Completed Feb 2026</span></div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Construction & Property">
           <div class="proj-thumb"><img src="assets/project-20-tatucity.jpg" alt="Tatu City Twin Towers"></div>
-          <div class="client">Tatu City Limited</div>
-          <div class="loc">Kiambu County</div>
-          <div class="desc">ESIA for the proposed 30- and 20-storey twin towers in Tatu Central. <span class="status">Ongoing</span></div>
+          <div class="proj-info">
+            <div class="client">Tatu City Limited</div>
+            <div class="loc">Kiambu County</div>
+            <div class="desc">ESIA for the proposed 30- and 20-storey twin towers in Tatu Central. <span class="status">Ongoing</span></div>
+          </div>
         </div>
         <div class="proj-row" data-sector="Healthcare">
           <div class="proj-thumb"><img src="assets/project-21-kakamega.jpg" alt="Kakamega Referral Hospital"></div>
-          <div class="client">Kakamega Referral Hospital Project</div>
-          <div class="loc">Kakamega County</div>
-          <div class="desc">HSE support services through project implementation. <span class="status">Ongoing</span></div>
+          <div class="proj-info">
+            <div class="client">Kakamega Referral Hospital Project</div>
+            <div class="loc">Kakamega County</div>
+            <div class="desc">HSE support services through project implementation. <span class="status">Ongoing</span></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       MAP / LOCATION
+       MAP
        ============================================================ -->
   <section class="map-section">
     <div class="map-wrap">
@@ -1356,6 +1333,7 @@
       <div class="foot-col">
         <h4>Navigate</h4>
         <ul>
+          <li><a href="#top">Home</a></li>
           <li><a href="#about">Introduction</a></li>
           <li><a href="#gallery">On-site Gallery</a></li>
           <li><a href="#services">Services</a></li>
@@ -1379,7 +1357,6 @@
 
     <div class="foot-bottom">
       <span>© <span id="year"></span> Kogaso Consultants Limited · Registered under the Companies Act Cap 486</span>
-      <span class="service-list">Environment · Safety &amp; Health · Fire Safety · Agriculture · Livestock</span>
     </div>
   </div>
 </footer>
@@ -1398,7 +1375,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ===== ANIMATED LOADER =====
+  // ===== LOADER =====
   (function () {
     const loader = document.getElementById('loader');
     const dismiss = () => {
@@ -1412,6 +1389,24 @@
       window.addEventListener('load', () => setTimeout(dismiss, 1400));
       setTimeout(dismiss, 3200);
     }
+  })();
+
+  // ===== POPUP POSTER =====
+  (function () {
+    const modal = document.getElementById('posterModal');
+    const closeBtn = document.getElementById('posterClose');
+    const dismissBtn = document.getElementById('posterDismiss');
+    const hideModal = () => {
+      modal.classList.remove('show');
+      try { sessionStorage.setItem('kogaso_poster_seen', '1'); } catch (e) {}
+    };
+    let alreadySeen = false;
+    try { alreadySeen = sessionStorage.getItem('kogaso_poster_seen') === '1'; } catch (e) {}
+    if (!alreadySeen) setTimeout(() => modal.classList.add('show'), 2200);
+    closeBtn.addEventListener('click', hideModal);
+    dismissBtn.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) hideModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) hideModal(); });
   })();
 
   // ===== HERO SLIDER =====
@@ -1435,7 +1430,41 @@
     }
   } catch (e) { console.warn('Hero slider failed to initialise:', e); }
 
-  // ===== HEADER SHADOW ON SCROLL =====
+  // ===== COUNTERS =====
+  (function () {
+    const counters = document.querySelectorAll('.counter-num');
+    if (!counters.length) return;
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const runCounter = (el) => {
+      const target = parseInt(el.dataset.target, 10) || 0;
+      const duration = 1800;
+      const start = performance.now();
+      const tick = (now) => {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = easeOutCubic(t);
+        el.textContent = Math.floor(eased * target).toLocaleString();
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toLocaleString();
+      };
+      requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window) {
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            counters.forEach(runCounter);
+            counterObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      const target = document.getElementById('counters');
+      if (target) counterObserver.observe(target);
+    } else {
+      counters.forEach(runCounter);
+    }
+  })();
+
+  // ===== HEADER SHADOW =====
   const siteHeader = document.querySelector('header.site');
   const onScroll = () => {
     if (window.scrollY > 12) { siteHeader.style.boxShadow = '0 12px 28px rgba(7,90,40,0.28)'; }
@@ -1472,6 +1501,26 @@
     toggle.setAttribute('aria-expanded', 'false');
   }));
 
+  // ===== ACTIVE NAV LINK HIGHLIGHT =====
+  (function () {
+    const navLinks = document.querySelectorAll('nav.links a');
+    const sections = Array.from(navLinks).map(a => {
+      const id = a.getAttribute('href').substring(1);
+      return id === 'top' ? document.body : document.getElementById(id);
+    }).filter(Boolean);
+    const setActive = () => {
+      const y = window.scrollY + 120;
+      let current = navLinks[0];
+      sections.forEach((sec, i) => {
+        if (sec && sec.offsetTop <= y) current = navLinks[i];
+      });
+      navLinks.forEach(a => a.classList.remove('active'));
+      if (current) current.classList.add('active');
+    };
+    window.addEventListener('scroll', setActive, { passive: true });
+    setActive();
+  })();
+
   // ===== PROJECT FILTERS =====
   const tabs = document.querySelectorAll('#sectorTabs button');
   const rows = document.querySelectorAll('.proj-row');
@@ -1484,12 +1533,11 @@
     });
   }));
 
-  // ===== FLIP GALLERY — tap on touch devices =====
+  // ===== FLIP GALLERY — tap on touch =====
   const isTouch = window.matchMedia('(hover: none)').matches;
   if (isTouch) {
     document.querySelectorAll('.flip-card').forEach(card => {
       card.addEventListener('click', () => {
-        // Close any other open cards (feels cleaner on mobile)
         document.querySelectorAll('.flip-card.flipped').forEach(c => {
           if (c !== card) c.classList.remove('flipped');
         });
