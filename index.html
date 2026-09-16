@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <style>
     /* ============================================================
-       SHARP GREEN + DEEP BLUE THEME
+       HIGH-CONTRAST SHARP GREEN + DEEP BLUE THEME
        ============================================================ */
     :root {
       --white: #FFFFFF;
@@ -31,27 +31,27 @@
       --paper-raise: #F2FBF5;
       --paper-cool: #F3F7FC;
 
-      --ink: #0E5C2C;
-      --ink-soft: #2C7A4D;
-      --forest: #0F7A38;
-      --forest-deep: #075A28;
-      --forest-bright: #22A855;
+      --ink: #0A3D1F;          /* darker for higher contrast */
+      --ink-soft: #1A5A2E;     /* deeper green for body text */
+      --forest: #0B6B30;       /* slightly deeper, more authoritative */
+      --forest-deep: #064A20;
+      --forest-bright: #1E9E4E;
 
-      --blue: #1A3F8F;
-      --blue-deep: #0F2A66;
-      --blue-bright: #2563EB;
-      --blue-soft: #DBE7FB;
+      --blue: #132F6E;         /* deeper navy for maximum contrast */
+      --blue-deep: #0B1F4A;
+      --blue-bright: #1D4ED8;
+      --blue-soft: #D6E3FA;
 
-      --line: rgba(15, 122, 56, 0.16);
-      --line-strong: rgba(15, 122, 56, 0.34);
-      --line-blue: rgba(26, 63, 143, 0.18);
+      --line: rgba(11, 107, 48, 0.20);
+      --line-strong: rgba(11, 107, 48, 0.40);
+      --line-blue: rgba(19, 47, 110, 0.22);
 
       --card: #F2FBF5;
 
-      --shadow-sm: 0 8px 20px rgba(7, 90, 40, 0.08);
-      --shadow-md: 0 16px 32px rgba(7, 90, 40, 0.10);
-      --shadow-lg: 0 24px 48px rgba(7, 90, 40, 0.14);
-      --shadow-blue: 0 12px 28px rgba(26, 63, 143, 0.20);
+      --shadow-sm: 0 8px 20px rgba(6, 74, 32, 0.10);
+      --shadow-md: 0 16px 32px rgba(6, 74, 32, 0.14);
+      --shadow-lg: 0 24px 48px rgba(6, 74, 32, 0.18);
+      --shadow-blue: 0 12px 28px rgba(19, 47, 110, 0.25);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -84,12 +84,12 @@
     /* ============================================================
        POPUP POSTER
        ============================================================ */
-    .poster-modal { position: fixed; inset: 0; z-index: 500; background: rgba(7, 20, 12, 0.78); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s ease; }
+    .poster-modal { position: fixed; inset: 0; z-index: 500; background: rgba(7, 20, 12, 0.80); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s ease; }
     .poster-modal.show { opacity: 1; visibility: visible; }
-    .poster-box { position: relative; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; background: #fff; border-radius: 20px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45); border-top: 5px solid var(--blue); transform: scale(0.92) translateY(20px); transition: transform 0.4s cubic-bezier(.2,.7,.3,1); }
+    .poster-box { position: relative; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; background: #fff; border-radius: 20px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.50); border-top: 5px solid var(--blue); transform: scale(0.92) translateY(20px); transition: transform 0.4s cubic-bezier(.2,.7,.3,1); }
     .poster-modal.show .poster-box { transform: scale(1) translateY(0); }
     .poster-img { width: 100%; display: block; background: var(--card); min-height: 200px; object-fit: cover; }
-    .poster-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.94); border: 1px solid var(--line); color: var(--forest); font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.18); transition: all 0.2s ease; }
+    .poster-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.96); border: 1px solid var(--line); color: var(--forest); font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.22); transition: all 0.2s ease; }
     .poster-close:hover { background: var(--forest); color: #fff; border-color: var(--forest); transform: rotate(90deg); }
     .poster-body { padding: 26px 28px 28px; text-align: center; }
     .poster-body .poster-tag { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
@@ -103,16 +103,16 @@
     .loader { position: fixed; inset: 0; z-index: 9999; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 28px; transition: opacity 0.6s ease, visibility 0.6s ease; }
     .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .loader-stage { position: relative; width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; }
-    .loader-ring { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 0deg, transparent 240deg, var(--forest) 300deg, var(--forest-bright) 340deg, var(--blue) 360deg); animation: ring-spin 1.6s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68px, #000 69px, #000 82px, transparent 83px); mask: radial-gradient(circle, transparent 68px, #000 69px, #000 82px, transparent 83px); filter: drop-shadow(0 0 12px rgba(15, 122, 56, 0.35)); }
-    .loader-ring-inner { position: absolute; inset: 22px; border-radius: 50%; border: 2px dashed rgba(15, 122, 56, 0.22); animation: ring-spin 6s linear infinite reverse; }
+    .loader-ring { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 0deg, transparent 240deg, var(--forest) 300deg, var(--forest-bright) 340deg, var(--blue) 360deg); animation: ring-spin 1.6s linear infinite; -webkit-mask: radial-gradient(circle, transparent 68px, #000 69px, #000 82px, transparent 83px); mask: radial-gradient(circle, transparent 68px, #000 69px, #000 82px, transparent 83px); filter: drop-shadow(0 0 12px rgba(11, 107, 48, 0.40)); }
+    .loader-ring-inner { position: absolute; inset: 22px; border-radius: 50%; border: 2px dashed rgba(11, 107, 48, 0.28); animation: ring-spin 6s linear infinite reverse; }
     @keyframes ring-spin { to { transform: rotate(360deg); } }
-    .loader-logo { position: relative; width: 92px; height: 92px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(15, 122, 56, 0.20), inset 0 0 0 1.5px rgba(15, 122, 56, 0.14); overflow: hidden; animation: logo-breathe 2.4s ease-in-out infinite; z-index: 2; }
+    .loader-logo { position: relative; width: 92px; height: 92px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(11, 107, 48, 0.25), inset 0 0 0 1.5px rgba(11, 107, 48, 0.18); overflow: hidden; animation: logo-breathe 2.4s ease-in-out infinite; z-index: 2; }
     @keyframes logo-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
     .loader-logo img { width: 82%; height: 82%; object-fit: contain; }
     .loader-name { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.3rem; color: var(--forest); letter-spacing: 0.02em; opacity: 0; animation: name-fade 0.7s ease 0.35s forwards; text-align: center; }
     .loader-name small { display: block; font-family: "IBM Plex Mono", monospace; font-weight: 500; font-size: 0.62rem; color: var(--blue); letter-spacing: 0.22em; text-transform: uppercase; text-align: center; margin-top: 6px; }
     @keyframes name-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-    .loader-bar { width: 180px; height: 3px; border-radius: 3px; background: rgba(15, 122, 56, 0.10); overflow: hidden; position: relative; }
+    .loader-bar { width: 180px; height: 3px; border-radius: 3px; background: rgba(11, 107, 48, 0.12); overflow: hidden; position: relative; }
     .loader-bar::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--forest), var(--forest-bright), var(--blue)); border-radius: 3px; animation: bar-fill 1.8s ease-in-out infinite; transform-origin: left; }
     @keyframes bar-fill { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); transform-origin: right; } }
 
@@ -123,32 +123,32 @@
     .navrow { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; max-width: 1180px; margin: 0 auto; }
     .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
     .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.01em; line-height: 1.15; color: #fff; text-align: left; }
-    .brand .word small { display: block; font-family: "IBM Plex Sans", sans-serif; font-weight: 500; font-size: 0.58rem; color: rgba(255,255,255,0.78); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
-    .brand-logo { width: 52px; height: 52px; border-radius: 10px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; box-shadow: 0 4px 14px rgba(0,0,0,0.20); overflow: hidden; flex: none; }
+    .brand .word small { display: block; font-family: "IBM Plex Sans", sans-serif; font-weight: 500; font-size: 0.58rem; color: rgba(255,255,255,0.85); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+    .brand-logo { width: 52px; height: 52px; border-radius: 10px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; box-shadow: 0 4px 14px rgba(0,0,0,0.25); overflow: hidden; flex: none; }
     .brand-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
 
     nav.links { display: flex; gap: 24px; font-size: 0.92rem; font-weight: 600; }
-    nav.links a { color: #fff; border-bottom: 2px solid transparent; padding-bottom: 3px; transition: border-color 0.18s ease, opacity 0.18s; opacity: 0.92; }
+    nav.links a { color: #fff; border-bottom: 2px solid transparent; padding-bottom: 3px; transition: border-color 0.18s ease, opacity 0.18s; opacity: 0.95; }
     nav.links a:hover, nav.links a.active { border-color: var(--forest-bright); opacity: 1; }
 
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 40px; font-size: 0.9rem; font-weight: 700; border: 1.5px solid transparent; background: transparent; color: var(--forest); transition: all 0.2s ease, transform 0.15s ease; cursor: pointer; -webkit-tap-highlight-color: transparent; font-family: inherit; }
     .btn:active { transform: translateY(0) scale(0.98); }
-    .btn.primary { background: var(--forest); border-color: var(--forest); color: #fff; box-shadow: 0 6px 18px rgba(15, 122, 56, 0.32); }
+    .btn.primary { background: var(--forest); border-color: var(--forest); color: #fff; box-shadow: 0 6px 18px rgba(11, 107, 48, 0.38); }
     .btn.primary:hover { background: var(--forest-deep); border-color: var(--forest-deep); transform: translateY(-1px); }
-    .btn.blue { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 6px 18px rgba(26, 63, 143, 0.30); }
+    .btn.blue { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 6px 18px rgba(19, 47, 110, 0.40); }
     .btn.blue:hover { background: var(--blue-deep); border-color: var(--blue-deep); transform: translateY(-1px); }
     .btn.ghost-white { background: #fff; color: var(--forest); border-color: #fff; }
     .btn.ghost-white:hover { background: var(--blue-soft); border-color: var(--blue-soft); color: var(--blue-deep); }
-    .btn.ghost.on-dark { border-color: rgba(255,255,255,0.65); color: #fff; background: rgba(0,0,0,0.15); backdrop-filter: blur(4px); }
-    .btn.ghost.on-dark:hover { background: rgba(255,255,255,0.18); border-color: #fff; }
+    .btn.ghost.on-dark { border-color: rgba(255,255,255,0.75); color: #fff; background: rgba(0,0,0,0.20); backdrop-filter: blur(4px); }
+    .btn.ghost.on-dark:hover { background: rgba(255,255,255,0.20); border-color: #fff; }
 
-    .navtoggle { display: none; background: rgba(255,255,255,0.14); border: 1.5px solid rgba(255,255,255,0.4); border-radius: 40px; padding: 8px 16px; color: #fff; font-weight: 700; font-family: inherit; font-size: 0.85rem; cursor: pointer; }
+    .navtoggle { display: none; background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.45); border-radius: 40px; padding: 8px 16px; color: #fff; font-weight: 700; font-family: inherit; font-size: 0.85rem; cursor: pointer; }
     a.btn.navcta { display: none; }
     @media (min-width: 900px) { a.btn.navcta { display: inline-flex; } }
     @media (max-width: 899px) {
-      nav.links { position: absolute; top: 100%; left: 0; right: 0; background: var(--forest); flex-direction: column; gap: 0; border-bottom: 3px solid var(--blue); display: none; padding: 6px 0; box-shadow: 0 16px 32px rgba(0,0,0,0.18); }
+      nav.links { position: absolute; top: 100%; left: 0; right: 0; background: var(--forest); flex-direction: column; gap: 0; border-bottom: 3px solid var(--blue); display: none; padding: 6px 0; box-shadow: 0 16px 32px rgba(0,0,0,0.22); }
       nav.links.open { display: flex; }
-      nav.links a { padding: 16px 28px; border-bottom: 1px solid rgba(255,255,255,0.14); text-align: left; }
+      nav.links a { padding: 16px 28px; border-bottom: 1px solid rgba(255,255,255,0.18); text-align: left; }
       .navtoggle { display: inline-block; }
     }
 
@@ -164,20 +164,20 @@
     .hero-slide { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--forest-deep); }
     .hero-slide .slide-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
     .hero-slide .vimeo-bg { position: absolute; top: 50%; left: 50%; width: 177.78vh; height: 56.25vw; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); pointer-events: none; z-index: 2; border: 0; }
-    .hero-slide .slide-overlay-gradient { position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, rgba(5,26,14,0.25) 0%, rgba(5,26,14,0.15) 40%, rgba(4,20,11,0.55) 80%, rgba(3,14,8,0.85) 100%); }
+    .hero-slide .slide-overlay-gradient { position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, rgba(5,26,14,0.30) 0%, rgba(5,26,14,0.20) 40%, rgba(4,20,11,0.60) 80%, rgba(3,14,8,0.88) 100%); }
     .hero-slide .slide-badge { position: absolute; z-index: 4; left: 0; right: 0; top: 40px; display: flex; justify-content: center; padding: 0 20px; }
     @media (max-width: 900px) { .hero-slide .slide-badge { top: 28px; } }
-    .hero-slide .slide-badge span { font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; letter-spacing: 0.10em; text-transform: uppercase; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.28); backdrop-filter: blur(8px); color: #fff; padding: 6px 14px; border-radius: 40px; font-weight: 600; text-align: center; }
+    .hero-slide .slide-badge span { font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; letter-spacing: 0.10em; text-transform: uppercase; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.32); backdrop-filter: blur(8px); color: #fff; padding: 6px 14px; border-radius: 40px; font-weight: 600; text-align: center; }
 
     .hero-content { position: absolute; z-index: 5; left: 0; right: 0; bottom: 90px; padding: 0 28px; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none; max-width: 900px; margin: 0 auto; }
     .hero-content > * { pointer-events: auto; }
-    .hero h1.headline { font-size: clamp(1.6rem, 3.2vw, 2.5rem); letter-spacing: -0.015em; color: #fff; max-width: 22ch; text-wrap: balance; line-height: 1.1; text-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.4); }
+    .hero h1.headline { font-size: clamp(1.6rem, 3.2vw, 2.5rem); letter-spacing: -0.015em; color: #fff; max-width: 22ch; text-wrap: balance; line-height: 1.1; text-shadow: 0 4px 24px rgba(0,0,0,0.65), 0 1px 3px rgba(0,0,0,0.50); }
     .hero h1.headline em { font-style: italic; color: var(--forest-bright); font-weight: 500; }
     .hero-ctas { margin-top: 22px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
     @media (max-width: 560px) { .hero-content { bottom: 70px; } .hero h1.headline { font-size: 1.35rem; } .hero-ctas { margin-top: 16px; } }
 
-    .hero-scroll-cue { position: absolute; z-index: 6; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,0.72); font-family: "IBM Plex Mono", monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
-    .hero-scroll-cue .chev { width: 14px; height: 14px; border-right: 1.5px solid rgba(255,255,255,0.72); border-bottom: 1.5px solid rgba(255,255,255,0.72); transform: rotate(45deg); animation: bob 1.8s ease-in-out infinite; }
+    .hero-scroll-cue { position: absolute; z-index: 6; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,0.78); font-family: "IBM Plex Mono", monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+    .hero-scroll-cue .chev { width: 14px; height: 14px; border-right: 1.5px solid rgba(255,255,255,0.78); border-bottom: 1.5px solid rgba(255,255,255,0.78); transform: rotate(45deg); animation: bob 1.8s ease-in-out infinite; }
     @keyframes bob { 0%,100% { transform: translateY(0) rotate(45deg); opacity: 0.6; } 50% { transform: translateY(6px) rotate(45deg); opacity: 1; } }
     @media (max-width: 640px) { .hero-scroll-cue { display: none; } }
 
@@ -185,7 +185,7 @@
     .swiper-pagination-bullet-active { opacity: 1; background: var(--forest-bright); transform: scale(1.3); }
     .hero-slider-full .swiper-pagination { bottom: 60px !important; z-index: 6; }
     @media (max-width: 900px) { .hero-slider-full .swiper-pagination { bottom: 50px !important; } }
-    .swiper-button-next, .swiper-button-prev { color: var(--forest-deep); background: rgba(255,255,255,0.94); backdrop-filter: blur(6px); width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 10px 24px rgba(0,0,0,0.22); transition: all 0.2s; }
+    .swiper-button-next, .swiper-button-prev { color: var(--forest-deep); background: rgba(255,255,255,0.96); backdrop-filter: blur(6px); width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 10px 24px rgba(0,0,0,0.28); transition: all 0.2s; }
     .swiper-button-next:hover, .swiper-button-prev:hover { background: #fff; transform: scale(1.07); }
     .swiper-button-next:after, .swiper-button-prev:after { font-size: 15px; font-weight: bold; }
 
@@ -243,11 +243,11 @@
     .section-head .desc { color: var(--ink-soft); max-width: 56ch; font-weight: 500; }
 
     /* ============================================================
-       ABOUT — text left, image right
+       ABOUT — text left, LANDSCAPE image right
        ============================================================ */
     .about-cols {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 56px;
       align-items: center;
       text-align: left;
@@ -262,7 +262,7 @@
       border-radius: 20px;
       overflow: hidden;
       box-shadow: var(--shadow-lg);
-      aspect-ratio: 4 / 5;
+      aspect-ratio: 16 / 10;   /* LANDSCAPE format */
       background: var(--forest-deep);
       border: 1px solid var(--line);
     }
@@ -271,14 +271,14 @@
     .about-image::after {
       content: "";
       position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 60%, rgba(3,14,8,0.35) 100%);
+      background: linear-gradient(180deg, transparent 60%, rgba(3,14,8,0.40) 100%);
       pointer-events: none;
     }
     .about-image-badge {
       position: absolute;
       bottom: 18px; left: 18px;
       z-index: 2;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.96);
       border-radius: 40px;
       padding: 8px 16px;
       font-family: "IBM Plex Mono", monospace;
@@ -287,11 +287,11 @@
       text-transform: uppercase;
       color: var(--forest);
       font-weight: 700;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.22);
     }
     .disciplines { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
     .disciplines li { font-size: 0.82rem; padding: 7px 14px; border: 1.5px solid var(--line-strong); border-radius: 40px; color: var(--forest); background: var(--paper-raise); font-weight: 600; transition: all 0.3s cubic-bezier(.2,.7,.3,1); }
-    .disciplines li:hover { background: var(--forest); color: #fff; border-color: var(--forest); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(15, 122, 56, 0.28); }
+    .disciplines li:hover { background: var(--forest); color: #fff; border-color: var(--forest); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(11, 107, 48, 0.32); }
 
     /* ============================================================
        FLIP GALLERY
@@ -307,14 +307,14 @@
     .flip-card-front { background: var(--card); z-index: 2; }
     .flip-card-front img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(.2,.7,.3,1); }
     .flip-card:hover .flip-card-front img { transform: scale(1.05); }
-    .flip-hint { position: absolute; right: 12px; top: 12px; z-index: 3; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.92); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "IBM Plex Mono", monospace; font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); pointer-events: none; transition: opacity 0.3s ease; }
+    .flip-hint { position: absolute; right: 12px; top: 12px; z-index: 3; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.94); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "IBM Plex Mono", monospace; font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.18); pointer-events: none; transition: opacity 0.3s ease; }
     .flip-card:hover .flip-hint { opacity: 0; }
     .flip-card-back { transform: rotateY(180deg); background: linear-gradient(155deg, var(--forest) 0%, var(--forest-deep) 55%, var(--blue-deep) 100%); color: #fff; padding: 22px 22px 20px; display: flex; flex-direction: column; justify-content: center; gap: 10px; position: relative; text-align: center; align-items: center; }
-    .flip-card-back::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 15%, rgba(34, 168, 85, 0.28) 0%, transparent 55%), radial-gradient(circle at 15% 90%, rgba(26, 63, 143, 0.32) 0%, transparent 55%); pointer-events: none; }
+    .flip-card-back::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 15%, rgba(30, 158, 78, 0.32) 0%, transparent 55%), radial-gradient(circle at 15% 90%, rgba(19, 47, 110, 0.36) 0%, transparent 55%); pointer-events: none; }
     .flip-card-back .flip-badge { font-family: "IBM Plex Mono", monospace; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--forest-bright); position: relative; z-index: 1; }
     .flip-card-back h4 { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; color: #fff; line-height: 1.15; position: relative; z-index: 1; }
-    .flip-card-back p { font-size: 0.85rem; color: rgba(255,255,255,0.86); font-weight: 500; line-height: 1.5; position: relative; z-index: 1; }
-    .flip-card-back .flip-footer { margin-top: 6px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.20); font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; color: rgba(255,255,255,0.75); letter-spacing: 0.06em; font-weight: 500; position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .flip-card-back p { font-size: 0.85rem; color: rgba(255,255,255,0.90); font-weight: 500; line-height: 1.5; position: relative; z-index: 1; }
+    .flip-card-back .flip-footer { margin-top: 6px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.24); font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; color: rgba(255,255,255,0.80); letter-spacing: 0.06em; font-weight: 500; position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; width: 100%; }
 
     /* ============================================================
        LOGO MARQUEE
@@ -359,13 +359,13 @@
        TEAM
        ============================================================ */
     .lead-card { display: grid; grid-template-columns: 320px 1fr; gap: 48px; align-items: center; padding: 40px; background: linear-gradient(135deg, var(--paper-raise) 0%, var(--paper-cool) 100%); border: 1px solid var(--line); border-left: 5px solid var(--blue); border-radius: 20px; box-shadow: var(--shadow-md); margin-bottom: 48px; position: relative; overflow: hidden; text-align: left; }
-    .lead-card::before { content: ""; position: absolute; top: -60%; right: -20%; width: 70%; height: 200%; background: radial-gradient(circle, rgba(15, 122, 56, 0.08) 0%, transparent 60%); pointer-events: none; animation: rotateGlow 25s linear infinite; }
+    .lead-card::before { content: ""; position: absolute; top: -60%; right: -20%; width: 70%; height: 200%; background: radial-gradient(circle, rgba(11, 107, 48, 0.10) 0%, transparent 60%); pointer-events: none; animation: rotateGlow 25s linear infinite; }
     @media (max-width: 820px) { .lead-card { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; } }
     @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .lead-photo { position: relative; aspect-ratio: 1 / 1; border-radius: 18px; overflow: hidden; background: var(--forest-deep); box-shadow: var(--shadow-lg); z-index: 1; }
     .lead-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(.2,.7,.3,1); }
     .lead-photo:hover img { transform: scale(1.05); }
-    .lead-badge { position: absolute; top: 16px; left: 16px; z-index: 2; font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; background: var(--forest); color: #fff; padding: 6px 14px; border-radius: 40px; box-shadow: 0 4px 12px rgba(15, 122, 56, 0.40); }
+    .lead-badge { position: absolute; top: 16px; left: 16px; z-index: 2; font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; background: var(--forest); color: #fff; padding: 6px 14px; border-radius: 40px; box-shadow: 0 4px 12px rgba(11, 107, 48, 0.45); }
     .lead-details { position: relative; z-index: 1; }
     .lead-tag { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--blue); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
     .lead-name { font-family: "Fraunces", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--forest); margin-bottom: 8px; line-height: 1.1; }
@@ -392,7 +392,7 @@
        ============================================================ */
     .sector-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; justify-content: center; }
     .sector-tabs button { font-family: inherit; font-size: 0.82rem; font-weight: 600; background: transparent; border: 1.5px solid var(--line-strong); border-radius: 40px; padding: 8px 20px; cursor: pointer; color: var(--forest); transition: all 0.2s cubic-bezier(.2,.7,.3,1); -webkit-tap-highlight-color: transparent; }
-    .sector-tabs button.active, .sector-tabs button:hover { background: var(--blue); color: #fff; border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(26, 63, 143, 0.28); }
+    .sector-tabs button.active, .sector-tabs button:hover { background: var(--blue); color: #fff; border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(19, 47, 110, 0.32); }
     .ledger { border-top: 2px solid var(--line-strong); }
     .proj-row { display: grid; grid-template-columns: 380px 1fr; gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--line); transition: background 0.3s ease; align-items: center; text-align: left; }
     @media (max-width: 900px) { .proj-row { grid-template-columns: 260px 1fr; gap: 24px; padding: 28px 0; } }
@@ -433,49 +433,49 @@
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
     @media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
     .contact-card { background: linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 65%, var(--blue-deep) 100%); color: #fff; padding: 40px 36px; border-radius: 16px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
-    .contact-card::before { content: ""; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(34, 168, 85, 0.12) 0%, transparent 60%); animation: rotateGlow 20s linear infinite; pointer-events: none; }
-    .contact-card .row { display: flex; justify-content: space-between; gap: 14px; padding: 15px 0; border-top: 1px solid rgba(255,255,255,0.20); font-size: 0.94rem; transition: transform 0.25s ease; position: relative; z-index: 1; }
+    .contact-card::before { content: ""; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(30, 158, 78, 0.14) 0%, transparent 60%); animation: rotateGlow 20s linear infinite; pointer-events: none; }
+    .contact-card .row { display: flex; justify-content: space-between; gap: 14px; padding: 15px 0; border-top: 1px solid rgba(255,255,255,0.22); font-size: 0.94rem; transition: transform 0.25s ease; position: relative; z-index: 1; }
     .contact-card .row:hover { transform: translateX(4px); }
     .contact-card .row:first-of-type { border-top: none; }
-    .contact-card .label { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; opacity: 0.82; letter-spacing: 0.08em; font-weight: 600; }
+    .contact-card .label { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; opacity: 0.85; letter-spacing: 0.08em; font-weight: 600; }
     .contact-card a { color: #fff; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
     .contact-form label { display: block; font-size: 0.78rem; color: var(--forest); margin-bottom: 6px; font-weight: 700; letter-spacing: 0.02em; text-align: left; }
     .contact-form input, .contact-form textarea { width: 100%; padding: 14px 16px; margin-bottom: 18px; background: var(--paper-raise); border: 1.5px solid var(--line-strong); border-radius: 8px; color: var(--forest); font-family: inherit; font-size: 0.92rem; transition: border 0.25s, box-shadow 0.25s, transform 0.25s; font-weight: 500; text-align: left; }
-    .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--ink-soft); opacity: 0.65; }
-    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14); transform: translateY(-1px); }
+    .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--ink-soft); opacity: 0.70; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.18); transform: translateY(-1px); }
     .contact-form textarea { min-height: 110px; resize: vertical; }
 
     /* ============================================================
        WHATSAPP BUTTON
        ============================================================ */
-    .whatsapp-fab { position: fixed; right: 22px; bottom: 22px; z-index: 90; display: flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 12px 20px 12px 12px; border-radius: 40px; box-shadow: 0 12px 28px rgba(37, 211, 102, 0.42); font-weight: 700; font-size: 0.92rem; transition: transform 0.3s cubic-bezier(.2,.7,.3,1), box-shadow 0.3s ease; animation: waPulse 2.5s ease-in-out infinite; }
-    @keyframes waPulse { 0%, 100% { box-shadow: 0 12px 28px rgba(37, 211, 102, 0.42); } 50% { box-shadow: 0 12px 38px rgba(37, 211, 102, 0.62); } }
-    .whatsapp-fab:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 18px 40px rgba(37, 211, 102, 0.55); animation-play-state: paused; }
+    .whatsapp-fab { position: fixed; right: 22px; bottom: 22px; z-index: 90; display: flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 12px 20px 12px 12px; border-radius: 40px; box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45); font-weight: 700; font-size: 0.92rem; transition: transform 0.3s cubic-bezier(.2,.7,.3,1), box-shadow 0.3s ease; animation: waPulse 2.5s ease-in-out infinite; }
+    @keyframes waPulse { 0%, 100% { box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45); } 50% { box-shadow: 0 12px 38px rgba(37, 211, 102, 0.65); } }
+    .whatsapp-fab:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 18px 40px rgba(37, 211, 102, 0.58); animation-play-state: paused; }
     .whatsapp-fab:active { transform: translateY(0) scale(0.98); }
-    .whatsapp-fab .wa-icon { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.22); display: flex; align-items: center; justify-content: center; flex: none; }
+    .whatsapp-fab .wa-icon { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; flex: none; }
     .whatsapp-fab .wa-icon svg { width: 22px; height: 22px; fill: #fff; }
     @media (max-width: 600px) { .whatsapp-fab { padding: 0; width: 58px; height: 58px; right: 18px; bottom: 18px; justify-content: center; } .whatsapp-fab .wa-label { display: none; } .whatsapp-fab .wa-icon { width: 58px; height: 58px; background: transparent; } .whatsapp-fab .wa-icon svg { width: 30px; height: 30px; } }
 
     /* ============================================================
        FOOTER
        ============================================================ */
-    footer { padding: 48px 0 40px; border-top: 3px solid var(--blue); background: var(--forest-deep); color: rgba(255,255,255,0.86); }
+    footer { padding: 48px 0 40px; border-top: 3px solid var(--blue); background: var(--forest-deep); color: rgba(255,255,255,0.90); }
     .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 32px; text-align: left; }
     @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; } }
     .foot-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
     @media (max-width: 760px) { .foot-brand { justify-content: center; } }
-    .foot-logo { width: 60px; height: 60px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.02em; box-shadow: 0 6px 16px rgba(0,0,0,0.25); overflow: hidden; flex: none; transition: transform 0.3s cubic-bezier(.2,.7,.3,1); }
+    .foot-logo { width: 60px; height: 60px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.02em; box-shadow: 0 6px 16px rgba(0,0,0,0.30); overflow: hidden; flex: none; transition: transform 0.3s cubic-bezier(.2,.7,.3,1); }
     .foot-logo:hover { transform: rotate(-6deg) scale(1.05); }
     .foot-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
     .foot-brand-text .name { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; color: #fff; line-height: 1.15; }
     .foot-brand-text .tagline { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; color: var(--forest-bright); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
-    .foot-desc { font-size: 0.88rem; line-height: 1.6; color: rgba(255,255,255,0.72); max-width: 38ch; }
+    .foot-desc { font-size: 0.88rem; line-height: 1.6; color: rgba(255,255,255,0.78); max-width: 38ch; }
     .foot-col h4 { font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; color: var(--forest-bright); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; font-weight: 700; }
     .foot-col ul { list-style: none; }
-    .foot-col li { font-size: 0.88rem; padding: 6px 0; color: rgba(255,255,255,0.78); }
-    .foot-col a { color: rgba(255,255,255,0.78); transition: color 0.25s ease, transform 0.25s ease; display: inline-block; }
+    .foot-col li { font-size: 0.88rem; padding: 6px 0; color: rgba(255,255,255,0.84); }
+    .foot-col a { color: rgba(255,255,255,0.84); transition: color 0.25s ease, transform 0.25s ease; display: inline-block; }
     .foot-col a:hover { color: #fff; transform: translateX(4px); }
-    .foot-bottom { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 24px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px; font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 500; text-align: center; }
+    .foot-bottom { border-top: 1px solid rgba(255,255,255,0.18); padding-top: 24px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px; font-size: 0.8rem; color: rgba(255,255,255,0.68); font-weight: 500; text-align: center; }
 
     ::-webkit-scrollbar { height: 10px; width: 10px; }
     ::-webkit-scrollbar-track { background: var(--paper-raise); }
@@ -512,9 +512,9 @@
       .counter-label { font-size: 0.68rem; }
       .counter-sub { font-size: 0.76rem; }
 
-      /* About: stack with image on top of text or below — image first reads better on mobile */
+      /* About: stack with landscape image */
       .about-cols { grid-template-columns: 1fr; gap: 24px; }
-      .about-image { aspect-ratio: 4 / 3; }
+      .about-image { aspect-ratio: 16 / 9; }
       .about-text p { font-size: 0.95rem; }
       .about-text p:first-child { font-size: 1rem; }
       .disciplines li { font-size: 0.76rem; padding: 6px 12px; }
@@ -759,19 +759,19 @@
   </div>
 
   <!-- ============================================================
-       ABOUT
+       ABOUT — revised intro, landscape image
        ============================================================ -->
   <section id="about">
     <div class="wrap">
       <div class="section-head reveal-fade">
         <div class="tag">01 — Introduction</div>
-        <h2 class="reveal-text"><span>A multidisciplinary team, built for<br>the field, not the boardroom.</span></h2>
+        <h2 class="reveal-text"><span>Technical depth, delivered<br>without the corporate distance.</span></h2>
       </div>
       <div class="about-cols">
         <div class="about-text reveal-slide-left">
-          <p>Kogaso Consultants Limited is a Kenyan company providing professional and accountable Environment and Social Safeguards, Health and Safety, Fire Safety, Agriculture and Livestock services — built to enhance our clients' corporate image, meet EHS legislation (OSHA, EMCA and related statutes), and cut down on health and safety incidents before they happen.</p>
-          <p>The company is registered under the Companies Act Cap 486 and the Registration of Business Names Act Cap 499, and draws its personnel from professional bodies, technical institutions, relevant NGOs and government departments — environmentalists, safety and health specialists, a veterinary doctor, animal scientists, agronomists, ecologists, physicians, energy experts, trainers, safety managers and engineers across disciplines.</p>
-          <p>Kogaso delivers cost-effective, bespoke solutions that are technically sound and aligned with both client expectations and global best-practice EHS standards.</p>
+          <p>Kogaso Consultants Limited is a Kenyan firm built around a simple idea: compliance should be practical, not theoretical. We provide Environment and Social Safeguards, Health and Safety, Fire Safety, Agriculture and Livestock services that are technically rigorous, legally sound, and genuinely useful to the people running projects on the ground.</p>
+          <p>Our team draws from professional bodies, technical institutions, NGOs and government departments — environmentalists, safety and health specialists, a veterinary doctor, animal scientists, agronomists, ecologists, physicians, energy experts, trainers, safety managers and engineers. We are registered under the Companies Act Cap 486 and the Registration of Business Names Act Cap 499.</p>
+          <p>We work alongside our clients, not above them. That means cost-effective, bespoke solutions that meet statutory requirements (OSHA, EMCA and related statutes) while aligning with international best practice — and a team that is comfortable in a boardroom, a training room, or a construction site at 6 a.m.</p>
           <ul class="disciplines reveal-stagger">
             <li>Environmentalists</li>
             <li>Safety &amp; Health Specialists</li>
@@ -786,7 +786,7 @@
           </ul>
         </div>
         <div class="about-image reveal-slide-right">
-          <img src="assets/about-image.jpg" alt="Kogaso Consultants team on site">
+          <img src="assets/about-image.jpg" alt="Kogaso Consultants team on site — landscape view">
           <div class="about-image-badge">On site · Kenya</div>
         </div>
       </div>
@@ -1568,7 +1568,7 @@
   // ===== HEADER SHADOW =====
   const siteHeader = document.querySelector('header.site');
   const onScroll = () => {
-    if (window.scrollY > 12) { siteHeader.style.boxShadow = '0 12px 28px rgba(7,90,40,0.28)'; }
+    if (window.scrollY > 12) { siteHeader.style.boxShadow = '0 12px 28px rgba(6,74,32,0.32)'; }
     else { siteHeader.style.boxShadow = ''; }
   };
   window.addEventListener('scroll', onScroll, { passive: true });
