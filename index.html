@@ -92,7 +92,92 @@
     }
 
     /* ============================================================
-       POPUP POSTER — SIMPLIFIED
+       FLOATING NEMA BADGE — FIXED TO VIEWPORT, FLOATS ACROSS PAGE
+       ============================================================ */
+    .nema-float {
+      position: fixed;
+      z-index: 80;
+      top: 78px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.97);
+      border-radius: 60px;
+      padding: 12px 26px 12px 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.30), 0 0 0 4px rgba(30, 158, 78, 0.22);
+      backdrop-filter: blur(10px);
+      border: 2.5px solid var(--forest-bright);
+      animation: floatBadgeAcross 4s ease-in-out infinite;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: default;
+      pointer-events: auto;
+    }
+    .nema-float:hover {
+      animation-play-state: paused;
+      transform: scale(1.06);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.38), 0 0 0 6px rgba(30, 158, 78, 0.32);
+    }
+    @keyframes floatBadgeAcross {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      25% { transform: translateY(-8px) translateX(-4px); }
+      50% { transform: translateY(-14px) translateX(0px); }
+      75% { transform: translateY(-8px) translateX(4px); }
+    }
+    .nema-float img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #fff;
+      padding: 4px;
+      border: 2px solid var(--line-strong);
+      flex: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+    .nema-float .nema-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.2;
+    }
+    .nema-float .nema-text .nema-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .nema-float .nema-text .nema-value {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--forest);
+      letter-spacing: -0.01em;
+    }
+    /* Hide on very small screens to avoid clutter */
+    @media (max-width: 560px) {
+      .nema-float { top: 66px; right: 10px; padding: 8px 16px 8px 10px; gap: 8px; border-width: 1.5px; box-shadow: 0 10px 30px rgba(0,0,0,0.26), 0 0 0 3px rgba(30, 158, 78, 0.20); }
+      .nema-float img { width: 36px; height: 36px; padding: 2px; }
+      .nema-float .nema-text .nema-label { font-size: 0.46rem; letter-spacing: 0.08em; }
+      .nema-float .nema-text .nema-value { font-size: 0.76rem; }
+      @keyframes floatBadgeAcross {
+        0%, 100% { transform: translateY(0px) translateX(0px); }
+        25% { transform: translateY(-5px) translateX(-3px); }
+        50% { transform: translateY(-9px) translateX(0px); }
+        75% { transform: translateY(-5px) translateX(3px); }
+      }
+    }
+    @media (max-width: 380px) {
+      .nema-float .nema-text .nema-label { display: none; }
+      .nema-float { padding: 6px 12px 6px 8px; gap: 6px; }
+      .nema-float img { width: 30px; height: 30px; }
+      .nema-float .nema-text .nema-value { font-size: 0.68rem; }
+    }
+
+    /* ============================================================
+       POPUP POSTER
        ============================================================ */
     .poster-modal { position: fixed; inset: 0; z-index: 500; background: rgba(7, 20, 12, 0.80); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s ease; width: 100%; }
     .poster-modal.show { opacity: 1; visibility: visible; }
@@ -106,7 +191,7 @@
     .poster-ctas .btn { min-width: 160px; }
 
     /* ============================================================
-       LOADER — WITH DIAGONAL CIRCLE + LEAF ANIMATION
+       LOADER
        ============================================================ */
     .loader { position: fixed; inset: 0; z-index: 9999; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 28px; transition: opacity 0.6s ease, visibility 0.6s ease; overflow: hidden; width: 100%; }
     .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -215,15 +300,16 @@
     @keyframes bar-fill { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); transform-origin: right; } }
 
     /* ============================================================
-       HEADER — Mobile-first app-like
+       HEADER — BIGGER LOGO
        ============================================================ */
     header.site { position: sticky; top: 0; z-index: 50; background: var(--forest); border-bottom: 3px solid var(--blue); transition: box-shadow 0.25s ease; width: 100%; }
-    .navrow { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); max-width: 1180px; margin: 0 auto; width: 100%; }
-    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.01em; line-height: 1.1; color: #fff; text-align: left; }
-    .brand .word small { display: block; font-family: "IBM Plex Sans", sans-serif; font-weight: 500; font-size: 0.5rem; color: rgba(255,255,255,0.85); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
-    .brand-logo { width: 44px; height: 44px; border-radius: 10px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; box-shadow: 0 4px 14px rgba(0,0,0,0.25); overflow: hidden; flex: none; }
-    .brand-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+    .navrow { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); max-width: 1180px; margin: 0 auto; width: 100%; }
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.01em; line-height: 1.1; color: #fff; text-align: left; }
+    .brand .word small { display: block; font-family: "IBM Plex Sans", sans-serif; font-weight: 500; font-size: 0.56rem; color: rgba(255,255,255,0.85); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
+    .brand-logo { width: 68px; height: 68px; border-radius: 14px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.4rem; letter-spacing: -0.02em; box-shadow: 0 6px 20px rgba(0,0,0,0.32); overflow: hidden; flex: none; transition: transform 0.3s ease; }
+    .brand-logo:hover { transform: scale(1.04); }
+    .brand-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
 
     nav.links { display: flex; gap: 22px; font-size: 0.92rem; font-weight: 600; }
     nav.links a { color: #fff; border-bottom: 2px solid transparent; padding-bottom: 3px; transition: border-color 0.18s ease, opacity 0.18s; opacity: 0.95; }
@@ -243,7 +329,6 @@
     .navtoggle { display: none; background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.45); border-radius: 40px; padding: 8px 16px; min-height: 44px; color: #fff; font-weight: 700; font-family: inherit; font-size: 0.85rem; cursor: pointer; }
     a.btn.navcta { display: none; }
 
-    /* Mobile menu — app-like bottom sheet — FIXED to remove left margin */
     @media (max-width: 899px) {
       nav.links {
         position: fixed;
@@ -314,69 +399,6 @@
     .hero-slide .slide-badge { position: absolute; z-index: 4; left: 0; right: 0; top: 30px; display: flex; justify-content: center; padding: 0 20px; }
     @media (max-width: 900px) { .hero-slide .slide-badge { top: 22px; } }
     .hero-slide .slide-badge span { font-family: "IBM Plex Mono", monospace; font-size: 0.62rem; letter-spacing: 0.10em; text-transform: uppercase; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.32); backdrop-filter: blur(8px); color: #fff; padding: 6px 14px; border-radius: 40px; font-weight: 600; text-align: center; }
-
-    /* NEMA badge on hero */
-    .hero-nema-badge {
-      position: absolute;
-      z-index: 6;
-      top: 30px;
-      right: 30px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.94);
-      border-radius: 50px;
-      padding: 8px 18px 8px 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-      backdrop-filter: blur(6px);
-      border: 2px solid var(--forest-bright);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .hero-nema-badge:hover {
-      transform: scale(1.04);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.30);
-    }
-    .hero-nema-badge img {
-      width: 38px;
-      height: 38px;
-      object-fit: contain;
-      border-radius: 50%;
-      background: #fff;
-      padding: 3px;
-      border: 1.5px solid var(--line);
-    }
-    .hero-nema-badge .nema-text {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      line-height: 1.15;
-    }
-    .hero-nema-badge .nema-text .nema-label {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 0.55rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--blue);
-    }
-    .hero-nema-badge .nema-text .nema-value {
-      font-family: "Fraunces", serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--forest);
-    }
-    @media (max-width: 900px) {
-      .hero-nema-badge { top: 18px; right: 16px; padding: 6px 14px 6px 10px; gap: 8px; }
-      .hero-nema-badge img { width: 32px; height: 32px; }
-      .hero-nema-badge .nema-text .nema-label { font-size: 0.48rem; }
-      .hero-nema-badge .nema-text .nema-value { font-size: 0.75rem; }
-    }
-    @media (max-width: 560px) {
-      .hero-nema-badge { top: 14px; right: 12px; padding: 5px 10px 5px 8px; gap: 6px; border-width: 1.5px; }
-      .hero-nema-badge img { width: 26px; height: 26px; padding: 2px; }
-      .hero-nema-badge .nema-text .nema-label { font-size: 0.42rem; }
-      .hero-nema-badge .nema-text .nema-value { font-size: 0.65rem; }
-    }
 
     .hero-content { position: absolute; z-index: 5; left: 0; right: 0; bottom: 70px; padding: 0 24px; display: flex; flex-direction: column; align-items: center; text-align: center; pointer-events: none; max-width: 900px; margin: 0 auto; }
     .hero-content > * { pointer-events: auto; }
@@ -450,7 +472,7 @@
     .section-head .desc { color: var(--ink-soft); max-width: 56ch; font-weight: 500; }
 
     /* ============================================================
-       ABOUT — text left, LANDSCAPE image right
+       ABOUT
        ============================================================ */
     .about-cols {
       display: grid;
@@ -671,10 +693,10 @@
     @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; } }
     .foot-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
     @media (max-width: 760px) { .foot-brand { justify-content: center; } }
-    .foot-logo { width: 60px; height: 60px; border-radius: 12px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.02em; box-shadow: 0 6px 16px rgba(0,0,0,0.30); overflow: hidden; flex: none; transition: transform 0.3s cubic-bezier(.2,.7,.3,1); }
+    .foot-logo { width: 78px; height: 78px; border-radius: 14px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--forest); font-family: "Fraunces", serif; font-weight: 700; font-size: 1.5rem; letter-spacing: -0.02em; box-shadow: 0 6px 18px rgba(0,0,0,0.32); overflow: hidden; flex: none; transition: transform 0.3s cubic-bezier(.2,.7,.3,1); }
     .foot-logo:hover { transform: rotate(-6deg) scale(1.05); }
-    .foot-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
-    .foot-brand-text .name { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; color: #fff; line-height: 1.15; }
+    .foot-logo img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+    .foot-brand-text .name { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.25rem; color: #fff; line-height: 1.15; }
     .foot-brand-text .tagline { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; color: var(--forest-bright); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
     .foot-desc { font-size: 0.88rem; line-height: 1.6; color: rgba(255,255,255,0.78); max-width: 38ch; }
     @media (max-width: 760px) { .foot-desc { margin: 0 auto; } }
@@ -692,14 +714,14 @@
     ::-webkit-scrollbar-thumb:hover { background: var(--forest); }
 
     /* ============================================================
-       MOBILE-ONLY REFINEMENTS — APP-LIKE STABILITY
+       MOBILE-ONLY REFINEMENTS
        ============================================================ */
     @media (max-width: 640px) {
       .wrap { padding: 0 16px; width: 100%; }
-      .navrow { padding: 8px 16px; width: 100%; }
-      .brand-logo { width: 40px; height: 40px; border-radius: 8px; }
-      .brand .word { font-size: 0.92rem; }
-      .brand .word small { font-size: 0.46rem; letter-spacing: 0.04em; }
+      .navrow { padding: 10px 16px; width: 100%; }
+      .brand-logo { width: 56px; height: 56px; border-radius: 12px; }
+      .brand .word { font-size: 1rem; }
+      .brand .word small { font-size: 0.5rem; letter-spacing: 0.04em; }
       .navtoggle { padding: 8px 14px; font-size: 0.8rem; }
       section { padding: 44px 0; }
       .section-head { margin-bottom: 26px; gap: 8px; }
@@ -751,7 +773,7 @@
       .poster-ctas { flex-direction: column; }
       .poster-ctas .btn { width: 100%; justify-content: center; }
       .foot-grid { gap: 22px; }
-      .foot-brand-text .name { font-size: 1rem; }
+      .foot-brand-text .name { font-size: 1.1rem; }
       .foot-desc { font-size: 0.82rem; }
       .hero-slider-full { min-height: 500px; }
       .hero-content { bottom: 50px; padding: 0 16px; }
@@ -761,6 +783,7 @@
       .loader-logo { width: 72px; height: 72px; }
       .loader-name { font-size: 1.1rem; }
       .loader-bar { width: 140px; }
+      .foot-logo { width: 64px; height: 64px; }
     }
 
     @media (max-width: 400px) {
@@ -781,13 +804,25 @@
       .logos-track { animation: none; }
       .reveal-fade, .reveal-slide-left, .reveal-slide-right, .reveal-stagger > *, .reveal-text span { opacity: 1 !important; transform: none !important; }
       .loader-ring-diagonal, .loader-ring-diagonal-reverse, .loader-leaf { animation: none !important; }
+      .nema-float { animation: none !important; }
     }
   </style>
 </head>
 <body class="loading">
 
 <!-- ============================================================
-     POPUP POSTER — SIMPLIFIED
+     FLOATING NEMA BADGE — FIXED TO VIEWPORT ACROSS ENTIRE PAGE
+     ============================================================ -->
+<div class="nema-float" role="complementary" aria-label="NEMA Registered Lead Expert certification">
+  <img src="assets/nema-logo.png" alt="NEMA logo">
+  <div class="nema-text">
+    <span class="nema-label">NEMA Registered</span>
+    <span class="nema-value">Lead Expert</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     POPUP POSTER
      ============================================================ -->
 <div class="poster-modal" id="posterModal" role="dialog" aria-modal="true" aria-labelledby="posterTitle">
   <div class="poster-box">
@@ -803,7 +838,7 @@
 </div>
 
 <!-- ============================================================
-     LOADER — WITH DIAGONAL CIRCLE + LEAF ANIMATION
+     LOADER
      ============================================================ -->
 <div class="loader" id="loader" role="status" aria-label="Loading Kogaso Consultants">
   <div class="loader-stage">
@@ -855,7 +890,7 @@
 <main id="top">
 
   <!-- ============================================================
-       HERO — WITH NEMA BADGE
+       HERO
        ============================================================ -->
   <section class="hero">
     <div class="hero-slider-full">
@@ -866,15 +901,6 @@
             <img class="hero-poster-img" src="assets/hero-poster.jpg" alt="Kogaso Consultants team on an active site" loading="eager">
             <div class="slide-overlay-gradient"></div>
             <div class="slide-badge"><span>EMCA 1999 · §58</span></div>
-
-            <div class="hero-nema-badge">
-              <img src="assets/nema-logo.png" alt="NEMA Registered Lead Expert">
-              <div class="nema-text">
-                <span class="nema-label">NEMA Registered</span>
-                <span class="nema-value">Lead Expert</span>
-              </div>
-            </div>
-
           </div>
 
         </div>
@@ -1107,7 +1133,7 @@
   </section>
 
   <!-- ============================================================
-       CLIENT LOGOS — MOVED AFTER GALLERY
+       CLIENT LOGOS
        ============================================================ -->
   <section id="clients" style="background: var(--paper-cool); border-top: 1px solid var(--line-blue); overflow: hidden;">
     <div class="wrap">
@@ -1680,7 +1706,7 @@
     }
   })();
 
-  // ===== POPUP POSTER — SIMPLIFIED =====
+  // ===== POPUP POSTER =====
   (function () {
     const modal = document.getElementById('posterModal');
     const closeBtn = document.getElementById('posterClose');
@@ -1791,7 +1817,7 @@
     revealTargets.forEach((el) => el.classList.add('in-view'));
   }
 
-  // ===== MOBILE NAV — APP-LIKE =====
+  // ===== MOBILE NAV =====
   const toggle = document.getElementById('navToggle');
   const links = document.getElementById('navLinks');
   const body = document.body;
@@ -1898,7 +1924,7 @@
     });
   })();
 
-  // ===== FLIP GALLERY — tap on touch =====
+  // ===== FLIP GALLERY =====
   const isTouch = window.matchMedia('(hover: none)').matches;
   if (isTouch) {
     document.querySelectorAll('.flip-card').forEach(card => {
