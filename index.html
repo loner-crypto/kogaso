@@ -95,7 +95,7 @@
     .poster-box { position: relative; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; background: #fff; border-radius: 20px; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.50); border-top: 5px solid var(--blue); transform: scale(0.92) translateY(20px); transition: transform 0.4s cubic-bezier(.2,.7,.3,1); }
     .poster-modal.show .poster-box { transform: scale(1) translateY(0); }
     .poster-img { width: 100%; display: block; background: var(--card); min-height: 200px; object-fit: cover; }
-    .poster-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.96); border: 1px solid var(--line); color: var(--forest); font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.22); transition: all 0.2s ease; }
+    .poster-close { position: absolute; top: 14px; right: 14px; z-index: 3; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.96); border: 1px solid var(--line); color: var(--forest); font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(0,0,0,0.22); transition: all 0.2s ease; }
     .poster-close:hover { background: var(--forest); color: #fff; border-color: var(--forest); transform: rotate(90deg); }
     .poster-body { padding: 26px 28px 28px; text-align: center; }
     .poster-body .poster-tag { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
@@ -126,7 +126,7 @@
        HEADER
        ============================================================ */
     header.site { position: sticky; top: 0; z-index: 50; background: var(--forest); border-bottom: 3px solid var(--blue); transition: box-shadow 0.25s ease; }
-    .navrow { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; max-width: 1180px; margin: 0 auto; }
+    .navrow { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; padding-left: max(28px, env(safe-area-inset-left)); padding-right: max(28px, env(safe-area-inset-right)); max-width: 1180px; margin: 0 auto; }
     .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
     .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.01em; line-height: 1.15; color: #fff; text-align: left; }
     .brand .word small { display: block; font-family: "IBM Plex Sans", sans-serif; font-weight: 500; font-size: 0.58rem; color: rgba(255,255,255,0.85); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
@@ -137,7 +137,7 @@
     nav.links a { color: #fff; border-bottom: 2px solid transparent; padding-bottom: 3px; transition: border-color 0.18s ease, opacity 0.18s; opacity: 0.95; }
     nav.links a:hover, nav.links a.active { border-color: var(--forest-bright); opacity: 1; }
 
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 40px; font-size: 0.9rem; font-weight: 700; border: 1.5px solid transparent; background: transparent; color: var(--forest); transition: all 0.2s ease, transform 0.15s ease; cursor: pointer; -webkit-tap-highlight-color: transparent; font-family: inherit; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 22px; min-height: 44px; border-radius: 40px; font-size: 0.9rem; font-weight: 700; border: 1.5px solid transparent; background: transparent; color: var(--forest); transition: all 0.2s ease, transform 0.15s ease; cursor: pointer; -webkit-tap-highlight-color: transparent; font-family: inherit; }
     .btn:active { transform: translateY(0) scale(0.98); }
     .btn.primary { background: var(--forest); border-color: var(--forest); color: #fff; box-shadow: 0 6px 18px rgba(11, 107, 48, 0.38); }
     .btn.primary:hover { background: var(--forest-deep); border-color: var(--forest-deep); transform: translateY(-1px); }
@@ -148,7 +148,7 @@
     .btn.ghost.on-dark { border-color: rgba(255,255,255,0.75); color: #fff; background: rgba(0,0,0,0.20); backdrop-filter: blur(4px); }
     .btn.ghost.on-dark:hover { background: rgba(255,255,255,0.20); border-color: #fff; }
 
-    .navtoggle { display: none; background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.45); border-radius: 40px; padding: 8px 16px; color: #fff; font-weight: 700; font-family: inherit; font-size: 0.85rem; cursor: pointer; }
+    .navtoggle { display: none; background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.45); border-radius: 40px; padding: 8px 16px; min-height: 44px; color: #fff; font-weight: 700; font-family: inherit; font-size: 0.85rem; cursor: pointer; }
     a.btn.navcta { display: none; }
     @media (min-width: 900px) { a.btn.navcta { display: inline-flex; } }
     @media (max-width: 899px) {
@@ -163,12 +163,14 @@
        ============================================================ */
     .hero { position: relative; padding: 0; margin: 0; border-top: none; background: var(--forest-deep); overflow: hidden; }
     .hero-slider-full { position: relative; width: 100%; height: 90vh; min-height: 620px; max-height: 920px; }
+    @supports (height: 90dvh) { .hero-slider-full { height: 90dvh; } }
     .hero-slider-full .swiper, .hero-slider-full .swiper-wrapper, .hero-slider-full .swiper-slide { width: 100%; height: 100%; }
-    @media (max-width: 900px) { .hero-slider-full { height: 84vh; min-height: 560px; } }
-    @media (max-width: 560px) { .hero-slider-full { height: 78vh; min-height: 520px; } }
+    @media (max-width: 900px) { .hero-slider-full { height: 84vh; min-height: 560px; } @supports (height: 84dvh) { .hero-slider-full { height: 84dvh; } } }
+    @media (max-width: 560px) { .hero-slider-full { height: 78vh; min-height: 520px; } @supports (height: 78dvh) { .hero-slider-full { height: 78dvh; } } }
 
     .hero-slide { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--forest-deep); }
     .hero-slide .slide-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
+    .hero-slide .hero-poster-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
     .hero-slide .vimeo-bg { position: absolute; top: 50%; left: 50%; width: 177.78vh; height: 56.25vw; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); pointer-events: none; z-index: 2; border: 0; }
     .hero-slide .slide-overlay-gradient { position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, rgba(5,26,14,0.30) 0%, rgba(5,26,14,0.20) 40%, rgba(4,20,11,0.60) 80%, rgba(3,14,8,0.88) 100%); }
     .hero-slide .slide-badge { position: absolute; z-index: 4; left: 0; right: 0; top: 40px; display: flex; justify-content: center; padding: 0 20px; }
@@ -398,7 +400,7 @@
        PROJECTS
        ============================================================ */
     .sector-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; justify-content: center; }
-    .sector-tabs button { font-family: inherit; font-size: 0.82rem; font-weight: 600; background: transparent; border: 1.5px solid var(--line-strong); border-radius: 40px; padding: 8px 20px; cursor: pointer; color: var(--forest); transition: all 0.2s cubic-bezier(.2,.7,.3,1); -webkit-tap-highlight-color: transparent; }
+    .sector-tabs button { font-family: inherit; font-size: 0.82rem; font-weight: 600; background: transparent; border: 1.5px solid var(--line-strong); border-radius: 40px; padding: 8px 20px; min-height: 44px; display: inline-flex; align-items: center; cursor: pointer; color: var(--forest); transition: all 0.2s cubic-bezier(.2,.7,.3,1); -webkit-tap-highlight-color: transparent; }
     .sector-tabs button.active, .sector-tabs button:hover { background: var(--blue); color: #fff; border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(19, 47, 110, 0.32); }
     .ledger { border-top: 2px solid var(--line-strong); }
     .proj-row { display: grid; grid-template-columns: 380px 1fr; gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--line); transition: background 0.3s ease; align-items: center; text-align: left; }
@@ -455,13 +457,13 @@
     /* ============================================================
        WHATSAPP BUTTON
        ============================================================ */
-    .whatsapp-fab { position: fixed; right: 22px; bottom: 22px; z-index: 90; display: flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 12px 20px 12px 12px; border-radius: 40px; box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45); font-weight: 700; font-size: 0.92rem; transition: transform 0.3s cubic-bezier(.2,.7,.3,1), box-shadow 0.3s ease; animation: waPulse 2.5s ease-in-out infinite; }
+    .whatsapp-fab { position: fixed; right: 22px; bottom: 22px; right: max(22px, env(safe-area-inset-right)); bottom: max(22px, env(safe-area-inset-bottom)); z-index: 90; display: flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 12px 20px 12px 12px; border-radius: 40px; box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45); font-weight: 700; font-size: 0.92rem; transition: transform 0.3s cubic-bezier(.2,.7,.3,1), box-shadow 0.3s ease; animation: waPulse 2.5s ease-in-out infinite; }
     @keyframes waPulse { 0%, 100% { box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45); } 50% { box-shadow: 0 12px 38px rgba(37, 211, 102, 0.65); } }
     .whatsapp-fab:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 18px 40px rgba(37, 211, 102, 0.58); animation-play-state: paused; }
     .whatsapp-fab:active { transform: translateY(0) scale(0.98); }
     .whatsapp-fab .wa-icon { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; flex: none; }
     .whatsapp-fab .wa-icon svg { width: 22px; height: 22px; fill: #fff; }
-    @media (max-width: 600px) { .whatsapp-fab { padding: 0; width: 58px; height: 58px; right: 18px; bottom: 18px; justify-content: center; } .whatsapp-fab .wa-label { display: none; } .whatsapp-fab .wa-icon { width: 58px; height: 58px; background: transparent; } .whatsapp-fab .wa-icon svg { width: 30px; height: 30px; } }
+    @media (max-width: 600px) { .whatsapp-fab { padding: 0; width: 58px; height: 58px; right: 18px; bottom: 18px; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); justify-content: center; } .whatsapp-fab .wa-label { display: none; } .whatsapp-fab .wa-icon { width: 58px; height: 58px; background: transparent; } .whatsapp-fab .wa-icon svg { width: 30px; height: 30px; } }
 
     /* ============================================================
        FOOTER
@@ -694,15 +696,8 @@
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
 
-          <div class="swiper-slide hero-slide" data-slide-type="video">
-            <iframe
-              class="vimeo-bg"
-              src="https://player.vimeo.com/video/1227505876?background=1&autoplay=1&loop=1&muted=1&autopause=0&byline=0&title=0&portrait=0&dnt=1"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowfullscreen
-              frameborder="0"
-              title="Kogaso Consultants — background video">
-            </iframe>
+          <div class="swiper-slide hero-slide" data-slide-type="video" id="heroVideoSlide">
+            <img class="hero-poster-img" src="assets/hero-poster.jpg" alt="Kogaso Consultants team on an active site" loading="eager">
             <div class="slide-overlay-gradient"></div>
             <div class="slide-badge"><span>EMCA 1999 · §58</span></div>
           </div>
@@ -794,7 +789,7 @@
           </ul>
         </div>
         <div class="about-image reveal-slide-right">
-          <img src="assets/about-image.jpg" alt="Kogaso Consultants team on site — landscape view">
+          <img loading="lazy" decoding="async" src="assets/about-image.jpg" alt="Kogaso Consultants team on site — landscape view">
           <div class="about-image-badge">On site · Kenya</div>
         </div>
       </div>
@@ -816,7 +811,7 @@
         <div class="flip-card wide">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="assets/gallery-01.jpg" alt="Site inspection on active construction project">
+              <img loading="lazy" decoding="async" src="assets/gallery-01.jpg" alt="Site inspection on active construction project">
               <span class="flip-hint">i</span>
             </div>
             <div class="flip-card-back">
@@ -831,7 +826,7 @@
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="assets/gallery-02.jpg" alt="PPE compliance check">
+              <img loading="lazy" decoding="async" src="assets/gallery-02.jpg" alt="PPE compliance check">
               <span class="flip-hint">i</span>
             </div>
             <div class="flip-card-back">
@@ -846,7 +841,7 @@
         <div class="flip-card tall">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="assets/gallery-03.jpg" alt="Fire safety training drill">
+              <img loading="lazy" decoding="async" src="assets/gallery-03.jpg" alt="Fire safety training drill">
               <span class="flip-hint">i</span>
             </div>
             <div class="flip-card-back">
@@ -861,7 +856,7 @@
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="assets/gallery-04.jpg" alt="Noise level survey">
+              <img loading="lazy" decoding="async" src="assets/gallery-04.jpg" alt="Noise level survey">
               <span class="flip-hint">i</span>
             </div>
             <div class="flip-card-back">
@@ -876,7 +871,7 @@
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="assets/gallery-05.jpg" alt="EIA field assessment">
+              <img loading="lazy" decoding="async" src="assets/gallery-05.jpg" alt="EIA field assessment">
               <span class="flip-hint">i</span>
             </div>
             <div class="flip-card-back">
@@ -891,7 +886,7 @@
         <div class="flip-card wide">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="assets/gallery-06.jpg" alt="Toolbox talk — site safety briefing">
+              <img loading="lazy" decoding="async" src="assets/gallery-06.jpg" alt="Toolbox talk — site safety briefing">
               <span class="flip-hint">i</span>
             </div>
             <div class="flip-card-back">
@@ -906,7 +901,7 @@
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="assets/gallery-07.jpg" alt="Livestock field visit">
+              <img loading="lazy" decoding="async" src="assets/gallery-07.jpg" alt="Livestock field visit">
               <span class="flip-hint">i</span>
             </div>
             <div class="flip-card-back">
@@ -921,7 +916,7 @@
         <div class="flip-card">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <img src="assets/gallery-08.jpg" alt="Water sampling">
+              <img loading="lazy" decoding="async" src="assets/gallery-08.jpg" alt="Water sampling">
               <span class="flip-hint">i</span>
             </div>
             <div class="flip-card-back">
@@ -950,35 +945,35 @@
 
     <div class="logos-marquee reveal-fade">
       <div class="logos-track">
-        <div class="client-logo"><img src="assets/client-bat.png" alt="BAT Kenya"></div>
-        <div class="client-logo"><img src="assets/client-iberdrola.png" alt="Iberdrola"></div>
-        <div class="client-logo"><img src="assets/client-fourpoints.png" alt="Four Points by Sheraton"></div>
-        <div class="client-logo"><img src="assets/client-laxmanbhai.png" alt="Laxmanbhai Construction"></div>
-        <div class="client-logo"><img src="assets/client-mahesh.png" alt="Mahesh &amp; Tirth Construction"></div>
-        <div class="client-logo"><img src="assets/client-britam.png" alt="Britam Towers"></div>
-        <div class="client-logo"><img src="assets/client-bat.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-iberdrola.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-fourpoints.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-laxmanbhai.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-mahesh.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-britam.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-bat.png" alt="BAT Kenya"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-iberdrola.png" alt="Iberdrola"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-fourpoints.png" alt="Four Points by Sheraton"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-laxmanbhai.png" alt="Laxmanbhai Construction"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-mahesh.png" alt="Mahesh &amp; Tirth Construction"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-britam.png" alt="Britam Towers"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-bat.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-iberdrola.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-fourpoints.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-laxmanbhai.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-mahesh.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-britam.png" alt=""></div>
       </div>
     </div>
 
     <div class="logos-marquee reverse reveal-fade">
       <div class="logos-track">
-        <div class="client-logo"><img src="assets/client-im.png" alt="I&amp;M Bank"></div>
-        <div class="client-logo"><img src="assets/client-agakhan.png" alt="Aga Khan University Hospital"></div>
-        <div class="client-logo"><img src="assets/client-kerra.png" alt="Kenya Rural Roads Authority"></div>
-        <div class="client-logo"><img src="assets/client-tatucity.png" alt="Tatu City"></div>
-        <div class="client-logo"><img src="assets/client-hewatele.png" alt="Hewatele Limited"></div>
-        <div class="client-logo"><img src="assets/client-crowne.png" alt="Crowne Plaza"></div>
-        <div class="client-logo"><img src="assets/client-im.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-agakhan.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-kerra.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-tatucity.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-hewatele.png" alt=""></div>
-        <div class="client-logo"><img src="assets/client-crowne.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-im.png" alt="I&amp;M Bank"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-agakhan.png" alt="Aga Khan University Hospital"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-kerra.png" alt="Kenya Rural Roads Authority"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-tatucity.png" alt="Tatu City"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-hewatele.png" alt="Hewatele Limited"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-crowne.png" alt="Crowne Plaza"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-im.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-agakhan.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-kerra.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-tatucity.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-hewatele.png" alt=""></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-crowne.png" alt=""></div>
       </div>
     </div>
   </section>
@@ -1132,7 +1127,7 @@
 
       <div class="lead-card reveal-fade">
         <div class="lead-photo">
-          <img src="assets/team-peter-ogaso.jpg" alt="Mr. Peter Ogaso — Lead Consultant, Kogaso Consultants">
+          <img loading="lazy" decoding="async" src="assets/team-peter-ogaso.jpg" alt="Mr. Peter Ogaso — Lead Consultant, Kogaso Consultants">
           <div class="lead-badge">Lead Consultant</div>
         </div>
         <div class="lead-details">
@@ -1197,7 +1192,7 @@
 
       <div class="ledger reveal-stagger" id="ledger">
         <div class="proj-row" data-sector="Corporate & Finance">
-          <div class="proj-thumb"><img src="assets/project-01-bat.jpg" alt="BAT Kenya — SHE Project Supervisor"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-01-bat.jpg" alt="BAT Kenya — SHE Project Supervisor"></div>
           <div class="proj-info">
             <div class="client">BAT Kenya</div>
             <div class="loc">Likoni</div>
@@ -1205,7 +1200,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Energy & Utilities">
-          <div class="proj-thumb"><img src="assets/project-02-iberdrola.jpg" alt="Iberdrola — Ngong II Wind Farm"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-02-iberdrola.jpg" alt="Iberdrola — Ngong II Wind Farm"></div>
           <div class="proj-info">
             <div class="client">Iberdrola Engineering &amp; Construction</div>
             <div class="loc">Ngong II Wind Farm, Nairobi</div>
@@ -1213,7 +1208,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Hospitality">
-          <div class="proj-thumb"><img src="assets/project-03-fourpoints.jpg" alt="Four Points by Sheraton Hotels"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-03-fourpoints.jpg" alt="Four Points by Sheraton Hotels"></div>
           <div class="proj-info">
             <div class="client">Four Points by Sheraton Hotels</div>
             <div class="loc">JKIA &amp; Hurlingham</div>
@@ -1221,7 +1216,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Construction & Property">
-          <div class="proj-thumb"><img src="assets/project-04-laxmanbhai.jpg" alt="Laxmanbhai Construction Limited"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-04-laxmanbhai.jpg" alt="Laxmanbhai Construction Limited"></div>
           <div class="proj-info">
             <div class="client">Laxmanbhai Construction Limited</div>
             <div class="loc">Various sites</div>
@@ -1229,7 +1224,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Construction & Property">
-          <div class="proj-thumb"><img src="assets/project-05-mahesh.jpg" alt="Mahesh &amp; Tirth Construction"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-05-mahesh.jpg" alt="Mahesh &amp; Tirth Construction"></div>
           <div class="proj-info">
             <div class="client">Mahesh &amp; Tirth Construction Limited</div>
             <div class="loc">Tatu City &amp; Tilisi</div>
@@ -1237,7 +1232,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Corporate & Finance">
-          <div class="proj-thumb"><img src="assets/project-06-britam.jpg" alt="Britam Towers"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-06-britam.jpg" alt="Britam Towers"></div>
           <div class="proj-info">
             <div class="client">Britam Towers</div>
             <div class="loc">Upper Hill, Nairobi</div>
@@ -1245,7 +1240,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Corporate & Finance">
-          <div class="proj-thumb"><img src="assets/project-07-im.jpg" alt="I&amp;M Bank HQ"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-07-im.jpg" alt="I&amp;M Bank HQ"></div>
           <div class="proj-info">
             <div class="client">I&amp;M Bank HQ</div>
             <div class="loc">Parklands, Nairobi</div>
@@ -1253,7 +1248,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Healthcare">
-          <div class="proj-thumb"><img src="assets/project-08-agakhan.jpg" alt="Aga Khan University Hospital"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-08-agakhan.jpg" alt="Aga Khan University Hospital"></div>
           <div class="proj-info">
             <div class="client">Aga Khan University Hospital</div>
             <div class="loc">Parklands, Nairobi</div>
@@ -1261,7 +1256,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Government & Infrastructure">
-          <div class="proj-thumb"><img src="assets/project-09-kerra.jpg" alt="Kenya Rural Roads Authority"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-09-kerra.jpg" alt="Kenya Rural Roads Authority"></div>
           <div class="proj-info">
             <div class="client">Kenya Rural Roads Authority</div>
             <div class="loc">Kendu Bay, Homa Bay County</div>
@@ -1269,7 +1264,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Government & Infrastructure">
-          <div class="proj-thumb"><img src="assets/project-10-gigiri.jpg" alt="Diplomatic Housing Gigiri"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-10-gigiri.jpg" alt="Diplomatic Housing Gigiri"></div>
           <div class="proj-info">
             <div class="client">Diplomatic Housing, Gigiri</div>
             <div class="loc">Gigiri, Nairobi</div>
@@ -1277,7 +1272,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Energy & Utilities">
-          <div class="proj-thumb"><img src="assets/project-11-tavevo.jpg" alt="TAVEVO — Voi"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-11-tavevo.jpg" alt="TAVEVO — Voi"></div>
           <div class="proj-info">
             <div class="client">TAVEVO</div>
             <div class="loc">Voi, Taita Taveta County</div>
@@ -1285,7 +1280,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Education">
-          <div class="proj-thumb"><img src="assets/project-12-crawford.jpg" alt="Crawford International School"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-12-crawford.jpg" alt="Crawford International School"></div>
           <div class="proj-info">
             <div class="client">Crawford International School</div>
             <div class="loc">Tatu City, Kiambu County</div>
@@ -1293,7 +1288,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Education">
-          <div class="proj-thumb"><img src="assets/project-13-makini.jpg" alt="Makini School"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-13-makini.jpg" alt="Makini School"></div>
           <div class="proj-info">
             <div class="client">Makini School</div>
             <div class="loc">Nairobi &amp; Kisumu</div>
@@ -1301,7 +1296,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Corporate & Finance">
-          <div class="proj-thumb"><img src="assets/project-14-nbst.jpg" alt="NBST Africa"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-14-nbst.jpg" alt="NBST Africa"></div>
           <div class="proj-info">
             <div class="client">NBST Africa</div>
             <div class="loc">Ngara, Nairobi</div>
@@ -1309,7 +1304,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Hospitality">
-          <div class="proj-thumb"><img src="assets/project-15-holidayinn.jpg" alt="Holiday Inn Two Rivers"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-15-holidayinn.jpg" alt="Holiday Inn Two Rivers"></div>
           <div class="proj-info">
             <div class="client">Holiday Inn</div>
             <div class="loc">Two Rivers Mall, Nairobi</div>
@@ -1317,7 +1312,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Hospitality">
-          <div class="proj-thumb"><img src="assets/project-16-fairview.jpg" alt="Fairview Hotel"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-16-fairview.jpg" alt="Fairview Hotel"></div>
           <div class="proj-info">
             <div class="client">Fairview Hotel</div>
             <div class="loc">Bishops Road, Nairobi</div>
@@ -1325,7 +1320,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Energy & Utilities">
-          <div class="proj-thumb"><img src="assets/project-17-hewatele.jpg" alt="Hewatele Limited"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-17-hewatele.jpg" alt="Hewatele Limited"></div>
           <div class="proj-info">
             <div class="client">Hewatele Limited</div>
             <div class="loc">Tatu City</div>
@@ -1333,7 +1328,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Healthcare">
-          <div class="proj-thumb"><img src="assets/project-18-siaya.jpg" alt="Siaya Referral Hospital"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-18-siaya.jpg" alt="Siaya Referral Hospital"></div>
           <div class="proj-info">
             <div class="client">Siaya Referral Hospital Project</div>
             <div class="loc">Siaya County</div>
@@ -1341,7 +1336,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Hospitality">
-          <div class="proj-thumb"><img src="assets/project-19-crowne.jpg" alt="Crowne Plaza Dar es Salaam"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-19-crowne.jpg" alt="Crowne Plaza Dar es Salaam"></div>
           <div class="proj-info">
             <div class="client">Crowne Plaza</div>
             <div class="loc">Dar es Salaam, Tanzania</div>
@@ -1349,7 +1344,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Construction & Property">
-          <div class="proj-thumb"><img src="assets/project-20-tatucity.jpg" alt="Tatu City Twin Towers"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-20-tatucity.jpg" alt="Tatu City Twin Towers"></div>
           <div class="proj-info">
             <div class="client">Tatu City Limited</div>
             <div class="loc">Kiambu County</div>
@@ -1357,7 +1352,7 @@
           </div>
         </div>
         <div class="proj-row" data-sector="Healthcare">
-          <div class="proj-thumb"><img src="assets/project-21-kakamega.jpg" alt="Kakamega Referral Hospital"></div>
+          <div class="proj-thumb"><img loading="lazy" decoding="async" src="assets/project-21-kakamega.jpg" alt="Kakamega Referral Hospital"></div>
           <div class="proj-info">
             <div class="client">Kakamega Referral Hospital Project</div>
             <div class="loc">Kakamega County</div>
@@ -1541,6 +1536,25 @@
       });
     }
   } catch (e) { console.warn('Hero slider failed to initialise:', e); }
+
+  // ===== CONDITIONAL BACKGROUND VIDEO (skip on mobile / slow or metered connections) =====
+  (function () {
+    const slide = document.getElementById('heroVideoSlide');
+    if (!slide) return;
+    const conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection;
+    const isSmallScreen = window.matchMedia('(max-width: 760px)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isSlowOrMetered = !!(conn && (conn.saveData || /2g/.test(conn.effectiveType || '')));
+    if (isSmallScreen || prefersReducedMotion || isSlowOrMetered) return; // keep the lightweight static poster
+    const iframe = document.createElement('iframe');
+    iframe.className = 'vimeo-bg';
+    iframe.src = 'https://player.vimeo.com/video/1227505876?background=1&autoplay=1&loop=1&muted=1&autopause=0&byline=0&title=0&portrait=0&dnt=1';
+    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.frameBorder = '0';
+    iframe.title = 'Kogaso Consultants — background video';
+    slide.insertBefore(iframe, slide.firstChild);
+  })();
 
   // ===== COUNTERS =====
   (function () {
