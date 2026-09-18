@@ -472,7 +472,7 @@
     section { padding: 64px 0; border-top: 1px solid var(--line); background: var(--white); position: relative; width: 100%; }
     .section-head { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; align-items: center; text-align: center; }
     .section-head .tag { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--blue); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; }
-    .section-head .tag::before, .section-head .tag::after { content: ""; width: 22px; height: 2px; background: var(--forest); display: inline-block; }
+    .section-head .tag:not(:empty)::before, .section-head .tag:not(:empty)::after { content: ""; width: 22px; height: 2px; background: var(--forest); display: inline-block; }
     .section-head h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--forest); }
     .section-head .desc { color: var(--ink-soft); max-width: 56ch; font-weight: 500; }
 
@@ -919,121 +919,158 @@
     ::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--forest); }
 
-    /* MOBILE REFINEMENTS — FULL-BLEED, NO MARGIN */
+    /* ============================================================
+       MOBILE REFINEMENTS — FULL-BLEED, ZERO SIDE MARGINS
+       ============================================================ */
     @media (max-width: 640px) {
-      html, body { overscroll-behavior-y: none; }
-      .wrap { padding: 0 16px; width: 100%; }
-      .navrow { padding: 10px 16px; width: 100%; }
-      .brand-logo { width: 50px; height: 50px; border-radius: 10px; }
-      .brand .word { font-size: 0.92rem; }
-      .brand .word small { font-size: 0.46rem; letter-spacing: 0.03em; }
-      .navtoggle { padding: 6px 12px; font-size: 0.76rem; min-height: 38px; }
-      section { padding: 32px 0; border-top: none; }
+      html, body {
+        overscroll-behavior-y: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      /* Remove all side padding from sections & containers so content is edge-to-edge */
+      .wrap { padding: 0 12px; width: 100%; max-width: 100%; margin: 0; }
+      .navrow { padding: 10px 12px; width: 100%; max-width: 100%; }
+      section { padding: 28px 0; border-top: none; width: 100%; margin: 0; }
       section + section { border-top: 1px solid var(--line); }
-      .section-head { margin-bottom: 22px; gap: 6px; }
+      .section-head { margin-bottom: 20px; gap: 6px; padding: 0 12px; }
       .section-head h2 { font-size: 1.2rem; line-height: 1.1; }
       .section-head .desc { font-size: 0.82rem; }
       .section-head .tag { font-size: 0.62rem; gap: 6px; }
-      .section-head .tag::before, .section-head .tag::after { width: 14px; height: 1.5px; }
-      .counters-section { margin-top: -24px; padding: 0 16px; }
-      .counters-strip { padding: 16px 12px; gap: 12px; border-radius: 10px; grid-template-columns: 1fr 1fr; }
+      .section-head .tag:not(:empty)::before, .section-head .tag:not(:empty)::after { width: 14px; height: 1.5px; }
+
+      /* Counters — full bleed strip with tiny internal padding */
+      .counters-section { margin-top: -20px; padding: 0 8px; width: 100%; }
+      .counters-strip { padding: 16px 12px; gap: 10px; border-radius: 10px; grid-template-columns: 1fr 1fr; width: 100%; margin: 0; }
       .counter-item { border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
       .counter-item:nth-child(2) { border-right: none; }
       .counter-item:nth-child(3) { border-right: none; }
       .counter-item:last-child { border-bottom: none; padding-bottom: 4px; }
-      .counter-value { font-size: 1.6rem; }
-      .counter-label { font-size: 0.56rem; letter-spacing: 0.08em; }
-      .counter-sub { font-size: 0.64rem; }
-      .about-cols { grid-template-columns: 1fr; gap: 16px; }
-      .about-text p { font-size: 0.9rem; line-height: 1.65; margin-bottom: 14px; text-align: justify; }
-      .about-text p:first-child { font-size: 0.9rem; }
+      .counter-value { font-size: 1.5rem; }
+      .counter-label { font-size: 0.55rem; letter-spacing: 0.06em; }
+      .counter-sub { font-size: 0.62rem; }
+
+      /* About */
+      .about-cols { grid-template-columns: 1fr; gap: 14px; }
+      .about-text p { font-size: 0.88rem; line-height: 1.6; margin-bottom: 12px; text-align: justify; }
+      .about-text p:first-child { font-size: 0.88rem; }
       .about-image { aspect-ratio: 16 / 9; border-radius: 12px; }
       .disciplines { gap: 6px; }
-      .disciplines li { font-size: 0.68rem; padding: 5px 10px; }
-      .about-dosh { margin-top: 24px; }
+      .disciplines li { font-size: 0.66rem; padding: 4px 9px; }
+      .about-dosh { margin-top: 22px; }
       .dosh-card { flex-direction: column; text-align: center; padding: 18px 14px; gap: 12px; border-radius: 12px; }
-      .dosh-icon { width: 60px; height: 60px; }
+      .dosh-icon { width: 56px; height: 56px; }
       .dosh-value { font-size: 1rem; }
-      .dosh-text p { font-size: 0.8rem; text-align: justify; }
-      /* Mission/Vision mobile */
-      .mission-vision-block { grid-template-columns: 1fr; gap: 20px; padding: 22px 16px; margin-top: 28px; border-radius: 14px; text-align: center; }
-      .mv-item h3 { font-size: 1.2rem; }
-      .mv-item p { font-size: 0.85rem; text-align: justify; }
-      .mv-item .mv-label { font-size: 0.66rem; }
-      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; gap: 10px; }
+      .dosh-text p { font-size: 0.78rem; text-align: justify; }
+      .mission-vision-block { grid-template-columns: 1fr; gap: 18px; padding: 20px 14px; margin-top: 24px; border-radius: 12px; text-align: center; }
+      .mv-item h3 { font-size: 1.15rem; }
+      .mv-item p { font-size: 0.82rem; text-align: justify; }
+      .mv-item .mv-label { font-size: 0.64rem; }
+
+      /* Gallery — full width tiles, no side gap */
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; gap: 8px; }
       .flip-card-back { padding: 16px 14px; }
       .flip-card-back h4 { font-size: 1rem; }
       .flip-card-back p { font-size: 0.78rem; }
-      .logos-marquee { padding: 12px 0 20px; }
-      .logos-track { gap: 12px; }
-      .client-logo { width: 120px; padding: 10px; border-radius: 8px; }
+
+      /* Client marquee — full bleed */
+      .logos-marquee { padding: 12px 0 18px; }
+      .logos-track { gap: 10px; }
+      .client-logo { width: 110px; padding: 8px; border-radius: 8px; }
+
+      /* Services */
       .svc-grid { grid-template-columns: 1fr; gap: 10px; }
-      details.svc { padding: 16px 14px; border-radius: 8px; }
-      details.svc summary .name { font-size: 0.95rem; }
-      details.svc summary .teaser { font-size: 0.74rem; }
-      details.svc .body { font-size: 0.82rem; margin-top: 12px; padding-top: 12px; }
-      details.svc .cite { font-size: 0.78rem; padding-left: 10px; }
-      details.svc .refcode { font-size: 0.62rem; }
-      .train-list { columns: 1; font-size: 0.78rem; }
-      .lead-card { grid-template-columns: 1fr; gap: 16px; padding: 16px 14px; border-radius: 12px; margin-bottom: 24px; }
+      details.svc { padding: 15px 13px; border-radius: 8px; }
+      details.svc summary .name { font-size: 0.92rem; }
+      details.svc summary .teaser { font-size: 0.72rem; }
+      details.svc .body { font-size: 0.8rem; margin-top: 12px; padding-top: 12px; }
+      details.svc .cite { font-size: 0.76rem; padding-left: 10px; }
+      details.svc .refcode { font-size: 0.6rem; }
+      .train-list { columns: 1; font-size: 0.76rem; }
+
+      /* Team */
+      .lead-card { grid-template-columns: 1fr; gap: 16px; padding: 16px 14px; border-radius: 12px; margin-bottom: 22px; }
       .lead-photo { aspect-ratio: 1 / 1; border-radius: 10px; }
       .lead-name { font-size: 1.2rem; }
-      .lead-role { font-size: 0.74rem; }
-      .lead-bio { font-size: 0.82rem; text-align: justify; }
+      .lead-role { font-size: 0.72rem; }
+      .lead-bio { font-size: 0.8rem; text-align: justify; }
       .lead-quals { grid-template-columns: 1fr; gap: 4px; }
-      .lead-quals li { font-size: 0.78rem; }
+      .lead-quals li { font-size: 0.76rem; }
       .team-subhead { margin-bottom: 16px; gap: 10px; }
       .team-subhead .line { max-width: 40px; }
-      .team-subhead .label { font-size: 0.6rem; }
+      .team-subhead .label { font-size: 0.58rem; }
       .tbl-scroll { -webkit-overflow-scrolling: touch; }
-      .team-table { font-size: 0.78rem; }
+      .team-table { font-size: 0.76rem; }
       .team-table th, .team-table td { padding: 8px 6px; }
-      .team-table td.name { font-size: 0.82rem; white-space: normal; }
-      .team-table td.role { font-size: 0.72rem; }
-      .sector-tabs { gap: 4px; margin-bottom: 16px; }
-      .sector-tabs button { font-size: 0.64rem; padding: 5px 10px; min-height: 34px; border-radius: 30px; }
-      .proj-row { grid-template-columns: 1fr; gap: 10px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+      .team-table td.name { font-size: 0.8rem; white-space: normal; }
+      .team-table td.role { font-size: 0.7rem; }
+
+      /* Projects */
+      .sector-tabs { gap: 4px; margin-bottom: 14px; }
+      .sector-tabs button { font-size: 0.62rem; padding: 5px 9px; min-height: 32px; border-radius: 30px; }
+      .proj-row { grid-template-columns: 1fr; gap: 10px; padding: 14px 0; border-bottom: 1px solid var(--line); }
       .proj-thumb { aspect-ratio: 4 / 3; border-radius: 10px; }
-      .proj-row .client { font-size: 0.95rem; }
-      .proj-row .loc { font-size: 0.68rem; }
-      .proj-row .desc { font-size: 0.78rem; text-align: justify; }
-      .proj-row .status { font-size: 0.58rem; padding: 1px 8px; margin-left: 4px; }
-      .map-info { padding: 22px 16px; }
-      .map-info h3 { font-size: 1.05rem; }
-      .map-info p { font-size: 0.82rem; text-align: justify; }
-      .map-info .detail { font-size: 0.78rem; }
-      .map-embed { min-height: 240px; }
-      .map-embed .map-note { font-size: 0.6rem; padding: 4px 8px; left: 8px; bottom: 8px; }
-      .contact-grid { grid-template-columns: 1fr; gap: 16px; }
+      .proj-row .client { font-size: 0.92rem; }
+      .proj-row .loc { font-size: 0.66rem; }
+      .proj-row .desc { font-size: 0.76rem; text-align: justify; }
+      .proj-row .status { font-size: 0.56rem; padding: 1px 7px; margin-left: 4px; }
+
+      /* Map — full bleed */
+      .map-info { padding: 22px 14px; }
+      .map-info h3 { font-size: 1rem; }
+      .map-info p { font-size: 0.8rem; text-align: justify; }
+      .map-info .detail { font-size: 0.76rem; }
+      .map-embed { min-height: 220px; }
+      .map-embed .map-note { font-size: 0.58rem; padding: 4px 8px; left: 8px; bottom: 8px; }
+
+      /* Contact */
+      .contact-grid { grid-template-columns: 1fr; gap: 14px; }
       .contact-card { padding: 18px 14px; border-radius: 12px; }
-      .contact-card .row { font-size: 0.8rem; padding: 10px 0; }
-      .contact-card .label { font-size: 0.58rem; }
+      .contact-card .row { font-size: 0.78rem; padding: 10px 0; }
+      .contact-card .label { font-size: 0.56rem; }
       .contact-form input, .contact-form textarea { font-size: 16px; padding: 12px 14px; margin-bottom: 14px; }
-      .contact-form label { font-size: 0.72rem; }
+      .contact-form label { font-size: 0.7rem; }
+
+      /* Poster modal */
       .poster-modal { padding: 10px; }
       .poster-box { border-radius: 12px; }
       .poster-body { padding: 14px 14px 18px; }
       .poster-ctas { flex-direction: column; }
       .poster-ctas .btn { width: 100%; justify-content: center; font-size: 0.82rem; }
       .poster-close { width: 36px; height: 36px; top: 10px; right: 10px; font-size: 1rem; }
-      .foot-grid { gap: 18px; }
+
+      /* Footer */
+      .foot-grid { gap: 18px; padding: 0 12px; }
       .foot-brand-text .name { font-size: 1rem; }
-      .foot-desc { font-size: 0.78rem; text-align: justify; }
-      .foot-col h4 { font-size: 0.66rem; }
-      .foot-col li { font-size: 0.8rem; padding: 4px 0; }
-      .foot-bottom { font-size: 0.7rem; padding-top: 18px; }
+      .foot-desc { font-size: 0.76rem; text-align: justify; }
+      .foot-col h4 { font-size: 0.64rem; }
+      .foot-col li { font-size: 0.78rem; padding: 4px 0; }
+      .foot-bottom { font-size: 0.68rem; padding-top: 18px; }
+
+      /* Hero */
       .hero-slider-full { min-height: 460px; }
-      .hero-content { bottom: 40px; padding: 0 16px; }
-      .hero h1.headline { font-size: 1.1rem; }
-      .hero-ctas .btn { padding: 8px 14px; font-size: 0.78rem; min-height: 38px; }
-      .hero-trust { font-size: 0.55rem; }
+      .hero-content { bottom: 40px; padding: 0 14px; }
+      .hero h1.headline { font-size: 1.05rem; }
+      .hero-ctas .btn { padding: 8px 14px; font-size: 0.76rem; min-height: 38px; }
+      .hero-trust { font-size: 0.54rem; }
+
+      /* Loader */
       .loader-stage { width: 120px; height: 120px; }
       .loader-logo { width: 60px; height: 60px; }
       .loader-name { font-size: 1rem; }
       .loader-bar { width: 120px; }
+
+      /* Footer logo */
       .foot-logo { width: 56px; height: 56px; }
+
+      /* Swiper dots */
       .swiper-pagination-bullet { width: 6px; height: 6px; }
       .hero-slider-full .swiper-pagination { bottom: 34px !important; }
+
+      /* Touch-friendly */
       .btn, .navtoggle, .sector-tabs button, details.svc summary, .flip-card, .whatsapp-fab, nav.links a {
         touch-action: manipulation;
         -webkit-user-select: none;
@@ -1043,11 +1080,11 @@
 
     @media (max-width: 400px) {
       .brand .word small { display: none; }
-      .counter-value { font-size: 1.4rem; }
-      .hero h1.headline { font-size: 1rem; }
-      .proj-row .client { font-size: 0.88rem; }
-      .lead-name { font-size: 1.1rem; }
-      .section-head h2 { font-size: 1.05rem; }
+      .counter-value { font-size: 1.35rem; }
+      .hero h1.headline { font-size: 0.98rem; }
+      .proj-row .client { font-size: 0.86rem; }
+      .lead-name { font-size: 1.08rem; }
+      .section-head h2 { font-size: 1.02rem; }
     }
 
     @media (max-width: 900px) and (orientation: landscape) {
@@ -1220,7 +1257,6 @@
   <section id="about">
     <div class="wrap">
       <div class="section-head reveal-fade">
-        <div class="tag"></div>
         <h2 class="reveal-text"><span>About Kogaso Consultants Limited</span></h2>
       </div>
       <div class="about-cols">
@@ -1281,7 +1317,6 @@
   <section id="gallery">
     <div class="wrap">
       <div class="section-head reveal-fade">
-        <div class="tag"></div>
         <h2 class="reveal-text"><span>On-Site Gallery</span></h2>
         <p class="desc">A look at our work in the field across Kenya and Tanzania.</p>
       </div>
@@ -1414,7 +1449,6 @@
   <section id="clients" style="background: var(--paper-cool); border-top: 1px solid var(--line-blue); overflow: hidden;">
     <div class="wrap">
       <div class="section-head reveal-fade">
-        <div class="tag"></div>
         <h2 class="reveal-text"><span>Our Clients</span></h2>
         <p class="desc">Organisations that have trusted Kogaso with their environmental, safety and compliance needs.</p>
       </div>
@@ -1426,7 +1460,7 @@
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-iberdrola.png" alt="Iberdrola"></div>
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-fourpoints.png" alt="Four Points by Sheraton"></div>
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-laxmanbhai.png" alt="Laxmanbhai Construction"></div>
-        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-crown.png" alt="Laxmanbhai Construction"></div>        
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-crown.png" alt="Crown Paints"></div>        
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-mahesh.png" alt="Mahesh &amp; Tirth Construction"></div>
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-britam.png" alt="Britam Towers"></div>
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-bat.png" alt=""></div>
@@ -1446,7 +1480,7 @@
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-tatucity.png" alt="Tatu City"></div>
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-hewatele.png" alt="Hewatele Limited"></div>
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-crowne.png" alt="Crowne Plaza"></div>
-        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-adtech.png" alt="Crowne Plaza"></div>
+        <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-adtech.png" alt="Adtech"></div>
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-im.png" alt=""></div>
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-agakhan.png" alt=""></div>
         <div class="client-logo"><img loading="lazy" decoding="async" src="assets/client-kerra.png" alt=""></div>
@@ -1461,7 +1495,6 @@
   <section id="services">
     <div class="wrap">
       <div class="section-head reveal-fade">
-        <div class="tag">04 — Services</div>
         <h2 class="reveal-text"><span>Our Services</span></h2>
         <p class="desc">A full range of environmental, safety and compliance services — delivered on site, in the training room, and in the report.</p>
       </div>
@@ -1618,7 +1651,6 @@
   <section id="team">
     <div class="wrap">
       <div class="section-head reveal-fade">
-        <div class="tag">05 — Technical team</div>
         <h2 class="reveal-text"><span>Our Technical Team</span></h2>
       </div>
 
@@ -1670,7 +1702,6 @@
   <section id="projects">
     <div class="wrap">
       <div class="section-head reveal-fade">
-        <div class="tag">06 — Recent projects</div>
         <h2 class="reveal-text"><span>Our Projects</span></h2>
       </div>
 
@@ -1869,7 +1900,6 @@
           </svg>
           Find Us
         </div>
-        <h3></h3>
         <p style="margin-bottom: 22px;">We are located at 3rd EENS Business Park, Block B, along Mombasa Road, Nairobi — easily accessible from the CBD, JKIA, and the wider Athi River corridor.</p>
         <div class="detail"><span class="ico">—</span><span>3rd EENS Business Park, Block B<br>Mombasa Road, Nairobi, Kenya</span></div>
         <div class="detail"><span class="ico">—</span><span>Mon – Fri · 8:00 AM – 5:00 PM</span></div>
@@ -1894,7 +1924,6 @@
   <section id="contact">
     <div class="wrap">
       <div class="section-head reveal-fade">
-        <div class="tag"></div>
         <h2 class="reveal-text"><span>Contact Us</span></h2>
       </div>
       <div class="contact-grid">
