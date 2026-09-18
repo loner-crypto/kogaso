@@ -920,20 +920,21 @@
 
     /* MOBILE REFINEMENTS — FULL-BLEED, NO MARGIN */
     @media (max-width: 640px) {
-      .wrap { padding: 0 0; width: 100%; }
-      .navrow { padding: 8px 12px; width: 100%; }
+      html, body { overscroll-behavior-y: none; }
+      .wrap { padding: 0 16px; width: 100%; }
+      .navrow { padding: 10px 16px; width: 100%; }
       .brand-logo { width: 50px; height: 50px; border-radius: 10px; }
       .brand .word { font-size: 0.92rem; }
       .brand .word small { font-size: 0.46rem; letter-spacing: 0.03em; }
       .navtoggle { padding: 6px 12px; font-size: 0.76rem; min-height: 38px; }
       section { padding: 32px 0; border-top: none; }
       section + section { border-top: 1px solid var(--line); }
-      .section-head { margin-bottom: 22px; gap: 6px; padding: 0 12px; }
+      .section-head { margin-bottom: 22px; gap: 6px; }
       .section-head h2 { font-size: 1.2rem; line-height: 1.1; }
-      .section-head .desc { font-size: 0.82rem; padding: 0 8px; }
+      .section-head .desc { font-size: 0.82rem; }
       .section-head .tag { font-size: 0.62rem; gap: 6px; }
       .section-head .tag::before, .section-head .tag::after { width: 14px; height: 1.5px; }
-      .counters-section { margin-top: -24px; padding: 0 8px; }
+      .counters-section { margin-top: -24px; padding: 0 16px; }
       .counters-strip { padding: 16px 12px; gap: 12px; border-radius: 10px; grid-template-columns: 1fr 1fr; }
       .counter-item { border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
       .counter-item:nth-child(2) { border-right: none; }
@@ -942,13 +943,13 @@
       .counter-value { font-size: 1.6rem; }
       .counter-label { font-size: 0.56rem; letter-spacing: 0.08em; }
       .counter-sub { font-size: 0.64rem; }
-      .about-cols { grid-template-columns: 1fr; gap: 16px; padding: 0 14px; }
+      .about-cols { grid-template-columns: 1fr; gap: 16px; }
       .about-text p { font-size: 0.9rem; line-height: 1.65; margin-bottom: 14px; text-align: justify; }
       .about-text p:first-child { font-size: 0.9rem; }
       .about-image { aspect-ratio: 16 / 9; border-radius: 12px; }
       .disciplines { gap: 6px; }
       .disciplines li { font-size: 0.68rem; padding: 5px 10px; }
-      .about-dosh { margin-top: 24px; padding: 0 14px; }
+      .about-dosh { margin-top: 24px; }
       .dosh-card { flex-direction: column; text-align: center; padding: 18px 14px; gap: 12px; border-radius: 12px; }
       .dosh-icon { width: 60px; height: 60px; }
       .dosh-value { font-size: 1rem; }
@@ -958,14 +959,14 @@
       .mv-item h3 { font-size: 1.2rem; }
       .mv-item p { font-size: 0.85rem; text-align: justify; }
       .mv-item .mv-label { font-size: 0.66rem; }
-      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; gap: 10px; padding: 0 10px; }
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; gap: 10px; }
       .flip-card-back { padding: 16px 14px; }
       .flip-card-back h4 { font-size: 1rem; }
       .flip-card-back p { font-size: 0.78rem; }
       .logos-marquee { padding: 12px 0 20px; }
       .logos-track { gap: 12px; }
       .client-logo { width: 120px; padding: 10px; border-radius: 8px; }
-      .svc-grid { grid-template-columns: 1fr; gap: 10px; padding: 0 10px; }
+      .svc-grid { grid-template-columns: 1fr; gap: 10px; }
       details.svc { padding: 16px 14px; border-radius: 8px; }
       details.svc summary .name { font-size: 0.95rem; }
       details.svc summary .teaser { font-size: 0.74rem; }
@@ -983,26 +984,26 @@
       .team-subhead { margin-bottom: 16px; gap: 10px; }
       .team-subhead .line { max-width: 40px; }
       .team-subhead .label { font-size: 0.6rem; }
-      .tbl-scroll { -webkit-overflow-scrolling: touch; padding: 0 10px; }
+      .tbl-scroll { -webkit-overflow-scrolling: touch; }
       .team-table { font-size: 0.78rem; }
       .team-table th, .team-table td { padding: 8px 6px; }
       .team-table td.name { font-size: 0.82rem; white-space: normal; }
       .team-table td.role { font-size: 0.72rem; }
-      .sector-tabs { gap: 4px; margin-bottom: 16px; padding: 0 10px; }
+      .sector-tabs { gap: 4px; margin-bottom: 16px; }
       .sector-tabs button { font-size: 0.64rem; padding: 5px 10px; min-height: 34px; border-radius: 30px; }
-      .proj-row { grid-template-columns: 1fr; gap: 10px; padding: 16px 10px; border-bottom: 1px solid var(--line); }
+      .proj-row { grid-template-columns: 1fr; gap: 10px; padding: 16px 0; border-bottom: 1px solid var(--line); }
       .proj-thumb { aspect-ratio: 4 / 3; border-radius: 10px; }
       .proj-row .client { font-size: 0.95rem; }
       .proj-row .loc { font-size: 0.68rem; }
       .proj-row .desc { font-size: 0.78rem; text-align: justify; }
       .proj-row .status { font-size: 0.58rem; padding: 1px 8px; margin-left: 4px; }
-      .map-info { padding: 22px 14px; }
+      .map-info { padding: 22px 16px; }
       .map-info h3 { font-size: 1.05rem; }
       .map-info p { font-size: 0.82rem; text-align: justify; }
       .map-info .detail { font-size: 0.78rem; }
       .map-embed { min-height: 240px; }
       .map-embed .map-note { font-size: 0.6rem; padding: 4px 8px; left: 8px; bottom: 8px; }
-      .contact-grid { grid-template-columns: 1fr; gap: 16px; padding: 0 14px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 16px; }
       .contact-card { padding: 18px 14px; border-radius: 12px; }
       .contact-card .row { font-size: 0.8rem; padding: 10px 0; }
       .contact-card .label { font-size: 0.58rem; }
@@ -1014,14 +1015,14 @@
       .poster-ctas { flex-direction: column; }
       .poster-ctas .btn { width: 100%; justify-content: center; font-size: 0.82rem; }
       .poster-close { width: 36px; height: 36px; top: 10px; right: 10px; font-size: 1rem; }
-      .foot-grid { gap: 18px; padding: 0 14px; }
+      .foot-grid { gap: 18px; }
       .foot-brand-text .name { font-size: 1rem; }
       .foot-desc { font-size: 0.78rem; text-align: justify; }
       .foot-col h4 { font-size: 0.66rem; }
       .foot-col li { font-size: 0.8rem; padding: 4px 0; }
       .foot-bottom { font-size: 0.7rem; padding-top: 18px; }
       .hero-slider-full { min-height: 460px; }
-      .hero-content { bottom: 40px; padding: 0 14px; }
+      .hero-content { bottom: 40px; padding: 0 16px; }
       .hero h1.headline { font-size: 1.1rem; }
       .hero-ctas .btn { padding: 8px 14px; font-size: 0.78rem; min-height: 38px; }
       .hero-trust { font-size: 0.55rem; }
@@ -1032,6 +1033,11 @@
       .foot-logo { width: 56px; height: 56px; }
       .swiper-pagination-bullet { width: 6px; height: 6px; }
       .hero-slider-full .swiper-pagination { bottom: 34px !important; }
+      .btn, .navtoggle, .sector-tabs button, details.svc summary, .flip-card, .whatsapp-fab, nav.links a {
+        touch-action: manipulation;
+        -webkit-user-select: none;
+        user-select: none;
+      }
     }
 
     @media (max-width: 400px) {
