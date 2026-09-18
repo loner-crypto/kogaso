@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Kogaso Consultants Limited — Bespoke EHS Solutions</title>
-  <meta name="description" content="Kogaso Consultants Limited provides Environmental Impact Assessment, EHS site supervision, fire safety training, environmental auditing, agriculture and livestock consultancy across Kenya and Tanzania — NEMA Registered, DOSHS Approved.">
+  <meta name="description" content="Kogaso Consultants Limited provides Environmental Impact Assessment, EHS site supervision, DOSH audits and training, fire safety training, environmental auditing, agriculture and livestock consultancy across Kenya and Tanzania — NEMA Registered Firm of Experts, DOSH Registered Auditors.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kogaso Consultants Limited — Bespoke EHS Solutions">
-  <meta property="og:description" content="EIA, EHS site supervision, fire safety, environmental auditing, agriculture and livestock consultancy — engineered on site, inside the law.">
+  <meta property="og:description" content="EIA, EHS site supervision, DOSH audits & training, fire safety, environmental auditing, agriculture and livestock consultancy — engineered on site, inside the law.">
   <meta property="og:image" content="assets/about-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -21,7 +21,6 @@
   <link rel="manifest" href="assets/site.webmanifest">
   <meta name="theme-color" content="#0F7A38">
   <meta name="msapplication-TileColor" content="#0F7A38">
-  <!-- ============ /FAVICON ============ -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +60,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; width: 100%; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; width: 100%; scroll-padding-top: 90px; }
     body {
       background: var(--white);
       color: var(--ink);
@@ -69,7 +68,7 @@
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      overflow-x: clip;
       text-align: center;
       width: 100%;
       position: relative;
@@ -92,7 +91,7 @@
     }
 
     /* ============================================================
-       FLOATING NEMA BADGE — FIXED TO VIEWPORT, FLOATS ACROSS PAGE
+       FLOATING BADGES — NEMA (top) + DOSH (below)
        ============================================================ */
     .nema-float {
       position: fixed;
@@ -156,12 +155,26 @@
       color: var(--forest);
       letter-spacing: -0.01em;
     }
-    /* Hide on very small screens to avoid clutter */
+
+    /* DOSH floater — stacked below NEMA */
+    .nema-float.dosh-float {
+      top: 176px;
+      border-color: var(--blue);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.30), 0 0 0 4px rgba(19, 47, 110, 0.22);
+      animation-delay: 0.6s;
+    }
+    .nema-float.dosh-float:hover {
+      box-shadow: 0 18px 50px rgba(0,0,0,0.38), 0 0 0 6px rgba(19, 47, 110, 0.32);
+    }
+    .nema-float.dosh-float .nema-text .nema-label { color: var(--forest); }
+    .nema-float.dosh-float .nema-text .nema-value { color: var(--blue); }
+
     @media (max-width: 560px) {
       .nema-float { top: 66px; right: 10px; padding: 8px 16px 8px 10px; gap: 8px; border-width: 1.5px; box-shadow: 0 10px 30px rgba(0,0,0,0.26), 0 0 0 3px rgba(30, 158, 78, 0.20); }
       .nema-float img { width: 36px; height: 36px; padding: 2px; }
       .nema-float .nema-text .nema-label { font-size: 0.46rem; letter-spacing: 0.08em; }
       .nema-float .nema-text .nema-value { font-size: 0.76rem; }
+      .nema-float.dosh-float { top: 128px; }
       @keyframes floatBadgeAcross {
         0%, 100% { transform: translateY(0px) translateX(0px); }
         25% { transform: translateY(-5px) translateX(-3px); }
@@ -174,6 +187,7 @@
       .nema-float { padding: 6px 12px 6px 8px; gap: 6px; }
       .nema-float img { width: 30px; height: 30px; }
       .nema-float .nema-text .nema-value { font-size: 0.68rem; }
+      .nema-float.dosh-float { top: 108px; }
     }
 
     /* ============================================================
@@ -300,9 +314,20 @@
     @keyframes bar-fill { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); transform-origin: right; } }
 
     /* ============================================================
-       HEADER — BIGGER LOGO
+       HEADER — STICKY
        ============================================================ */
-    header.site { position: sticky; top: 0; z-index: 50; background: var(--forest); border-bottom: 3px solid var(--blue); transition: box-shadow 0.25s ease; width: 100%; }
+    header.site {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--forest);
+      border-bottom: 3px solid var(--blue);
+      transition: box-shadow 0.25s ease;
+      width: 100%;
+      will-change: transform;
+    }
+    header.site.scrolled { box-shadow: 0 8px 24px rgba(6,74,32,0.32); }
     .navrow { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); max-width: 1180px; margin: 0 auto; width: 100%; }
     .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
     .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.01em; line-height: 1.1; color: #fff; text-align: left; }
@@ -367,7 +392,6 @@
         font-weight: 600;
         letter-spacing: 0.02em;
         color: #fff;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
         margin: 0;
         display: block;
       }
@@ -484,8 +508,20 @@
       margin: 0 auto;
     }
     @media (max-width: 900px) { .about-cols { grid-template-columns: 1fr; gap: 28px; } }
-    .about-text p { margin-bottom: 16px; color: var(--ink-soft); font-weight: 500; }
-    .about-text p:first-child { color: var(--forest); font-size: 1.05rem; font-weight: 600; }
+
+    .about-text p {
+      margin-bottom: 18px;
+      color: var(--ink-soft);
+      font-weight: 500;
+      font-size: 1rem;
+      line-height: 1.75;
+      text-align: left;
+    }
+    .about-text p:first-child {
+      color: var(--forest);
+      font-weight: 600;
+    }
+
     .about-image {
       position: relative;
       border-radius: 20px;
@@ -521,6 +557,76 @@
     .disciplines { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
     .disciplines li { font-size: 0.82rem; padding: 7px 14px; border: 1.5px solid var(--line-strong); border-radius: 40px; color: var(--forest); background: var(--paper-raise); font-weight: 600; transition: all 0.3s cubic-bezier(.2,.7,.3,1); }
     .disciplines li:hover { background: var(--forest); color: #fff; border-color: var(--forest); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(11, 107, 48, 0.32); }
+
+    /* About — DOSH credential card */
+    .about-dosh { margin-top: 44px; }
+    .dosh-card {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: linear-gradient(135deg, var(--forest) 0%, var(--forest-deep) 60%, var(--blue-deep) 100%);
+      border-radius: 18px;
+      padding: 28px 32px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .dosh-card::before {
+      content: "";
+      position: absolute;
+      top: -50%; right: -30%;
+      width: 80%; height: 200%;
+      background: radial-gradient(circle, rgba(30,158,78,0.20) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .dosh-icon {
+      flex: none;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    .dosh-icon img { width: 70%; height: 70%; object-fit: contain; }
+    .dosh-text { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 4px; }
+    .dosh-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--forest-bright);
+      font-weight: 700;
+    }
+    .dosh-value {
+      font-family: "Fraunces", serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.15;
+    }
+    .dosh-text p {
+      margin-top: 8px;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.88);
+      font-weight: 500;
+      max-width: 62ch;
+    }
+    @media (max-width: 640px) {
+      .dosh-card { flex-direction: column; text-align: center; padding: 24px 20px; gap: 16px; }
+      .dosh-icon { width: 72px; height: 72px; }
+      .dosh-value { font-size: 1.15rem; }
+      .dosh-text p { font-size: 0.86rem; }
+    }
 
     /* ============================================================
        FLIP GALLERY
@@ -574,7 +680,7 @@
     details.svc summary .plus { font-family: "IBM Plex Mono", monospace; color: var(--blue); flex: none; font-size: 1.3rem; transition: transform 0.3s ease; font-weight: 700; }
     details.svc[open] summary .plus { transform: rotate(45deg); }
     details.svc summary .teaser { display: block; margin-top: 6px; font-size: 0.86rem; color: var(--ink-soft); font-weight: 500; }
-    details.svc .body { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 0.92rem; font-weight: 500; animation: fadeSlideIn 0.4s ease; }
+    details.svc .body { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 0.92rem; font-weight: 500; line-height: 1.7; animation: fadeSlideIn 0.4s ease; }
     @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
     details.svc .body p { margin-bottom: 12px; }
     details.svc .cite { border-left: 3px solid var(--blue); padding-left: 16px; margin: 16px 0; font-size: 0.86rem; font-style: italic; color: var(--forest); }
@@ -623,18 +729,30 @@
     .sector-tabs button { font-family: inherit; font-size: 0.82rem; font-weight: 600; background: transparent; border: 1.5px solid var(--line-strong); border-radius: 40px; padding: 8px 20px; min-height: 44px; display: inline-flex; align-items: center; cursor: pointer; color: var(--forest); transition: all 0.2s cubic-bezier(.2,.7,.3,1); -webkit-tap-highlight-color: transparent; }
     .sector-tabs button.active, .sector-tabs button:hover { background: var(--blue); color: #fff; border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(19, 47, 110, 0.32); }
     .ledger { border-top: 2px solid var(--line-strong); }
-    .proj-row { display: grid; grid-template-columns: 380px 1fr; gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--line); transition: background 0.3s ease; align-items: center; text-align: left; }
+
+    /* Guarantee all projects visible by default */
+    .proj-row {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 40px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--line);
+      transition: background 0.3s ease;
+      align-items: center;
+      text-align: left;
+    }
+    .proj-row.hidden { display: none !important; }
     @media (max-width: 900px) { .proj-row { grid-template-columns: 260px 1fr; gap: 24px; padding: 28px 0; } }
     @media (max-width: 600px) { .proj-row { grid-template-columns: 1fr; gap: 18px; padding: 24px 0; } }
     .proj-row:hover { background: var(--paper-raise); }
     .proj-thumb { width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; border: 1.5px solid var(--line); background: var(--card); box-shadow: var(--shadow-sm); transition: all 0.35s cubic-bezier(.2,.7,.3,1); }
     .proj-row:hover .proj-thumb { transform: scale(1.03); box-shadow: var(--shadow-md); border-color: var(--blue); }
-    .proj-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .proj-thumb img { width: 100%; height: 100%; min-height: 100%; object-fit: cover; transition: transform 0.6s ease; }
     .proj-row:hover .proj-thumb img { transform: scale(1.06); }
     .proj-info { display: flex; flex-direction: column; gap: 6px; }
     .proj-row .client { font-family: "Fraunces", serif; font-size: 1.25rem; color: var(--forest); font-weight: 600; }
     .proj-row .loc { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--blue); font-weight: 600; }
-    .proj-row .desc { font-size: 0.94rem; color: var(--ink-soft); font-weight: 500; }
+    .proj-row .desc { font-size: 0.94rem; color: var(--ink-soft); font-weight: 500; line-height: 1.65; }
     .proj-row .status { display: inline-block; margin-left: 8px; font-family: "IBM Plex Mono", monospace; font-size: 0.66rem; padding: 2px 10px; border: 1.5px solid var(--blue); color: var(--blue); border-radius: 40px; vertical-align: middle; font-weight: 700; }
     @media (max-width: 600px) { .proj-thumb { max-width: 100%; } }
 
@@ -647,7 +765,7 @@
     .map-info { background: var(--paper-raise); padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; border-left: 4px solid var(--blue); text-align: center; align-items: center; }
     .map-info .tag { font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; color: var(--blue); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; font-weight: 700; }
     .map-info h3 { font-size: 1.55rem; margin-bottom: 16px; color: var(--forest); }
-    .map-info p { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 12px; font-weight: 500; }
+    .map-info p { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 12px; font-weight: 500; line-height: 1.7; }
     .map-info .detail { display: flex; gap: 12px; margin-bottom: 10px; font-size: 0.92rem; align-items: center; color: var(--forest); font-weight: 600; transition: transform 0.25s ease; justify-content: center; }
     .map-info .detail:hover { transform: translateX(4px); }
     .map-info .detail .ico { color: var(--blue); font-weight: 800; flex: none; }
@@ -733,8 +851,8 @@
       .counter-sub { font-size: 0.72rem; }
       .about-cols { grid-template-columns: 1fr; gap: 22px; }
       .about-image { aspect-ratio: 16 / 9; }
-      .about-text p { font-size: 0.92rem; }
-      .about-text p:first-child { font-size: 0.98rem; }
+      .about-text p { font-size: 0.95rem; line-height: 1.72; margin-bottom: 16px; }
+      .about-text p:first-child { font-size: 0.95rem; }
       .disciplines li { font-size: 0.74rem; padding: 6px 12px; }
       .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; gap: 14px; }
       .client-logo { width: 140px; padding: 12px; }
@@ -811,13 +929,21 @@
 <body class="loading">
 
 <!-- ============================================================
-     FLOATING NEMA BADGE — FIXED TO VIEWPORT ACROSS ENTIRE PAGE
+     FLOATING BADGES — NEMA (top) + DOSH (below)
      ============================================================ -->
-<div class="nema-float" role="complementary" aria-label="NEMA Registered Lead Expert certification">
+<div class="nema-float" role="complementary" aria-label="NEMA Registered Firm of Experts">
   <img src="assets/nema-logo.png" alt="NEMA logo">
   <div class="nema-text">
     <span class="nema-label">NEMA Registered</span>
-    <span class="nema-value">Lead Expert</span>
+    <span class="nema-value">Firm of Experts</span>
+  </div>
+</div>
+
+<div class="nema-float dosh-float" role="complementary" aria-label="DOSH Registered Auditors">
+  <img src="assets/dosh-logo.png" alt="DOSH logo">
+  <div class="nema-text">
+    <span class="nema-label">DOSH Registered</span>
+    <span class="nema-value">Auditors</span>
   </div>
 </div>
 
@@ -863,7 +989,7 @@
   <div class="loader-bar"></div>
 </div>
 
-<header class="site">
+<header class="site" id="siteHeader">
   <div class="navrow">
     <a class="brand" href="#top">
       <div class="brand-logo">
@@ -874,7 +1000,7 @@
     <button class="navtoggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
     <nav class="links" id="navLinks">
       <a href="#top" class="active">Home</a>
-      <a href="#about">About</a>
+      <a href="#about">About Us</a>
       <a href="#gallery">Gallery</a>
       <a href="#clients">Clients</a>
       <a href="#services">Services</a>
@@ -900,7 +1026,7 @@
           <div class="swiper-slide hero-slide" data-slide-type="video" id="heroVideoSlide">
             <img class="hero-poster-img" src="assets/hero-poster.jpg" alt="Kogaso Consultants team on an active site" loading="eager">
             <div class="slide-overlay-gradient"></div>
-            <div class="slide-badge"><span>EMCA 1999 · §58</span></div>
+            <div class="slide-badge"><span>EMCA 2015 · §58</span></div>
           </div>
 
         </div>
@@ -911,7 +1037,7 @@
             <a class="btn primary" href="#services">Our services</a>
             <a class="btn ghost on-dark" href="#contact">Talk to us</a>
           </div>
-          <div class="hero-trust">NEMA Registered Lead Expert · DOSHS Approved Auditor · 100+ clients across Kenya &amp; Tanzania</div>
+          <div class="hero-trust">NEMA Registered Firm of Experts · DOSH Registered Auditors · 100+ clients across Kenya &amp; Tanzania</div>
         </div>
 
         <div class="swiper-pagination"></div>
@@ -963,19 +1089,19 @@
   </div>
 
   <!-- ============================================================
-       ABOUT
+       ABOUT US
        ============================================================ -->
   <section id="about">
     <div class="wrap">
       <div class="section-head reveal-fade">
-        <div class="tag">01 — Introduction</div>
+        <div class="tag">01 — About Us</div>
         <h2 class="reveal-text"><span>Technical depth, delivered<br>without the corporate distance.</span></h2>
       </div>
       <div class="about-cols">
         <div class="about-text reveal-slide-left">
           <p>Kogaso Consultants Limited is a Kenyan firm built around a simple idea: compliance should be practical, not theoretical. We provide Environment and Social Safeguards, Health and Safety, Fire Safety, Agriculture and Livestock services that are technically rigorous, legally sound, and genuinely useful to the people running projects on the ground.</p>
           <p>Our team draws from professional bodies, technical institutions, NGOs and government departments — environmentalists, safety and health specialists, a veterinary doctor, animal scientists, agronomists, ecologists, physicians, energy experts, trainers, safety managers and engineers. We are registered under the Companies Act Cap 486 and the Registration of Business Names Act Cap 499.</p>
-          <p>We work alongside our clients, not above them. That means cost-effective, bespoke solutions that meet statutory requirements (OSHA, EMCA and related statutes) while aligning with international best practice — and a team that is comfortable in a boardroom, a training room, or a construction site at 6 a.m.</p>
+          <p>We work alongside our clients, not above them. That means cost-effective, bespoke solutions that meet statutory requirements (OSHA 2007, EMCA 2015 and related statutes) while aligning with international best practice — and a team that is comfortable in a boardroom, a training room, or on a construction site.</p>
           <ul class="disciplines reveal-stagger">
             <li>Environmentalists</li>
             <li>Safety &amp; Health Specialists</li>
@@ -994,6 +1120,20 @@
           <div class="about-image-badge">On site · Kenya</div>
         </div>
       </div>
+
+      <!-- DOSH Credential Card -->
+      <div class="about-dosh reveal-fade">
+        <div class="dosh-card">
+          <div class="dosh-icon">
+            <img src="assets/dosh-logo.png" alt="DOSH Auditors badge" onerror="this.style.display='none'">
+          </div>
+          <div class="dosh-text">
+            <span class="dosh-label">DOSH</span>
+            <span class="dosh-value">Registered Auditors</span>
+            <p>Our team is registered with Kenya's Directorate of Occupational Safety and Health Services (DOSHS) — delivering statutory workplace audits, OSH committee training, safety officer training, and full compliance support under the Occupational Safety and Health Act, 2007.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1005,7 +1145,7 @@
       <div class="section-head reveal-fade">
         <div class="tag">02 — On site</div>
         <h2 class="reveal-text"><span>Field work, from the ground up.</span></h2>
-        <p class="desc">Hover or tap a card to see what we were doing on that site — every shot comes with context.</p>
+        <p class="desc">A look at our work in the field across Kenya and Tanzania.</p>
       </div>
 
       <div class="gallery-grid reveal-stagger">
@@ -1078,8 +1218,8 @@
             <div class="flip-card-back">
               <span class="flip-badge">EIA Field Work</span>
               <h4>Understanding a site before it changes</h4>
-              <p>Baseline environmental survey for an Environmental Impact Assessment — soil, water, vegetation, and community interface observations under Section 58 of EMCA 1999.</p>
-              <div class="flip-footer"><span>EMCA 1999 · §58</span><span>NEMA</span></div>
+              <p>Baseline environmental survey for an Environmental Impact Assessment — soil, water, vegetation, and community interface observations under Section 58 of EMCA 2015.</p>
+              <div class="flip-footer"><span>EMCA 2015 · §58</span><span>NEMA</span></div>
             </div>
           </div>
         </div>
@@ -1140,7 +1280,7 @@
       <div class="section-head reveal-fade">
         <div class="tag">03 — Trusted by</div>
         <h2 class="reveal-text"><span>Clients we've worked with.</span></h2>
-        <p class="desc">A selection of the organisations that have trusted Kogaso with their EHS, fire safety and environmental compliance needs.</p>
+        <p class="desc">Organisations that have trusted Kogaso with their environmental, safety and compliance needs.</p>
       </div>
     </div>
 
@@ -1186,8 +1326,8 @@
     <div class="wrap">
       <div class="section-head reveal-fade">
         <div class="tag">04 — Services</div>
-        <h2 class="reveal-text"><span>Nine services. One team, from<br>report to site to training room.</span></h2>
-        <p class="desc">Open a service for the detail — including the specific legislation it answers to.</p>
+        <h2 class="reveal-text"><span>Our services. One team, from<br>report to site to training room.</span></h2>
+        <p class="desc">A full range of environmental, safety and compliance services — delivered on site, in the training room, and in the report.</p>
       </div>
 
       <div class="svc-grid reveal-stagger">
@@ -1197,8 +1337,8 @@
             <span class="plus">+</span>
           </summary>
           <div class="body">
-            <p>Undertaken pursuant to Section 58 of the Environmental Management and Coordination Act, 1999 — a systematic examination to determine whether a programme, activity or project will have adverse impacts on the environment.</p>
-            <div class="cite"><span class="refcode">EMCA 1999 · §58</span>No proponent may finance, commence, carry out or execute a project before this assessment is complete.</div>
+            <p>Undertaken pursuant to Section 58 of the Environmental Management and Coordination Act (as revised 2015) — a systematic examination to determine whether a programme, activity or project will have adverse impacts on the environment.</p>
+            <div class="cite"><span class="refcode">EMCA 2015 · §58</span>No proponent may finance, commence, carry out or execute a project before this assessment is complete.</div>
           </div>
         </details>
 
@@ -1209,7 +1349,29 @@
           </summary>
           <div class="body">
             <p>Systematic documentation and periodic evaluation of activities and processes to establish whether a business complies with environmental requirements and enforcing legislation — testing the effectiveness of environmental efforts against the business's own environmental management plan.</p>
-            <div class="cite"><span class="refcode">EMCA 1999 · §68</span>Conducted under the Environmental (Impact Assessment and Audit) Regulations.</div>
+            <div class="cite"><span class="refcode">EMCA 2015 · §68</span>Conducted under the Environmental (Impact Assessment and Audit) Regulations.</div>
+          </div>
+        </details>
+
+        <details class="svc">
+          <summary>
+            <span><span class="name">DOSH Safety Audits</span><span class="teaser">Statutory workplace audits and DOSH inspection readiness.</span></span>
+            <span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <p>We conduct statutory workplace safety audits under the Occupational Safety and Health Act, 2007, covering workplace registration, statutory machinery examinations, safety and health committee compliance, fire safety, and annual returns. Our DOSH-approved auditors prepare a full audit and remediation report and represent your organisation during DOSH inspections.</p>
+            <div class="cite"><span class="refcode">OSHA 2007 · DOSHS</span>Delivered by DOSH-approved auditors and registered safety advisors.</div>
+          </div>
+        </details>
+
+        <details class="svc">
+          <summary>
+            <span><span class="name">DOSH Training &amp; Compliance</span><span class="teaser">Occupational safety training and statutory compliance support.</span></span>
+            <span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <p>DOSH-approved occupational safety and health training for safety committees, safety officers, and line managers. We also provide statutory compliance support — workplace registration, DOSH documentation, annual returns, and audit-readiness preparation — so your premises remain fully compliant with Kenya's OSHA 2007.</p>
+            <div class="cite"><span class="refcode">OSHA 2007 · §9</span>Safety and health committee training required within six months of appointment.</div>
           </div>
         </details>
 
@@ -1377,7 +1539,7 @@
     <div class="wrap">
       <div class="section-head reveal-fade">
         <div class="tag">06 — Recent projects</div>
-        <h2 class="reveal-text"><span>A working log, not a highlight reel</span></h2>
+        <h2 class="reveal-text"><span>A selection of our recent projects</span></h2>
       </div>
 
       <div class="sector-tabs reveal-fade" id="sectorTabs">
@@ -1565,13 +1727,13 @@
   </section>
 
   <!-- ============================================================
-       MAP
+       MAP — VISIT US
        ============================================================ -->
   <section class="map-section">
     <div class="map-wrap">
       <div class="map-info reveal-slide-left">
-        <div class="tag">Our Office</div>
-        <h3>Come see us on Mombasa Road.</h3>
+        <div class="tag">Visit Us</div>
+        <h3>Visit our office</h3>
         <p style="margin-bottom: 22px;">We are located at 3rd EENS Business Park, Block B, along Mombasa Road, Nairobi — easily accessible from the CBD, JKIA, and the wider Athi River corridor.</p>
         <div class="detail"><span class="ico">—</span><span>3rd EENS Business Park, Block B<br>Mombasa Road, Nairobi, Kenya</span></div>
         <div class="detail"><span class="ico">—</span><span>Mon – Fri · 8:00 AM – 5:00 PM</span></div>
@@ -1641,14 +1803,14 @@
             <div class="tagline">Bespoke Solutions</div>
           </div>
         </div>
-        <p class="foot-desc">Environment, social safeguards, safety &amp; health, fire safety, agriculture and livestock services — engineered on site, inside the law.</p>
+        <p class="foot-desc">Environment, social safeguards, safety &amp; health, DOSH audits &amp; training, fire safety, agriculture and livestock services — engineered on site, inside the law.</p>
       </div>
 
       <div class="foot-col">
         <h4>Navigate</h4>
         <ul>
           <li><a href="#top">Home</a></li>
-          <li><a href="#about">Introduction</a></li>
+          <li><a href="#about">About Us</a></li>
           <li><a href="#gallery">On-site Gallery</a></li>
           <li><a href="#clients">Clients</a></li>
           <li><a href="#services">Services</a></li>
@@ -1663,6 +1825,8 @@
         <ul>
           <li>Environmental Impact Assessment</li>
           <li>Environmental Auditing</li>
+          <li>DOSH Safety Audits</li>
+          <li>DOSH Training &amp; Compliance</li>
           <li>EHS Site Supervision</li>
           <li>Fire Safety Training &amp; Audits</li>
           <li>Agriculture &amp; Livestock</li>
@@ -1792,11 +1956,11 @@
     }
   })();
 
-  // ===== HEADER SHADOW =====
-  const siteHeader = document.querySelector('header.site');
+  // ===== HEADER SHADOW (sticky nav enhancement) =====
+  const siteHeader = document.getElementById('siteHeader');
   const onScroll = () => {
-    if (window.scrollY > 12) { siteHeader.style.boxShadow = '0 12px 28px rgba(6,74,32,0.32)'; }
-    else { siteHeader.style.boxShadow = ''; }
+    if (window.scrollY > 12) { siteHeader.classList.add('scrolled'); }
+    else { siteHeader.classList.remove('scrolled'); }
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -1874,17 +2038,31 @@
     setActive();
   })();
 
-  // ===== PROJECT FILTERS =====
-  const tabs = document.querySelectorAll('#sectorTabs button');
-  const rows = document.querySelectorAll('.proj-row');
-  tabs.forEach(btn => btn.addEventListener('click', () => {
-    tabs.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const sector = btn.dataset.sector;
-    rows.forEach(r => {
-      r.style.display = (sector === 'all' || r.dataset.sector === sector) ? 'grid' : 'none';
-    });
-  }));
+  // ===== PROJECT FILTERS (all visible by default) =====
+  (function () {
+    const tabs = document.querySelectorAll('#sectorTabs button');
+    const rows = document.querySelectorAll('.proj-row');
+
+    // Force ALL projects visible on first load — remove any lingering hidden class
+    rows.forEach(r => r.classList.remove('hidden'));
+
+    tabs.forEach(btn => btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const sector = btn.dataset.sector;
+      rows.forEach(r => {
+        if (sector === 'all') {
+          r.classList.remove('hidden');
+        } else {
+          if (r.dataset.sector === sector) {
+            r.classList.remove('hidden');
+          } else {
+            r.classList.add('hidden');
+          }
+        }
+      });
+    }));
+  })();
 
   // ===== CONTACT FORM =====
   (function () {
